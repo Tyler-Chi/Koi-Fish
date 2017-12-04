@@ -4,7 +4,7 @@ canvas.height = window.innerHeight;
 
 var c = canvas.getContext('2d');
 
-function Fish(x,y,dx,dy,radius){
+function Fish(x,y,dx,dy,radius,id){
   this.x = x;
   this.y = y;
   this.dx = dx;
@@ -28,16 +28,59 @@ function Fish(x,y,dx,dy,radius){
 
     //try making the motion more smooth
 
-    if (this.x + this.radius > innerWidth - 50 || this.x - this.radius < 50){
+    // if it goes too close to the right boundary and its still moving towards that boundary...
+    if (this.x + this.radius > 0.95 * innerWidth){
+      //the fish is moving towards the boundary
+      if (this.dx > 0){
+        if (this.x + this.radius > 0.97 * innerWidth){
+          this.dx *= 0.1;
+        } else {
+          this.dx *= 0.3;
+        }
+      }
+
+      if (this.dx < 0 ){
+        if (this.x + this.radius > 0.95 * innerWidth){
+          this.dx = -1 * 0.1 * dx;
+        } else {
+          this.dx = -1 * 0.5 * dx;
+        }
+      }
+    }
+
+    if (this.x + this.radius < 0.05 * innerWidth){
+      //the fish is moving towards the boundary
+      if (this.dx < 0){
+        if (this.x + this.radius < 0.03 * innerWidth){
+          this.dx *= 0.1;
+        } else {
+          this.dx *= 0.3;
+        }
+      }
+
+      if (this.dx > 0 ){
+        if (this.x + this.radius < 0.05 * innerWidth){
+          this.dx =  0.1 * dx;
+        } else {
+          this.dx = 0.5 * dx;
+        }
+      }
+    }
+
+
+
+
+
+
+
+
+    if (this.x + this.radius > innerWidth || this.x - this.radius < 10){
       this.dx = -this.dx;
     }
 
-
-
-    if (this.y + this.radius > innerHeight - 50 || this.y - this.radius < 50){
+    if (this.y + this.radius > innerHeight - 10 || this.y - this.radius < 10){
       this.dy = -this.dy;
     }
-
 
     //side to side oscillation, based on normal vector and Sin.
 
@@ -53,11 +96,11 @@ function Fish(x,y,dx,dy,radius){
 
     //cant go TOO crazy
     if (Math.abs(this.dx) > 1.5*dx){
-      this.dx = dx;
+      this.dx *= (1/1.5);
     }
 
     if (Math.abs(this.dy) > 1.5*dy){
-      this.dy = dy;
+      this.dy *= (1/1.5);
     }
 
     this.x += this.dx + oscillation * ox;
@@ -80,7 +123,16 @@ function Fish(x,y,dx,dy,radius){
 
 }
 
-let fish = new Fish(100,100,1.5,1.5,20);
+
+// INITIALIZE THE SCHOOL OF FISHIES
+let fishes = [];
+let x;
+let y;
+
+
+
+let fish = new Fish(100,100,2,2,20);
+let fish2 = new Fish(150,150,1.5,1.5,20);
 
 function animate(){
   requestAnimationFrame(animate);
@@ -88,7 +140,7 @@ function animate(){
   c.clearRect(0,0,innerWidth, innerHeight);
 
   fish.do();
-
+  fish2.do();
 
 }
 
