@@ -39,13 +39,26 @@ function Fish(x,y,dx,dy,radius){
     }
 
 
+    //side to side oscillation, based on normal vector and Sin.
+
     let ox = -1 * this.dy;
     let oy = this.dx;
 
-
     this.time += 0.08;
-    let oscillation = 0.35 * Math.sin(this.time);
+    let oscillation = 0.295 * Math.sin(this.time);
 
+    //random motion, cuz fish are fish lol.
+    this.dx += (this.dx * 0.2) * (Math.random()-0.5)
+    this.dx += (this.dy * 0.2) * (Math.random()-0.5)
+
+    //cant go TOO crazy
+    if (Math.abs(this.dx) > 1.5*dx){
+      this.dx = dx;
+    }
+
+    if (Math.abs(this.dy) > 1.5*dy){
+      this.dy = dy;
+    }
 
     this.x += this.dx + oscillation * ox;
     this.y += this.dy + oscillation * oy;
