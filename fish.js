@@ -16,7 +16,20 @@ function Fish(x,y,dx,dy,radius,id){
   this.draw = function(){
     c.beginPath();
     c.arc (this.x, this.y, this.radius, 0, Math.PI * 2, false );
+
+    if(this.id % 3 === 0){
+      c.fillStyle = '#ff3300';
+    } else if (this.id % 3 === 1){
+      c.fillStyle = '#114eaf';
+    } else {
+      c.fillstyle = '#dadee5';
+    }
+
+
     c.strokeStyle = 'black';
+
+
+
     c.fill();
     c.stroke();
 
@@ -29,30 +42,36 @@ function Fish(x,y,dx,dy,radius,id){
     //try making the motion more smooth
 
     // if it goes too close to the right boundary and its still moving towards that boundary...
-    if (this.x + this.radius > 0.95 * innerWidth){
+    if (this.x + this.radius > 0.93 * innerWidth){
       //the fish is moving towards the boundary
       if (this.dx > 0){
+
         if (this.x + this.radius > 0.97 * innerWidth){
           this.dx *= 0.1;
+        } else if (this.x + this.radius > 0.95 * innerWidth){
+          this.dx *= 0.2;
         } else {
           this.dx *= 0.3;
         }
+
       }
 
       if (this.dx < 0 ){
         if (this.x + this.radius > 0.95 * innerWidth){
           this.dx = -1 * 0.1 * dx;
         } else {
-          this.dx = -1 * 0.5 * dx;
+          this.dx = -1 * 0.2 * dx;
         }
       }
     }
 
-    if (this.x + this.radius < 0.05 * innerWidth){
+    if (this.x - this.radius < 0.07 * innerWidth){
       //the fish is moving towards the boundary
       if (this.dx < 0){
-        if (this.x + this.radius < 0.03 * innerWidth){
+        if (this.x - this.radius < 0.03 * innerWidth){
           this.dx *= 0.1;
+        } else if (this.x - this.radius < 0.05 * innerWidth) {
+          this.dx *= 0.2
         } else {
           this.dx *= 0.3;
         }
@@ -62,11 +81,14 @@ function Fish(x,y,dx,dy,radius,id){
         if (this.x + this.radius < 0.05 * innerWidth){
           this.dx =  0.1 * dx;
         } else {
-          this.dx = 0.5 * dx;
+          this.dx = 0.2 * dx;
         }
       }
     }
 
+    //vertical boundaries!
+
+    //upper boundary
 
 
 
@@ -74,11 +96,11 @@ function Fish(x,y,dx,dy,radius,id){
 
 
 
-    if (this.x + this.radius > innerWidth || this.x - this.radius < 10){
+    if (this.x + this.radius > 0.98 * innerWidth || this.x - this.radius < 0.02 * innerWidth){
       this.dx = -this.dx;
     }
 
-    if (this.y + this.radius > innerHeight - 10 || this.y - this.radius < 10){
+    if (this.y + this.radius > innerHeight  || this.y - this.radius < 0){
       this.dy = -this.dy;
     }
 
@@ -131,8 +153,10 @@ let y;
 
 
 
-let fish = new Fish(100,100,2,2,20);
-let fish2 = new Fish(150,150,1.5,1.5,20);
+let fish = new Fish(100,100,1,1,20,1);
+let fish2 = new Fish(150,400,1,1,20,2);
+let fish3 = new Fish(400,400,1,1,20,3);
+let fish4 = new Fish(400,150,1,1,20,4);
 
 function animate(){
   requestAnimationFrame(animate);
@@ -141,6 +165,8 @@ function animate(){
 
   fish.do();
   fish2.do();
+  fish3.do();
+  fish4.do();
 
 }
 
