@@ -37,7 +37,12 @@ function Fish(x,y,dx,dy,radius,id,c){
     //the head of the fish
 
     c.beginPath();
-    c.arc (this.x, this.y, this.radius, 0, Math.PI * 2, false );
+
+    let headAngle = Math.atan(this.dy/this.dx);
+    let startAngle = headAngle - (Math.PI/2);
+
+
+    c.arc (this.x, this.y, this.radius, startAngle, startAngle + Math.PI, false );
     c.fillStyle = 'white';
     c.fill();
     c.stroke();
