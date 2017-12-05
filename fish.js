@@ -17,12 +17,12 @@ function Fish(x,y,dx,dy,radius,id){
     c.beginPath();
     c.arc (this.x, this.y, this.radius, 0, Math.PI * 2, false );
 
-    if(this.id % 3 === 0){
+    if(id % 3 === 0){
       c.fillStyle = '#ff3300';
-    } else if (this.id % 3 === 1){
-      c.fillStyle = '#114eaf';
+    } else if (id % 3 === 1){
+      c.fillStyle = '#0f0e0e';
     } else {
-      c.fillstyle = '#dadee5';
+      c.fillStyle = '#dadee5';
     }
 
 
@@ -51,7 +51,7 @@ function Fish(x,y,dx,dy,radius,id){
         } else if (this.x + this.radius > 0.95 * innerWidth){
           this.dx *= 0.2;
         } else {
-          this.dx *= 0.3;
+          this.dx *= 0.8;
         }
 
       }
@@ -73,7 +73,7 @@ function Fish(x,y,dx,dy,radius,id){
         } else if (this.x - this.radius < 0.05 * innerWidth) {
           this.dx *= 0.2
         } else {
-          this.dx *= 0.3;
+          this.dx *= 0.8;
         }
       }
 
@@ -88,19 +88,59 @@ function Fish(x,y,dx,dy,radius,id){
 
     //vertical boundaries!
 
-    //upper boundary
+    //lower boundary
+
+    if (this.y + this.radius > 0.90 * innerHeight){
+      console.log('dy:', this.dy);
+      console.log('this.y', this.y);
+      console.log('innerHeight', innerHeight);
+
+      //moving towards the border
+
+      if (Math.abs(this.dy) < 0.1 * dy){
+        this.dy = -0.5 * dy;
+        this.dx *= 1.5;
+      }
+      if (this.dy > 0 ){
+        if (this.y + this.radius > 0.97 * innerHeight){
+          this.dy *= 0.3;
+        } else if (this.y + this.radius > 0.95 * innerHeight){
+          this.dy *= 0.6;
+        } else {
+          this.dy *= 0.8;
+        }
+      }
+    }
+
+    if (this.y - this.radius < 0.10 * innerHeight){
+      if (Math.abs(this.dy) < 0.1 * dy){
+        this.dy = 0.5 * dy;
+        this.dx *= 1.5;
+      }
+
+      if (this.dy < 0 ){
+        if (this.y - this.radius < 0.03 * innerHeight){
+          this.dy *= 0.3;
+        } else if (this.y - this.radius < 0.05 * innerHeight){
+          this.dy *= 0.6;
+        } else {
+          this.dy *= 0.8;
+        }
+      }
+
+
+    }
 
 
 
 
-
-
+    //once it really hits the edge, it should make a u turn.
 
     if (this.x + this.radius > 0.98 * innerWidth || this.x - this.radius < 0.02 * innerWidth){
       this.dx = -this.dx;
     }
 
-    if (this.y + this.radius > innerHeight  || this.y - this.radius < 0){
+    if (this.y + this.radius > 0.98 * innerHeight  || this.y - this.radius < 0.02 * innerHeight){
       this.dy = -this.dy;
     }
 
@@ -128,15 +168,7 @@ function Fish(x,y,dx,dy,radius,id){
     this.x += this.dx + oscillation * ox;
     this.y += this.dy + oscillation * oy;
 
-
-
-
   }
-
-
-
-
-
 
   this.do = function(){
     this.update();
@@ -150,7 +182,6 @@ function Fish(x,y,dx,dy,radius,id){
 let fishes = [];
 let x;
 let y;
-
 
 
 let fish = new Fish(100,100,1,1,20,1);
