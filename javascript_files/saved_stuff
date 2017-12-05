@@ -1,6 +1,10 @@
+var canvas = document.querySelector('canvas')
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
 
+var c = canvas.getContext('2d');
 
-export const Fish = function Fish(x,y,dx,dy,radius,id,c){
+function Fish(x,y,dx,dy,radius,id){
   this.x = x;
   this.y = y;
   this.dx = dx;
@@ -49,7 +53,7 @@ export const Fish = function Fish(x,y,dx,dy,radius,id,c){
     //try making the motion more smooth
 
     // if it goes too close to the right boundary and its still moving towards that boundary...
-    if (this.x + this.radius > 0.93 * innerWidth){
+    if (this.x + this.radius > 0.90 * innerWidth){
       //the fish is moving towards the boundary
       if (this.dx > 0){
 
@@ -200,8 +204,27 @@ export const Fish = function Fish(x,y,dx,dy,radius,id,c){
 }
 
 
+// INITIALIZE THE SCHOOL OF FISHIES
+let fishes = [];
+let x;
+let y;
 
 
+let fish = new Fish(100,100,1,1,20,1);
 // let fish2 = new Fish(150,400,1,1,20,2);
 // let fish3 = new Fish(400,400,1,1,20,3);
 // let fish4 = new Fish(400,150,1,1,20,4);
+
+function animate(){
+  requestAnimationFrame(animate);
+
+  c.clearRect(0,0,innerWidth, innerHeight);
+
+  fish.do();
+  // fish2.do();
+  // fish3.do();
+  // fish4.do();
+
+}
+
+animate();

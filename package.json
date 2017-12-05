@@ -1,0 +1,17 @@
+{
+  "name": "canvas-practice",
+  "version": "1.0.0",
+  "description": "",
+  "main": "animation.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "postinstall": "webpack",
+    "start": "webpack --watch"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "webpack": "^3.10.0"
+  }
+}
