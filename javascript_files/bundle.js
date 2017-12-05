@@ -80,7 +80,7 @@ canvas.height = window.innerHeight;
 var c = canvas.getContext('2d');
 
 
-let fish = new __WEBPACK_IMPORTED_MODULE_0__fish_js__["a" /* Fish */](100,100,1,1,20,1,c);
+let fish = new __WEBPACK_IMPORTED_MODULE_0__fish_js__["a" /* default */](100,100,1,1,20,1,c);
 
 function animate(){
   requestAnimationFrame(animate);
@@ -104,7 +104,7 @@ animate();
 "use strict";
 
 
-const Fish = function Fish(x,y,dx,dy,radius,id,c){
+function Fish(x,y,dx,dy,radius,id,c){
   this.x = x;
   this.y = y;
   this.dx = dx;
@@ -112,6 +112,8 @@ const Fish = function Fish(x,y,dx,dy,radius,id,c){
   this.radius = radius;
   this.time = 0;
   this.positions = [];
+
+  this.speed = this.dx * this.dx + this.dy + this.dy;
 
 
   this.draw = function(){
@@ -144,7 +146,7 @@ const Fish = function Fish(x,y,dx,dy,radius,id,c){
     //first update positions with the fish coordinates
     this.positions.push([this.x,this.y])
 
-    if (this.positions.length > 30){
+    if (this.positions.length > 30 / Math.sqrt(this.speed)){
       this.positions.shift();
     }
 
@@ -302,10 +304,8 @@ const Fish = function Fish(x,y,dx,dy,radius,id,c){
   }
 
 }
-/* harmony export (immutable) */ __webpack_exports__["a"] = Fish;
 
-
-
+/* harmony default export */ __webpack_exports__["a"] = (Fish);
 
 
 // let fish2 = new Fish(150,400,1,1,20,2);

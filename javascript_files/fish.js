@@ -1,6 +1,6 @@
 
 
-export const Fish = function Fish(x,y,dx,dy,radius,id,c){
+function Fish(x,y,dx,dy,radius,id,c){
   this.x = x;
   this.y = y;
   this.dx = dx;
@@ -8,6 +8,8 @@ export const Fish = function Fish(x,y,dx,dy,radius,id,c){
   this.radius = radius;
   this.time = 0;
   this.positions = [];
+
+  this.speed = this.dx * this.dx + this.dy + this.dy;
 
 
   this.draw = function(){
@@ -40,7 +42,7 @@ export const Fish = function Fish(x,y,dx,dy,radius,id,c){
     //first update positions with the fish coordinates
     this.positions.push([this.x,this.y])
 
-    if (this.positions.length > 30){
+    if (this.positions.length > 30 / Math.sqrt(this.speed)){
       this.positions.shift();
     }
 
@@ -199,7 +201,7 @@ export const Fish = function Fish(x,y,dx,dy,radius,id,c){
 
 }
 
-
+export default Fish;
 
 
 // let fish2 = new Fish(150,400,1,1,20,2);
