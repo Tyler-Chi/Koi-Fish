@@ -13,25 +13,32 @@ function Fish(x,y,dx,dy,radius,id,c){
 
 
   this.draw = function(){
+
+
+
+
+    //the tail of the fish
     c.beginPath();
+    c.arc(this.positions[0][0],this.positions[0][1], this.radius, 0 ,Math.PI * 2, false);
+    c.fillStyle = 'black';
+    c.fill();
+    c.stroke();
+
+
+
+    //the midsection of the fish
+    c.beginPath();
+    let midpoint = this.positions.length / 2;
+    c.arc (this.positions[midpoint][0],this.positions[midpoint][1], this.radius, 0, Math.PI*2, false);
+    c.fillStyle = 'orange';
+    c.fill();
+
 
     //the head of the fish
+
+    c.beginPath();
     c.arc (this.x, this.y, this.radius, 0, Math.PI * 2, false );
-    c.arc(this.positions[0][0],this.positions[0][1], this.radius, 0 ,Math.PI * 2, false);
-
-    if(id % 3 === 0){
-      c.fillStyle = '#ff3300';
-    } else if (id % 3 === 1){
-      c.fillStyle = '#0f0e0e';
-    } else {
-      c.fillStyle = '#dadee5';
-    }
-
-
-    c.strokeStyle = 'black';
-
-
-
+    c.fillStyle = 'white';
     c.fill();
     c.stroke();
 
@@ -42,7 +49,7 @@ function Fish(x,y,dx,dy,radius,id,c){
     //first update positions with the fish coordinates
     this.positions.push([this.x,this.y])
 
-    if (this.positions.length > 30 / Math.sqrt(this.speed)){
+    if (this.positions.length > 60 / Math.sqrt(this.speed)){
       this.positions.shift();
     }
 
@@ -177,17 +184,24 @@ function Fish(x,y,dx,dy,radius,id,c){
     this.dx += (this.dy * 0.2) * (Math.random()-0.5)
 
     //cant go TOO crazy
-    if (Math.abs(this.dx) > 1.5*dx){
-      this.dx *= (1/1.5);
+    if (Math.abs(this.dx) > 1.2*dx){
+      this.dx *= (1/1.2);
+    }
+    if (Math.abs(this.dy) > 1.2*dy){
+      this.dy *= (1/1.2);
     }
 
-    if (Math.abs(this.dy) > 1.5*dy){
-      this.dy *= (1/1.5);
+    if (Math.abs(this.dx) < 0.7 * dx){
+      this.dx *= (1/0.7);
     }
+
+    if (Math.abs(this.dy) < 0.7 * dy){
+      this.dy *= (1/0.7);
+    }
+
 
     this.x += this.dx + oscillation * ox;
     this.y += this.dy + oscillation * oy;
-
   }
   //this is the end of this.update.
 
