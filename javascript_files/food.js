@@ -1,3 +1,5 @@
+var foodDrift = 0.5;
+
 function Food(x,y,radius,c){
   this.x = x;
   this.y = y;
@@ -5,11 +7,21 @@ function Food(x,y,radius,c){
 
 
   this.draw = function() {
-     c.beginPath();
-     c.arc(this.x,this.y,this.radius, 0, Math.PI * 2 , false);
-     c.fillStyle = '#d1b723';
-     c.fill();
-     c.stroke();
+    c.beginPath();
+    c.arc(this.x,this.y,this.radius, 0, Math.PI * 2 , false);
+    c.fillStyle = '#68f442';
+    c.fill();
+    c.stroke();
+  }
+
+  this.update = function() {
+    this.x += (Math.random()-0.5) *foodDrift;
+    this.y += (Math.random()-0.5) *foodDrift;
+  }
+
+  this.do = function() {
+    this.update();
+    this.draw();
   }
 
 

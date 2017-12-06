@@ -43,15 +43,15 @@ let dy;
 
 for (var i = 0 ; i < 5 ; i++){
 
-  x = (0.2 + 0.5*Math.random()) * innerWidth
-  y = (0.2 + 0.5*Math.random()) * innerHeight
+  x = (0.2 + 0.5 * Math.random()) * innerWidth
+  y = (0.2 + 0.5 * Math.random()) * innerHeight
 
   dx = 1.5;
   dy = 1.5;
 
   radius = 18;
 
-  fishes.push(new Fish(x,y,dx,dy,radius ,i,c))
+  fishes.push(new Fish(x,y,dx,dy,radius ,i,c,foods))
 }
 
 
@@ -63,12 +63,14 @@ function animate(){
 
   c.clearRect(0,0,innerWidth, innerHeight);
 
-  for (var i = 0 ; i < fishes.length ; i++){
-    fishes[i].do();
-  }
+
 
   for (var j = 0 ; j < foods.length ; j++){
-    foods[j].draw();
+    foods[j].do();
+  }
+
+  for (var i = 0 ; i < fishes.length ; i++){
+    fishes[i].do();
   }
 
 }

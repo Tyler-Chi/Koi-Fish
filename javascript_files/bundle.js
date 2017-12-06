@@ -116,15 +116,15 @@ let dy;
 
 for (var i = 0 ; i < 5 ; i++){
 
-  x = (0.2 + 0.5*Math.random()) * innerWidth
-  y = (0.2 + 0.5*Math.random()) * innerHeight
+  x = (0.2 + 0.5 * Math.random()) * innerWidth
+  y = (0.2 + 0.5 * Math.random()) * innerHeight
 
   dx = 1.5;
   dy = 1.5;
 
   radius = 18;
 
-  fishes.push(new __WEBPACK_IMPORTED_MODULE_0__fish_js__["a" /* default */](x,y,dx,dy,radius ,i,c))
+  fishes.push(new __WEBPACK_IMPORTED_MODULE_0__fish_js__["a" /* default */](x,y,dx,dy,radius ,i,c,foods))
 }
 
 
@@ -136,12 +136,14 @@ function animate(){
 
   c.clearRect(0,0,innerWidth, innerHeight);
 
-  for (var i = 0 ; i < fishes.length ; i++){
-    fishes[i].do();
-  }
+
 
   for (var j = 0 ; j < foods.length ; j++){
-    foods[j].draw();
+    foods[j].do();
+  }
+
+  for (var i = 0 ; i < fishes.length ; i++){
+    fishes[i].do();
   }
 
 }
@@ -156,7 +158,7 @@ animate();
 "use strict";
 
 
-function Fish(x,y,dx,dy,radius,id,c){
+function Fish(x,y,dx,dy,radius,id,c,foodarr){
   this.x = x;
   this.y = y;
   this.dx = dx;
@@ -202,6 +204,14 @@ function Fish(x,y,dx,dy,radius,id,c){
     c.fillStyle = 'white';
     c.fill();
     c.stroke();
+
+  }
+
+  function distance(x0,y0,x1,y1){
+    return Math.sqrt(Math.pow(x0-x1,2)+Math.pow(y0-y1,2))
+  }
+
+  this.chaseFood = function() {
 
   }
 
@@ -329,47 +339,57 @@ function Fish(x,y,dx,dy,radius,id,c){
       this.dy = -this.dy;
     }
 
+
+
+
     //side to side oscillation, based on normal vector and Sin.
 
+
+  }
+  //this is the end of this.update.
+
+  this.controlSpeed = function () {
+
+        //random motion, cuz fish are fish lol.
+        this.dx += (this.dx * 0.2) * (Math.random()-0.5)
+        this.dx += (this.dy * 0.2) * (Math.random()-0.5)
+
+        //cant go TOO crazy
+        if (Math.abs(this.dx) > 1.2*dx){
+          this.dx *= (1/1.2);
+        }
+        if (Math.abs(this.dy) > 1.2*dy){
+          this.dy *= (1/1.2);
+        }
+
+        if (Math.abs(this.dx) < 0.7 * dx){
+          this.dx *= (1/0.7);
+        }
+
+        if (Math.abs(this.dy) < 0.7 * dy){
+          this.dy *= (1/0.7);
+        }
+  }
+
+  this.oscillate = function(){
     let ox = -1 * this.dy;
     let oy = this.dx;
 
     this.time += 0.08;
     let oscillation = 0.295 * Math.sin(this.time);
 
-    //random motion, cuz fish are fish lol.
-    this.dx += (this.dx * 0.2) * (Math.random()-0.5)
-    this.dx += (this.dy * 0.2) * (Math.random()-0.5)
-
-    //cant go TOO crazy
-    if (Math.abs(this.dx) > 1.2*dx){
-      this.dx *= (1/1.2);
-    }
-    if (Math.abs(this.dy) > 1.2*dy){
-      this.dy *= (1/1.2);
-    }
-
-    if (Math.abs(this.dx) < 0.7 * dx){
-      this.dx *= (1/0.7);
-    }
-
-    if (Math.abs(this.dy) < 0.7 * dy){
-      this.dy *= (1/0.7);
-    }
-
 
     this.x += this.dx + oscillation * ox;
     this.y += this.dy + oscillation * oy;
   }
-  //this is the end of this.update.
-
 
 
 
   this.do = function(){
     this.update();
+    this.controlSpeed();
+    this.oscillate();
     this.draw();
-    console.log(this.positions.length);
   }
 
 }
@@ -387,6 +407,8 @@ function Fish(x,y,dx,dy,radius,id,c){
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+var foodDrift = 0.5;
+
 function Food(x,y,radius,c){
   this.x = x;
   this.y = y;
@@ -394,11 +416,21 @@ function Food(x,y,radius,c){
 
 
   this.draw = function() {
-     c.beginPath();
-     c.arc(this.x,this.y,this.radius, 0, Math.PI * 2 , false);
-     c.fillStyle = '#d1b723';
-     c.fill();
-     c.stroke();
+    c.beginPath();
+    c.arc(this.x,this.y,this.radius, 0, Math.PI * 2 , false);
+    c.fillStyle = '#68f442';
+    c.fill();
+    c.stroke();
+  }
+
+  this.update = function() {
+    this.x += (Math.random()-0.5) *foodDrift;
+    this.y += (Math.random()-0.5) *foodDrift;
+  }
+
+  this.do = function() {
+    this.update();
+    this.draw();
   }
 
 

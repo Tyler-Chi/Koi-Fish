@@ -1,6 +1,6 @@
 
 
-function Fish(x,y,dx,dy,radius,id,c){
+function Fish(x,y,dx,dy,radius,id,c,foodarr){
   this.x = x;
   this.y = y;
   this.dx = dx;
@@ -46,6 +46,14 @@ function Fish(x,y,dx,dy,radius,id,c){
     c.fillStyle = 'white';
     c.fill();
     c.stroke();
+
+  }
+
+  function distance(x0,y0,x1,y1){
+    return Math.sqrt(Math.pow(x0-x1,2)+Math.pow(y0-y1,2))
+  }
+
+  this.chaseFood = function() {
 
   }
 
@@ -173,47 +181,57 @@ function Fish(x,y,dx,dy,radius,id,c){
       this.dy = -this.dy;
     }
 
+
+
+
     //side to side oscillation, based on normal vector and Sin.
 
+
+  }
+  //this is the end of this.update.
+
+  this.controlSpeed = function () {
+
+        //random motion, cuz fish are fish lol.
+        this.dx += (this.dx * 0.2) * (Math.random()-0.5)
+        this.dx += (this.dy * 0.2) * (Math.random()-0.5)
+
+        //cant go TOO crazy
+        if (Math.abs(this.dx) > 1.2*dx){
+          this.dx *= (1/1.2);
+        }
+        if (Math.abs(this.dy) > 1.2*dy){
+          this.dy *= (1/1.2);
+        }
+
+        if (Math.abs(this.dx) < 0.7 * dx){
+          this.dx *= (1/0.7);
+        }
+
+        if (Math.abs(this.dy) < 0.7 * dy){
+          this.dy *= (1/0.7);
+        }
+  }
+
+  this.oscillate = function(){
     let ox = -1 * this.dy;
     let oy = this.dx;
 
     this.time += 0.08;
     let oscillation = 0.295 * Math.sin(this.time);
 
-    //random motion, cuz fish are fish lol.
-    this.dx += (this.dx * 0.2) * (Math.random()-0.5)
-    this.dx += (this.dy * 0.2) * (Math.random()-0.5)
-
-    //cant go TOO crazy
-    if (Math.abs(this.dx) > 1.2*dx){
-      this.dx *= (1/1.2);
-    }
-    if (Math.abs(this.dy) > 1.2*dy){
-      this.dy *= (1/1.2);
-    }
-
-    if (Math.abs(this.dx) < 0.7 * dx){
-      this.dx *= (1/0.7);
-    }
-
-    if (Math.abs(this.dy) < 0.7 * dy){
-      this.dy *= (1/0.7);
-    }
-
 
     this.x += this.dx + oscillation * ox;
     this.y += this.dy + oscillation * oy;
   }
-  //this is the end of this.update.
-
 
 
 
   this.do = function(){
     this.update();
+    this.controlSpeed();
+    this.oscillate();
     this.draw();
-    console.log(this.positions.length);
   }
 
 }
