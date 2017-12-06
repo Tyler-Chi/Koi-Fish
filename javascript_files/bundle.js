@@ -79,6 +79,25 @@ canvas.height = window.innerHeight;
 
 var c = canvas.getContext('2d');
 
+window.addEventListener('resize', function(){
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+})
+
+var mouse = {
+  x: undefined,
+  y: undefined
+}
+
+window.addEventListener('mousemove', function(event){
+  mouse.x = event.x;
+  mouse.y = event.y;
+})
+
+window.addEventListener('click', function(e){
+  console.log(mouse);
+})
+
 
 let fishes = [];
 let radius;
@@ -99,7 +118,7 @@ for (var i = 0 ; i < 5 ; i++){
 
   radius = 18;
 
-  fishes.push(new __WEBPACK_IMPORTED_MODULE_0__fish_js__["a" /* default */](x,y,dx,dy,radius,i,c))
+  fishes.push(new __WEBPACK_IMPORTED_MODULE_0__fish_js__["a" /* default */](x,y,dx,dy,radius ,i,c))
 }
 
 let fish = new __WEBPACK_IMPORTED_MODULE_0__fish_js__["a" /* default */](100,100,1,1,20,1,c);
