@@ -70,6 +70,8 @@
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__fish_js__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__food_js__ = __webpack_require__(2);
+
 
 
 
@@ -94,8 +96,12 @@ window.addEventListener('mousemove', function(event){
   mouse.y = event.y;
 })
 
+//handle the food logic
+let foods = [];
+
 window.addEventListener('click', function(e){
   console.log(mouse);
+  foods.push(new __WEBPACK_IMPORTED_MODULE_1__food_js__["a" /* default */](mouse.x,mouse.y,5,c))
 })
 
 
@@ -121,7 +127,9 @@ for (var i = 0 ; i < 5 ; i++){
   fishes.push(new __WEBPACK_IMPORTED_MODULE_0__fish_js__["a" /* default */](x,y,dx,dy,radius ,i,c))
 }
 
-let fish = new __WEBPACK_IMPORTED_MODULE_0__fish_js__["a" /* default */](100,100,1,1,20,1,c);
+
+
+
 
 function animate(){
   requestAnimationFrame(animate);
@@ -130,6 +138,10 @@ function animate(){
 
   for (var i = 0 ; i < fishes.length ; i++){
     fishes[i].do();
+  }
+
+  for (var j = 0 ; j < foods.length ; j++){
+    foods[j].draw();
   }
 
 }
@@ -368,6 +380,31 @@ function Fish(x,y,dx,dy,radius,id,c){
 // let fish2 = new Fish(150,400,1,1,20,2);
 // let fish3 = new Fish(400,400,1,1,20,3);
 // let fish4 = new Fish(400,150,1,1,20,4);
+
+
+/***/ }),
+/* 2 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+function Food(x,y,radius,c){
+  this.x = x;
+  this.y = y;
+  this.radius = radius;
+
+
+  this.draw = function() {
+     c.beginPath();
+     c.arc(this.x,this.y,this.radius, 0, Math.PI * 2 , false);
+     c.fillStyle = '#d1b723';
+     c.fill();
+     c.stroke();
+  }
+
+
+}
+
+/* harmony default export */ __webpack_exports__["a"] = (Food);
 
 
 /***/ })

@@ -1,5 +1,6 @@
 
-import  Fish  from './fish.js';
+import Fish  from './fish.js';
+import Food from './food.js';
 
 var canvas = document.querySelector('canvas')
 canvas.width = window.innerWidth;
@@ -22,8 +23,12 @@ window.addEventListener('mousemove', function(event){
   mouse.y = event.y;
 })
 
+//handle the food logic
+let foods = [];
+
 window.addEventListener('click', function(e){
   console.log(mouse);
+  foods.push(new Food(mouse.x,mouse.y,5,c))
 })
 
 
@@ -49,7 +54,9 @@ for (var i = 0 ; i < 5 ; i++){
   fishes.push(new Fish(x,y,dx,dy,radius ,i,c))
 }
 
-let fish = new Fish(100,100,1,1,20,1,c);
+
+
+
 
 function animate(){
   requestAnimationFrame(animate);
@@ -58,6 +65,10 @@ function animate(){
 
   for (var i = 0 ; i < fishes.length ; i++){
     fishes[i].do();
+  }
+
+  for (var j = 0 ; j < foods.length ; j++){
+    foods[j].draw();
   }
 
 }
