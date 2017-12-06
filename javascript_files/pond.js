@@ -18,11 +18,15 @@ let dx;
 let dy;
 
 for (var i = 0 ; i < 5 ; i++){
-  x = Math.random() * innerWidth;
-  y = Math.random() * innerHeight;
+
+  x = (0.2 + 0.5*Math.random()) * innerWidth
+  y = (0.2 + 0.5*Math.random()) * innerHeight
+
   dx = 1.5;
   dy = 1.5;
+
   radius = 18;
+
   fishes.push(new Fish(x,y,dx,dy,radius,i,c))
 }
 

@@ -12,23 +12,17 @@ function Fish(x,y,dx,dy,radius,id,c){
   this.speed = this.dx * this.dx + this.dy + this.dy;
 
 
+
   this.draw = function(){
-
-
-
-
     //the tail of the fish
     c.beginPath();
     c.arc(this.positions[0][0],this.positions[0][1], this.radius, 0 ,Math.PI * 2, false);
     c.fillStyle = 'black';
     c.fill();
     c.stroke();
-
-
-
     //the midsection of the fish
     c.beginPath();
-    let midpoint = this.positions.length / 2;
+    let midpoint = this.positions.length /2;
     c.arc (this.positions[midpoint][0],this.positions[midpoint][1], this.radius, 0, Math.PI*2, false);
     c.fillStyle = 'orange';
     c.fill();
@@ -41,8 +35,14 @@ function Fish(x,y,dx,dy,radius,id,c){
     let headAngle = Math.atan(this.dy/this.dx);
     let startAngle = headAngle - (Math.PI/2);
 
+    let cc = true;
+    if (this.dx > 0 ){
+      cc = false;
+    }
+    c.arc (this.x, this.y, this.radius, startAngle, startAngle + Math.PI, cc );
 
-    c.arc (this.x, this.y, this.radius, startAngle, startAngle + Math.PI, false );
+
+
     c.fillStyle = 'white';
     c.fill();
     c.stroke();
@@ -112,9 +112,6 @@ function Fish(x,y,dx,dy,radius,id,c){
     //lower boundary
 
     if (this.y + this.radius > 0.935 * innerHeight){
-      console.log('dy:', this.dy);
-      console.log('this.y', this.y);
-      console.log('innerHeight', innerHeight);
 
       //moving towards the border
 
@@ -216,6 +213,7 @@ function Fish(x,y,dx,dy,radius,id,c){
   this.do = function(){
     this.update();
     this.draw();
+    console.log(this.positions.length);
   }
 
 }
