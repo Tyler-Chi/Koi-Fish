@@ -19,10 +19,9 @@ function Fish(x,y,dx,dy,radius,id,c,foodarr){
   this.draw = function(){
     //the tail of the fish
 
-    let fishLength = 60 / Math.sqrt(this.speed);
 
-    if (this.positions.length < fishLength){
-      for (var i = 0 ; i < fishLength ; i++){
+    if (this.positions.length < 10){
+      for (var i = 0 ; i < 10 ; i++){
         this.positions.push([x + i * dx , y + i * dy])
       }
     }
@@ -33,9 +32,14 @@ function Fish(x,y,dx,dy,radius,id,c,foodarr){
     c.fillStyle = 'black';
     c.fill();
     c.stroke();
-    //the midsection of the fish
+
+
+    // the midsection of the fish
+
     c.beginPath();
-    let midpoint = this.positions.length /2;
+    let midpoint = Math.round(this.positions.length /2);
+
+
     c.arc (this.positions[midpoint][0],this.positions[midpoint][1], this.radius, 0, Math.PI*2, false);
     c.fillStyle = 'orange';
     c.fill();
@@ -121,7 +125,7 @@ function Fish(x,y,dx,dy,radius,id,c,foodarr){
     this.positions.push([this.x,this.y])
 
 
-    if (this.positions.length > 30 / Math.sqrt(this.speed)){
+    if (this.positions.length > 3){
       this.positions.shift();
     }
   }
