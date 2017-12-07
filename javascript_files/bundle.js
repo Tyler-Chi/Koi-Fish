@@ -114,7 +114,7 @@ let yCoor;
 let dx;
 let dy;
 
-for (var i = 0 ; i < 5 ; i++){
+for (var i = 0 ; i < 1; i++){
 
   x = (0.2 + 0.5 * Math.random()) * innerWidth
   y = (0.2 + 0.5 * Math.random()) * innerHeight
@@ -217,7 +217,7 @@ function Fish(x,y,dx,dy,radius,id,c,foodarr){
   let yDif;
   let xDif;
   let angle;
-  let foodDir = 1;
+
 
   this.chaseFood = function() {
     //has access to foodarr
@@ -228,6 +228,8 @@ function Fish(x,y,dx,dy,radius,id,c,foodarr){
     xDif = foodarr[0].x - this.x;
     angle = Math.atan(yDif/xDif);
 
+
+    let foodDir = 1;
     //adjust the angle!
     if (xDif < 0){
       foodDir = -1;
@@ -445,7 +447,8 @@ function Fish(x,y,dx,dy,radius,id,c,foodarr){
     this.oscillate();
     this.draw();
 
-    console.log(foodarr);
+    console.log('food',foodarr);
+    console.log('this pos',this.x,this.y);
   }
 
 }

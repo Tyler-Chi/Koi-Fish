@@ -41,7 +41,7 @@ let yCoor;
 let dx;
 let dy;
 
-for (var i = 0 ; i < 5 ; i++){
+for (var i = 0 ; i < 1; i++){
 
   x = (0.2 + 0.5 * Math.random()) * innerWidth
   y = (0.2 + 0.5 * Math.random()) * innerHeight
