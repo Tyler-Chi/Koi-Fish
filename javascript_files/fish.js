@@ -115,9 +115,19 @@ function Fish(x,y,dx,dy,radius,id,c,foodarr){
     this.dfx = totalSpeed * Math.cos(angle) * foodDir;
 
     //eat the food
-    if (distance(this.x,this.y,foodarr[0].x,foodarr[0].y) < 50){
-      foodarr.splice(0,1);
+
+    for (var f = 0 ; f < foodarr.length ; f++){
+
+      if (distance(this.x,this.y,foodarr[f].x,foodarr[f].y) < 20){
+        foodarr.splice(0,1);
+      }
+
     }
+
+
+
+
+    //control how fast they can turn.
 
     if (this.speedDif(this.dx,this.dfx) < 0.001 ){
       this.dx = this.dfx;

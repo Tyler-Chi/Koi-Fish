@@ -41,13 +41,13 @@ let yCoor;
 let dx;
 let dy;
 
-for (var i = 0 ; i < 10; i++){
+for (var i = 0 ; i < 50; i++){
 
   x = (0.2 + 0.5 * Math.random()) * innerWidth
   y = (0.2 + 0.5 * Math.random()) * innerHeight
 
-  dx = 1.5;
-  dy = 1.5;
+  dx = 1.5 ;
+  dy = 1.5 ;
 
   radius = 18;
 
