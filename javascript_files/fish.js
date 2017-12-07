@@ -2,6 +2,12 @@
 
 function Fish(x,y,dx,dy,radius,id,c,foodarr){
 
+  let colors = ['#d7dde5','#ea4504','#8e1111','#0f0c0c']
+  let headColor = colors[Math.round(Math.random()*3)]
+  let bodyColor = colors[Math.round(Math.random()*3)]
+  let tailColor = colors[Math.round(Math.random()*3)]
+
+
 
   this.fishLength = 20;
   this.x = x;
@@ -52,6 +58,7 @@ function Fish(x,y,dx,dy,radius,id,c,foodarr){
     let tailAngle = Math.atan(this.slopes[1]);
     c.beginPath();
     c.ellipse(this.positions[3][0],this.positions[3][1], this.radius / 2 , this.radius / 2 , tailAngle, -Math.PI/2, Math.PI/2,cc);
+    c.fillStyle = tailColor;
     c.fill();
 
     // the midsection of the fish
@@ -59,6 +66,7 @@ function Fish(x,y,dx,dy,radius,id,c,foodarr){
 
     c.beginPath();
     c.ellipse(this.positions[midpoint][0],this.positions[midpoint][1], this.radius * 1.1, this.radius / 2, Math.atan(this.slopes[midpoint]), 0, Math.PI * 2, mc);
+    c.fillStyle = bodyColor;
     c.fill();
 
     //the head of the fish
@@ -66,15 +74,9 @@ function Fish(x,y,dx,dy,radius,id,c,foodarr){
     let startAngle = headAngle - (Math.PI/2);
     c.beginPath();
     c.ellipse(this.x,this.y,this.radius , this.radius /2 , headAngle, -Math.PI/2, Math.PI/2,cc);
+    c.fillStyle = headColor;
     c.fill();
 
-
-
-    // c.beginPath();
-    // c.arc (this.x, this.y, this.radius, startAngle, startAngle + Math.PI, cc );
-    // c.fillStyle = 'white';
-    // c.fill();
-    // c.stroke();
 
   }
 
