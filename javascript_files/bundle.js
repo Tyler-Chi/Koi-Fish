@@ -175,8 +175,6 @@ function Fish(x,y,dx,dy,radius,id,c,foodarr){
 
   this.speed = this.dx * this.dx + this.dy + this.dy;
 
-
-
   this.draw = function(){
     //the tail of the fish
 
@@ -278,9 +276,11 @@ function Fish(x,y,dx,dy,radius,id,c,foodarr){
   }
 
   this.record = function(){
+    console.log(this.positions.length);
     this.positions.push([this.x,this.y])
 
-    if (this.positions.length > 60 / Math.sqrt(this.speed)){
+
+    if (this.positions.length > 30 / Math.sqrt(this.speed)){
       this.positions.shift();
     }
   }
@@ -478,7 +478,6 @@ function Fish(x,y,dx,dy,radius,id,c,foodarr){
     this.oscillate();
     this.draw();
 
-    console.log(this.speed);
 
   }
 
