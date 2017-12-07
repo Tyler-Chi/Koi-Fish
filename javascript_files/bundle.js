@@ -146,6 +146,11 @@ function animate(){
     fishes[i].do();
   }
 
+  c.beginPath()
+  c.ellipse(300,300,100,200,0,0,Math.PI, true);
+  c.fill();
+  c.stroke();
+
 
 }
 
@@ -179,6 +184,8 @@ function Fish(x,y,dx,dy,radius,id,c,foodarr){
     //the tail of the fish
 
 
+
+
     if (this.positions.length < this.fishLength){
       for (var i = 0 ; i < this.fishLength ; i++){
         this.positions.push([x + i * dx , y + i * dy])
@@ -206,7 +213,7 @@ function Fish(x,y,dx,dy,radius,id,c,foodarr){
 
     //the head of the fish
 
-    c.beginPath();
+
 
     let headAngle = Math.atan(this.dy/this.dx);
     let startAngle = headAngle - (Math.PI/2);
@@ -215,10 +222,12 @@ function Fish(x,y,dx,dy,radius,id,c,foodarr){
     if (this.dx > 0 ){
       cc = false;
     }
+
+
+
+
+    c.beginPath();
     c.arc (this.x, this.y, this.radius, startAngle, startAngle + Math.PI, cc );
-
-
-
     c.fillStyle = 'white';
     c.fill();
     c.stroke();
