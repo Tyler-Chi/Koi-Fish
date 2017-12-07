@@ -1,4 +1,4 @@
-var foodDrift = 0.5;
+var foodDrift = 3;
 
 function Food(x,y,radius,c){
   this.x = x;

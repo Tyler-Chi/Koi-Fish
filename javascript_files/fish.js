@@ -1,6 +1,9 @@
 
 
 function Fish(x,y,dx,dy,radius,id,c,foodarr){
+
+
+
   this.x = x;
   this.y = y;
   this.dx = dx;
@@ -60,9 +63,15 @@ function Fish(x,y,dx,dy,radius,id,c,foodarr){
   let angle;
 
 
+  this.speedDif = function(initial,desired){
+    return Math.abs(initial - desired)/Math.abs(initial);
+  }
+
   this.chaseFood = function() {
     //has access to foodarr
     //first find the piece of food the fish is closest to.
+
+    let turnChange = 0.3;
 
     //assume that its sorted already...
     yDif = foodarr[0].y - this.y;
@@ -76,12 +85,24 @@ function Fish(x,y,dx,dy,radius,id,c,foodarr){
       foodDir = -1;
     }
 
-    this.dy = totalSpeed * Math.sin(angle) * foodDir;
-    this.dx = totalSpeed * Math.cos(angle) * foodDir;
+    this.dfy = totalSpeed * Math.sin(angle) * foodDir;
+    this.dfx = totalSpeed * Math.cos(angle) * foodDir;
 
     //eat the food
     if (distance(this.x,this.y,foodarr[0].x,foodarr[0].y) < 50){
       foodarr.splice(0,1);
+    }
+
+    if (this.speedDif(this.dx,this.dfx) < 0.001 ){
+      this.dx = this.dfx;
+    } else {
+      this.dx += turnChange * this.dfx;
+    }
+
+    if (this.speedDif(this.dy,this.dfy) < 0.5 ){
+      this.dy = this.dfy;
+    } else {
+      this.dy += turnChange * this.dfy;
     }
 
 
@@ -231,8 +252,8 @@ function Fish(x,y,dx,dy,radius,id,c,foodarr){
   this.controlSpeed = function () {
 
         //random motion, cuz fish are fish lol.
-        this.dx += (this.dx * 0.2) * (Math.random()-0.5)
-        this.dx += (this.dy * 0.2) * (Math.random()-0.5)
+        this.dx += (this.dx * 0.3) * (Math.random()-0.5)
+        this.dx += (this.dy * 0.3) * (Math.random()-0.5)
 
 
         if (this.calcSpeed(this.dx,this.dy) > (dx + dy)){
