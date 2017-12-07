@@ -180,9 +180,13 @@ function Fish(x,y,dx,dy,radius,id,c,foodarr){
 
 
   this.record = function(){
+    //initialize the fish at time 0
+    if (this.positions.length < this.fishLength){
+      for (var i = 0 ; i < this.fishLength ; i++){
+        this.positions.push([x + i * dx , y + i * dy])
+      }
+    }
 
-    console.log(this.slopes);
-    console.log(this.positions);
 
     this.positions.push([this.x,this.y]);
     this.slopes.push(this.dy/this.dx);
@@ -198,7 +202,6 @@ function Fish(x,y,dx,dy,radius,id,c,foodarr){
   }
 
   this.draw = function(){
-    //the tail of the fish
     let cc = true;
     let mc = false;
     if (this.dx > 0 ){
@@ -206,35 +209,18 @@ function Fish(x,y,dx,dy,radius,id,c,foodarr){
       mc = true;
     }
 
-
-
-    if (this.positions.length < this.fishLength){
-      for (var i = 0 ; i < this.fishLength ; i++){
-        this.positions.push([x + i * dx , y + i * dy])
-      }
-    }
-
-
+    // the tail of the fish
+    let tailAngle = Math.atan(this.slopes[1]);
     c.beginPath();
-    c.arc(this.positions[0][0],this.positions[0][1], this.radius, 0 ,Math.PI * 2, false);
-    c.fillStyle = 'black';
+    c.ellipse(this.positions[3][0],this.positions[3][1], this.radius / 2 , this.radius / 2 , tailAngle, -Math.PI/2, Math.PI/2,cc);
     c.fill();
-    c.stroke();
-
 
     // the midsection of the fish
     let midpoint = Math.round((this.positions.length /2)+3);
 
     c.beginPath();
-    c.ellipse(this.positions[midpoint][0],this.positions[midpoint][1], this.radius, this.radius / 2, Math.atan(this.slopes[midpoint]), 0, Math.PI * 2, mc);
+    c.ellipse(this.positions[midpoint][0],this.positions[midpoint][1], this.radius * 1.1, this.radius / 2, Math.atan(this.slopes[midpoint]), 0, Math.PI * 2, mc);
     c.fill();
-
-
-    // c.beginPath();
-    // c.arc (this.positions[midpoint][0],this.positions[midpoint][1], this.radius, 0, Math.PI*2, false);
-    // c.fillStyle = 'orange';
-    // c.fill();
-
 
     //the head of the fish
     let headAngle = Math.atan(this.dy/this.dx);
