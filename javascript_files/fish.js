@@ -59,14 +59,17 @@ function Fish(x,y,dx,dy,radius,id,c,foodarr){
       cc = false;
     }
 
-
-
-
     c.beginPath();
-    c.arc (this.x, this.y, this.radius, startAngle, startAngle + Math.PI, cc );
-    c.fillStyle = 'white';
+    c.ellipse(this.x,this.y,this.radius * 2 , this.radius /2 , headAngle, -Math.PI/2, Math.PI/2,cc);
     c.fill();
     c.stroke();
+
+
+    // c.beginPath();
+    // c.arc (this.x, this.y, this.radius, startAngle, startAngle + Math.PI, cc );
+    // c.fillStyle = 'white';
+    // c.fill();
+    // c.stroke();
 
   }
 
