@@ -73,6 +73,7 @@ function animate(){
     fishes[i].do();
   }
 
+
 }
 
 animate();

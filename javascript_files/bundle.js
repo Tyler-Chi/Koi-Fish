@@ -146,6 +146,7 @@ function animate(){
     fishes[i].do();
   }
 
+
 }
 
 animate();
@@ -166,6 +167,8 @@ function Fish(x,y,dx,dy,radius,id,c,foodarr){
   this.radius = radius;
   this.time = 0;
   this.positions = [];
+
+  let totalSpeed = Math.sqrt(dx*dx + dy*dy)
 
   this.speed = this.dx * this.dx + this.dy + this.dy;
 
@@ -211,18 +214,45 @@ function Fish(x,y,dx,dy,radius,id,c,foodarr){
     return Math.sqrt(Math.pow(x0-x1,2)+Math.pow(y0-y1,2))
   }
 
+  let yDif;
+  let xDif;
+  let angle;
+  let foodDir = 1;
+
   this.chaseFood = function() {
+    //has access to foodarr
+    //first find the piece of food the fish is closest to.
+
+    //assume that its sorted already...
+    yDif = foodarr[0].y - this.y;
+    xDif = foodarr[0].x - this.x;
+    angle = Math.atan(yDif/xDif);
+
+    //adjust the angle!
+    if (xDif < 0){
+      foodDir = -1;
+    }
+
+    this.dy = totalSpeed * Math.sin(angle) * foodDir;
+    this.dx = totalSpeed * Math.cos(angle) * foodDir;
+
+    //eat the food
+
 
   }
 
-  this.update = function(){
-
-    //first update positions with the fish coordinates
+  this.record = function(){
     this.positions.push([this.x,this.y])
 
     if (this.positions.length > 60 / Math.sqrt(this.speed)){
       this.positions.shift();
     }
+  }
+
+  this.update = function(){
+
+    //first update positions with the fish coordinates
+
 
     //deals with collisions
 
@@ -348,27 +378,39 @@ function Fish(x,y,dx,dy,radius,id,c,foodarr){
   }
   //this is the end of this.update.
 
+  this.calcSpeed = function(xv,yv){
+    return Math.sqrt(xv*xv + yv*yv)
+  }
+
   this.controlSpeed = function () {
 
         //random motion, cuz fish are fish lol.
         this.dx += (this.dx * 0.2) * (Math.random()-0.5)
         this.dx += (this.dy * 0.2) * (Math.random()-0.5)
 
-        //cant go TOO crazy
-        if (Math.abs(this.dx) > 1.2*dx){
+
+        if (this.calcSpeed(this.dx,this.dy) > (dx + dy)){
           this.dx *= (1/1.2);
-        }
-        if (Math.abs(this.dy) > 1.2*dy){
           this.dy *= (1/1.2);
         }
 
-        if (Math.abs(this.dx) < 0.7 * dx){
+        if (this.calcSpeed(this.dx,this.dy) < 0.7 * (dx + dy )){
           this.dx *= (1/0.7);
-        }
-
-        if (Math.abs(this.dy) < 0.7 * dy){
           this.dy *= (1/0.7);
         }
+
+
+
+
+
+        //
+        // if (Math.abs(this.dx) < 0.7 * dx){
+        //   this.dx *= (1/0.7);
+        // }
+        //
+        // if (Math.abs(this.dy) < 0.7 * dy){
+        //   this.dy *= (1/0.7);
+        // }
   }
 
   this.oscillate = function(){
@@ -386,10 +428,21 @@ function Fish(x,y,dx,dy,radius,id,c,foodarr){
 
 
   this.do = function(){
-    this.update();
+
+
+    if (foodarr.length === 0){
+      this.update();
+    } else {
+      this.chaseFood();
+    }
+
+    this.record();
+
     this.controlSpeed();
     this.oscillate();
     this.draw();
+
+    console.log(foodarr);
   }
 
 }
