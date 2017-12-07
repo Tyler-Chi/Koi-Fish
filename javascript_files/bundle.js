@@ -114,7 +114,7 @@ let yCoor;
 let dx;
 let dy;
 
-for (var i = 0 ; i < 5; i++){
+for (var i = 0 ; i < 10; i++){
 
   x = (0.2 + 0.5 * Math.random()) * innerWidth
   y = (0.2 + 0.5 * Math.random()) * innerHeight
@@ -163,10 +163,10 @@ animate();
 
 function Fish(x,y,dx,dy,radius,id,c,foodarr){
 
-  let colors = ['#d7dde5','#ea4504','#8e1111','#0f0c0c']
-  let headColor = colors[Math.round(Math.random()*3)]
-  let bodyColor = colors[Math.round(Math.random()*3)]
-  let tailColor = colors[Math.round(Math.random()*3)]
+  let colors = ['#d7dde5','#ea4504','#8e1111','#d61515','#d6149c','#d6c80e']
+  let headColor = colors[Math.round(Math.random()*(colors.length-1))]
+  let bodyColor = colors[Math.round(Math.random()*(colors.length-1))]
+  let tailColor = colors[Math.round(Math.random()*(colors.length-1))]
 
 
 
@@ -218,12 +218,12 @@ function Fish(x,y,dx,dy,radius,id,c,foodarr){
     // the tail of the fish
     let tailAngle = Math.atan(this.slopes[1]);
     c.beginPath();
-    c.ellipse(this.positions[3][0],this.positions[3][1], this.radius / 2 , this.radius / 2 , tailAngle, -Math.PI/2, Math.PI/2,cc);
+    c.ellipse(this.positions[4][0],this.positions[4][1], this.radius / 2 , this.radius / 2 , tailAngle, -Math.PI/2, Math.PI/2,cc);
     c.fillStyle = tailColor;
     c.fill();
 
     // the midsection of the fish
-    let midpoint = Math.round((this.positions.length /2)+3);
+    let midpoint = Math.round((this.positions.length /2)+4);
 
     c.beginPath();
     c.ellipse(this.positions[midpoint][0],this.positions[midpoint][1], this.radius * 1.1, this.radius / 2, Math.atan(this.slopes[midpoint]), 0, Math.PI * 2, mc);
