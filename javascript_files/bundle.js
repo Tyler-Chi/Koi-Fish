@@ -258,6 +258,11 @@ function Fish(x,y,dx,dy,radius,id,c,foodarr){
     //has access to foodarr
     //first find the piece of food the fish is closest to.
 
+
+
+
+
+
     let turnChange = 0.3;
 
     //assume that its sorted already...
@@ -278,11 +283,9 @@ function Fish(x,y,dx,dy,radius,id,c,foodarr){
     //eat the food
 
     for (var f = 0 ; f < foodarr.length ; f++){
-
       if (distance(this.x,this.y,foodarr[f].x,foodarr[f].y) < 20){
-        foodarr.splice(0,1);
+        foodarr.splice(f,1);
       }
-
     }
 
 
