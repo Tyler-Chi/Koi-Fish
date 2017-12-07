@@ -237,6 +237,9 @@ function Fish(x,y,dx,dy,radius,id,c,foodarr){
     this.dx = totalSpeed * Math.cos(angle) * foodDir;
 
     //eat the food
+    if (distance(this.x,this.y,foodarr[0].x,foodarr[0].y) < 50){
+      foodarr.splice(0,1);
+    }
 
 
   }
