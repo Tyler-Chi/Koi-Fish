@@ -11,14 +11,39 @@ function Fish(x,y,dx,dy,radius,id,c,foodarr){
   this.radius = radius;
   this.time = 0;
   this.positions = [];
+  this.slopes = [];
 
   let totalSpeed = Math.sqrt(dx*dx + dy*dy)
 
   this.speed = this.dx * this.dx + this.dy + this.dy;
 
+
+  this.record = function(){
+
+    console.log(this.slopes);
+    console.log(this.positions);
+
+    this.positions.push([this.x,this.y]);
+    this.slopes.push(this.dy/this.dx);
+
+
+    if (this.positions.length > this.fishLength){
+      this.positions.shift();
+    }
+
+    if (this.slopes.length > this.fishLength + 1){
+      this.slopes.shift();
+    }
+  }
+
   this.draw = function(){
     //the tail of the fish
-
+    let cc = true;
+    let mc = false;
+    if (this.dx > 0 ){
+      cc = false;
+      mc = true;
+    }
 
 
 
@@ -37,32 +62,26 @@ function Fish(x,y,dx,dy,radius,id,c,foodarr){
 
 
     // the midsection of the fish
-
-    c.beginPath();
     let midpoint = Math.round((this.positions.length /2)+3);
 
-
-    c.arc (this.positions[midpoint][0],this.positions[midpoint][1], this.radius, 0, Math.PI*2, false);
-    c.fillStyle = 'orange';
+    c.beginPath();
+    c.ellipse(this.positions[midpoint][0],this.positions[midpoint][1], this.radius, this.radius / 2, Math.atan(this.slopes[midpoint]), 0, Math.PI * 2, mc);
     c.fill();
+
+
+    // c.beginPath();
+    // c.arc (this.positions[midpoint][0],this.positions[midpoint][1], this.radius, 0, Math.PI*2, false);
+    // c.fillStyle = 'orange';
+    // c.fill();
 
 
     //the head of the fish
-
-
-
     let headAngle = Math.atan(this.dy/this.dx);
     let startAngle = headAngle - (Math.PI/2);
-
-    let cc = true;
-    if (this.dx > 0 ){
-      cc = false;
-    }
-
     c.beginPath();
-    c.ellipse(this.x,this.y,this.radius * 2 , this.radius /2 , headAngle, -Math.PI/2, Math.PI/2,cc);
+    c.ellipse(this.x,this.y,this.radius , this.radius /2 , headAngle, -Math.PI/2, Math.PI/2,cc);
     c.fill();
-    c.stroke();
+
 
 
     // c.beginPath();
@@ -127,15 +146,7 @@ function Fish(x,y,dx,dy,radius,id,c,foodarr){
 
   }
 
-  this.record = function(){
-    console.log(this.positions.length);
-    this.positions.push([this.x,this.y])
 
-
-    if (this.positions.length > this.fishLength){
-      this.positions.shift();
-    }
-  }
 
   this.update = function(){
 
@@ -273,8 +284,8 @@ function Fish(x,y,dx,dy,radius,id,c,foodarr){
   this.controlSpeed = function () {
 
         //random motion, cuz fish are fish lol.
-        this.dx += (this.dx * 0.3) * (Math.random()-0.5)
-        this.dx += (this.dy * 0.3) * (Math.random()-0.5)
+        this.dx += (this.dx * 0.25) * (Math.random()-0.5)
+        this.dx += (this.dy * 0.25) * (Math.random()-0.5)
 
 
         if (this.calcSpeed(this.dx,this.dy) > (dx + dy)){

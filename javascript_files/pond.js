@@ -73,10 +73,7 @@ function animate(){
     fishes[i].do();
   }
 
-  c.beginPath()
-  c.ellipse(300,300,100,200,0,0,Math.PI, true);
-  c.fill();
-  c.stroke();
+
 
 
 }
