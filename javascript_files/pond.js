@@ -35,9 +35,16 @@ window.addEventListener('click', function(e){
 window.addEventListener("keypress",function(event){
   console.log(event);
   if (event.code === "KeyF"){
-    let foodX = (0.2 + Math.random() * 0.55 ) * innerWidth;
-    let foodY = (0.2 + Math.random() * 0.55 ) * innerHeight;
-    foods.push(new Food(foodX,foodY,5,c))
+
+    for (var b = 0 ; b < 5 ; b ++ ){
+
+      let foodX = (0.1 + Math.random() * 0.8 ) * innerWidth;
+      let foodY = (0.1 + Math.random() * 0.8 ) * innerHeight;
+      foods.push(new Food(foodX,foodY,5,c))
+
+    }
+
+
   }
 })
 

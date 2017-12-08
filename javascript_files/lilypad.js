@@ -31,11 +31,11 @@ function LilyPad(x,y,c){
   }
 
   this.update = function(){
-    if (this.x > window.innerWidth - 20 || this.x < 20){
+    if (this.x > window.innerWidth - 50 || this.x < 50){
       this.dx *= -1;
     }
 
-    if (this.y > window.innerHeight - 20 || this.y < 20){
+    if (this.y > window.innerHeight - 50 || this.y < 50){
       this.dy *= -1;
     }
 

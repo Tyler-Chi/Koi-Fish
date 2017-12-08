@@ -109,9 +109,16 @@ window.addEventListener('click', function(e){
 window.addEventListener("keypress",function(event){
   console.log(event);
   if (event.code === "KeyF"){
-    let foodX = (0.2 + Math.random() * 0.55 ) * innerWidth;
-    let foodY = (0.2 + Math.random() * 0.55 ) * innerHeight;
-    foods.push(new __WEBPACK_IMPORTED_MODULE_1__food_js__["a" /* default */](foodX,foodY,5,c))
+
+    for (var b = 0 ; b < 5 ; b ++ ){
+
+      let foodX = (0.1 + Math.random() * 0.8 ) * innerWidth;
+      let foodY = (0.1 + Math.random() * 0.8 ) * innerHeight;
+      foods.push(new __WEBPACK_IMPORTED_MODULE_1__food_js__["a" /* default */](foodX,foodY,5,c))
+
+    }
+
+
   }
 })
 
@@ -183,12 +190,13 @@ animate();
 
 function Fish(x,y,dx,dy,radius,id,c,foodarr){
 
-  let colors = ['#d7dde5','#ea4504','#8e1111','#d61515','#d6149c','#d6c80e']
+  let colors = ['#d7dde5','#ea4504','#8e1111','#d61515','#d6149c','#f2e64d','black']
   let headColor = colors[Math.round(Math.random()*(colors.length-1))]
   let bodyColor = colors[Math.round(Math.random()*(colors.length-1))]
   let tailColor = colors[Math.round(Math.random()*(colors.length-1))]
+  let neckColor = colors[Math.round(Math.random()*(colors.length-1))]
 
-
+  c.localAlpha = 0.2;
 
   this.fishLength = 20;
   this.x = x;
@@ -228,6 +236,10 @@ function Fish(x,y,dx,dy,radius,id,c,foodarr){
   }
 
   this.draw = function(){
+
+    let headAngle = Math.atan(this.dy/this.dx);
+    let midpoint = Math.round((this.positions.length /2)+4);
+
     let cc = true;
     let mc = false;
     if (this.dx > 0 ){
@@ -242,21 +254,36 @@ function Fish(x,y,dx,dy,radius,id,c,foodarr){
     c.fillStyle = tailColor;
     c.fill();
 
+    //the fins of the fish
+    c.beginPath();
+    c.ellipse(this.positions[midpoint][0],this.positions[midpoint][1], this.radius,  0.7 * this.radius, headAngle, -Math.PI/2, Math.PI/2, cc);
+    c.stroke();
+
     // the midsection of the fish
-    let midpoint = Math.round((this.positions.length /2)+4);
+
 
     c.beginPath();
     c.ellipse(this.positions[midpoint][0],this.positions[midpoint][1], this.radius * 1.1, this.radius / 2, Math.atan(this.slopes[midpoint]), 0, Math.PI * 2, mc);
     c.fillStyle = bodyColor;
     c.fill();
 
+    //the neck of the fish
+    let neckPoint = Math.round(0.95 * this.positions.length)
+    c.beginPath();
+    c.arc(this.positions[neckPoint][0],this.positions[neckPoint][1],7,0,2*Math.PI,false);
+    c.fillstyle = neckColor;
+    c.fill();
+
+
+
     //the head of the fish
-    let headAngle = Math.atan(this.dy/this.dx);
-    let startAngle = headAngle - (Math.PI/2);
+
     c.beginPath();
     c.ellipse(this.x,this.y,this.radius , this.radius /2 , headAngle, -Math.PI/2, Math.PI/2,cc);
     c.fillStyle = headColor;
     c.fill();
+
+
 
 
   }
@@ -610,11 +637,11 @@ function LilyPad(x,y,c){
   }
 
   this.update = function(){
-    if (this.x > window.innerWidth - 20 || this.x < 20){
+    if (this.x > window.innerWidth - 50 || this.x < 50){
       this.dx *= -1;
     }
 
-    if (this.y > window.innerHeight - 20 || this.y < 20){
+    if (this.y > window.innerHeight - 50 || this.y < 50){
       this.dy *= -1;
     }
 
