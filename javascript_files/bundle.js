@@ -176,6 +176,16 @@ function animate(){
     pads[k].do();
   }
 
+
+  c.font = "25px Comic Sans MS";
+  c.fillStyle = "black";
+  c.fillText("Welcome to Bit Koi!", innerWidth/3  , 40)
+
+  c.font = "15px Comic Sans MS";
+  c.fillStyle = "black";
+  c.fillText("(click to place food, F to spread food randomly)", innerWidth/3  , 65)
+
+
 }
 
 animate();
@@ -196,7 +206,6 @@ function Fish(x,y,dx,dy,radius,id,c,foodarr){
   let tailColor = colors[Math.round(Math.random()*(colors.length-1))]
   let neckColor = colors[Math.round(Math.random()*(colors.length-1))]
 
-  c.localAlpha = 0.2;
 
   this.fishLength = 20;
   this.x = x;
@@ -250,12 +259,12 @@ function Fish(x,y,dx,dy,radius,id,c,foodarr){
 
     //the fins of the fish
 
-    let finOscillate = 0.8 + 0.2 * Math.sin(this.time);
+    let finOscillate = 0.9 + 0.2 * Math.sin(this.time );
 
     c.beginPath();
     c.ellipse(this.positions[midpoint][0],this.positions[midpoint][1], 0.5 * this.radius,  finOscillate * this.radius, headAngle, -Math.PI/2, Math.PI/2, cc);
     c.strokeStyle = bodyColor;
-    c.lineWidth = 2;
+    c.lineWidth = 3;
     c.stroke();
 
     // the midsection of the fish

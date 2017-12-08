@@ -102,6 +102,16 @@ function animate(){
     pads[k].do();
   }
 
+
+  c.font = "25px Comic Sans MS";
+  c.fillStyle = "black";
+  c.fillText("Welcome to Bit Koi!", innerWidth/3  , 40)
+
+  c.font = "15px Comic Sans MS";
+  c.fillStyle = "black";
+  c.fillText("(click to place food, F to spread food randomly)", innerWidth/3  , 65)
+
+
 }
 
 animate();
