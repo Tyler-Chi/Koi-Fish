@@ -31,6 +31,14 @@ window.addEventListener('click', function(e){
   foods.push(new Food(mouse.x,mouse.y,5,c))
 })
 
+window.addEventListener("keypress",function(event){
+  if (event.code === "Space"){
+    let foodX = (0.2 + Math.random() * 0.6 ) * innerWidth;
+    let foodY = (0.2 + Math.random() * 0.6 ) * innerHeight;
+    foods.push(new Food(foodX,foodY,5,c))
+  }
+})
+
 
 let fishes = [];
 let radius;

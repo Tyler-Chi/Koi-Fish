@@ -104,6 +104,14 @@ window.addEventListener('click', function(e){
   foods.push(new __WEBPACK_IMPORTED_MODULE_1__food_js__["a" /* default */](mouse.x,mouse.y,5,c))
 })
 
+window.addEventListener("keypress",function(event){
+  if (event.code === "Space"){
+    let foodX = (0.2 + Math.random() * 0.6 ) * innerWidth;
+    let foodY = (0.2 + Math.random() * 0.6 ) * innerHeight;
+    foods.push(new __WEBPACK_IMPORTED_MODULE_1__food_js__["a" /* default */](foodX,foodY,5,c))
+  }
+})
+
 
 let fishes = [];
 let radius;
@@ -466,18 +474,6 @@ function Fish(x,y,dx,dy,radius,id,c,foodarr){
           this.dy *= (1/0.7);
         }
 
-
-
-
-
-        //
-        // if (Math.abs(this.dx) < 0.7 * dx){
-        //   this.dx *= (1/0.7);
-        // }
-        //
-        // if (Math.abs(this.dy) < 0.7 * dy){
-        //   this.dy *= (1/0.7);
-        // }
   }
 
   this.oscillate = function(){
@@ -515,11 +511,6 @@ function Fish(x,y,dx,dy,radius,id,c,foodarr){
 }
 
 /* harmony default export */ __webpack_exports__["a"] = (Fish);
-
-
-// let fish2 = new Fish(150,400,1,1,20,2);
-// let fish3 = new Fish(400,400,1,1,20,3);
-// let fish4 = new Fish(400,150,1,1,20,4);
 
 
 /***/ }),

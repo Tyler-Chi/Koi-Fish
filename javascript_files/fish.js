@@ -305,18 +305,6 @@ function Fish(x,y,dx,dy,radius,id,c,foodarr){
           this.dy *= (1/0.7);
         }
 
-
-
-
-
-        //
-        // if (Math.abs(this.dx) < 0.7 * dx){
-        //   this.dx *= (1/0.7);
-        // }
-        //
-        // if (Math.abs(this.dy) < 0.7 * dy){
-        //   this.dy *= (1/0.7);
-        // }
   }
 
   this.oscillate = function(){
@@ -354,8 +342,3 @@ function Fish(x,y,dx,dy,radius,id,c,foodarr){
 }
 
 export default Fish;
-
-
-// let fish2 = new Fish(150,400,1,1,20,2);
-// let fish3 = new Fish(400,400,1,1,20,3);
-// let fish4 = new Fish(400,150,1,1,20,4);
