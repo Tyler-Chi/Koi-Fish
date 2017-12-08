@@ -247,16 +247,15 @@ function Fish(x,y,dx,dy,radius,id,c,foodarr){
       mc = true;
     }
 
-    // the tail of the fish
-    let tailAngle = Math.atan(this.slopes[1]);
-    c.beginPath();
-    c.ellipse(this.positions[4][0],this.positions[4][1], this.radius / 2 , this.radius / 2 , tailAngle, -Math.PI/2, Math.PI/2,cc);
-    c.fillStyle = tailColor;
-    c.fill();
 
     //the fins of the fish
+
+    let finOscillate = 0.8 + 0.2 * Math.sin(this.time);
+
     c.beginPath();
-    c.ellipse(this.positions[midpoint][0],this.positions[midpoint][1], this.radius,  0.7 * this.radius, headAngle, -Math.PI/2, Math.PI/2, cc);
+    c.ellipse(this.positions[midpoint][0],this.positions[midpoint][1], 0.5 * this.radius,  finOscillate * this.radius, headAngle, -Math.PI/2, Math.PI/2, cc);
+    c.strokeStyle = bodyColor;
+    c.lineWidth = 2;
     c.stroke();
 
     // the midsection of the fish
@@ -282,6 +281,14 @@ function Fish(x,y,dx,dy,radius,id,c,foodarr){
     c.ellipse(this.x,this.y,this.radius , this.radius /2 , headAngle, -Math.PI/2, Math.PI/2,cc);
     c.fillStyle = headColor;
     c.fill();
+
+    // the tail of the fish
+    let tailAngle = Math.atan(this.slopes[1]);
+    c.beginPath();
+    c.ellipse(this.positions[4][0],this.positions[4][1], this.radius / 2 , this.radius / 2 , tailAngle, -Math.PI/2, Math.PI/2,cc);
+    c.fillStyle = tailColor;
+    c.fill();
+
 
 
 
