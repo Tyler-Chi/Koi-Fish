@@ -200,7 +200,7 @@ animate();
 
 function Fish(x,y,dx,dy,radius,id,c,foodarr){
 
-  let colors = ['#d7dde5','#ea4504','#8e1111','#d61515','#d6149c','#f2e64d','black']
+  let colors = ['#d7dde5','#ea4504','#8e1111','#d61515','#c4ba3c','black','#d8d8d8']
   let headColor = colors[Math.round(Math.random()*(colors.length-1))]
   let bodyColor = colors[Math.round(Math.random()*(colors.length-1))]
   let tailColor = colors[Math.round(Math.random()*(colors.length-1))]
@@ -628,14 +628,22 @@ function LilyPad(x,y,c){
   this.y = y;
   this.dx = (Math.random()-0.5) * 1;
   this.dy = (Math.random()-0.5) * 1;
+  this.time = 0;
   let radius = 20;
 
 
   let startAngle = Math.random() * Math.PI * 2;
-  let endAngle = startAngle +  Math.PI ;
+
   let padColor = '#4CAF50';
 
+
   this.draw = function(){
+
+
+    startAngle += 0.009;
+
+    let endAngle = startAngle + Math.PI ;
+
     c.beginPath();
     c.arc(this.x,this.y,radius,startAngle, endAngle , false);
     c.fillStyle = padColor;
@@ -644,15 +652,32 @@ function LilyPad(x,y,c){
 
 
     c.beginPath();
-    c.arc(this.x,this.y,radius,startAngle + 1.3*(Math.PI/2) , endAngle + 1.3 * (Math.PI/2) , false);
+    c.arc(this.x,this.y,radius,startAngle + 1.7*(Math.PI/2) , endAngle + 1.7 * (Math.PI/2) , false);
     c.fillstyle = padColor;
     c.fill();
+
+    //lines on the lilypads
+
+    for (var i = 0 ; i < 5 ; i ++){
+
+      c.beginPath();
+      c.moveTo(this.x,this.y);
+      c.lineTo(this.x + (radius - 2 ) * Math.cos(startAngle + (Math.PI/2.18)*i), this.y + (radius - 2 ) * Math.sin(startAngle + (Math.PI/2.18)*i));
+      c.lineWidth = 2;
+      c.strokeStyle = '#023a03';
+      c.stroke();
+
+    }
+
+
+
 
 
 
   }
 
   this.update = function(){
+
     if (this.x > window.innerWidth - 50 || this.x < 50){
       this.dx *= -1;
     }
@@ -664,6 +689,8 @@ function LilyPad(x,y,c){
 
     this.x += this.dx;
     this.y += this.dy;
+
+
   }
 
 

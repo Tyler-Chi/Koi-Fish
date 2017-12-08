@@ -2,7 +2,7 @@
 
 function Fish(x,y,dx,dy,radius,id,c,foodarr){
 
-  let colors = ['#d7dde5','#ea4504','#8e1111','#d61515','#d6149c','#f2e64d','black']
+  let colors = ['#d7dde5','#ea4504','#8e1111','#d61515','#c4ba3c','black','#d8d8d8']
   let headColor = colors[Math.round(Math.random()*(colors.length-1))]
   let bodyColor = colors[Math.round(Math.random()*(colors.length-1))]
   let tailColor = colors[Math.round(Math.random()*(colors.length-1))]
