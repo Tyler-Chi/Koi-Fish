@@ -15,7 +15,7 @@ function Fish(x,y,dx,dy,radius,id,c,foodarr){
   this.dx = dx;
   this.dy = dy;
   this.radius = radius;
-  this.time = 0;
+  this.time = Math.random()*5;
   this.positions = [];
   this.slopes = [];
 
@@ -97,7 +97,13 @@ function Fish(x,y,dx,dy,radius,id,c,foodarr){
     //has access to foodarr
     //first find the piece of food the fish is closest to.
 
+    let chaseIndex = 0;
 
+    for (var a = 0; a < foodarr.length ; a++){
+      if (distance(this.x,this.y,foodarr[a].x,foodarr[a].y) < distance(this.x,this.y,foodarr[chaseIndex].x,foodarr[chaseIndex].y)){
+        chaseIndex = a;
+      }
+    }
 
 
 
@@ -105,8 +111,8 @@ function Fish(x,y,dx,dy,radius,id,c,foodarr){
     let turnChange = 0.3;
 
     //assume that its sorted already...
-    yDif = foodarr[0].y - this.y;
-    xDif = foodarr[0].x - this.x;
+    yDif = foodarr[chaseIndex].y - this.y;
+    xDif = foodarr[chaseIndex].x - this.x;
     angle = Math.atan(yDif/xDif);
 
 
