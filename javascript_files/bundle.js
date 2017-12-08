@@ -207,7 +207,7 @@ function Fish(x,y,dx,dy,radius,id,c,foodarr){
   let neckColor = colors[Math.round(Math.random()*(colors.length-1))]
 
 
-  this.fishLength = 23;
+  this.fishLength = Math.round(40/(dx*dx));
   this.x = x;
   this.y = y;
   this.dx = dx;
@@ -640,6 +640,8 @@ function LilyPad(x,y,c){
 
   let petalColor = Math.round(Math.random() * (petalColors.length-1));
 
+  let petalLength = 12 + Math.random()*4;
+
 
   this.draw = function(){
 
@@ -677,7 +679,7 @@ function LilyPad(x,y,c){
 
     for (var i = 0 ; i < 8 ; i++){
       c.beginPath();
-      c.ellipse(this.x,this.y, 3, 12 , startAngle + (2 * Math.PI/8)* i  , 0 , Math.PI, true);
+      c.ellipse(this.x,this.y, 3, petalLength , startAngle + (2 * Math.PI/8)* i  , 0 , Math.PI, true);
       c.fillStyle = petalColors[petalColor]
       c.fill();
 

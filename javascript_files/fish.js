@@ -9,7 +9,7 @@ function Fish(x,y,dx,dy,radius,id,c,foodarr){
   let neckColor = colors[Math.round(Math.random()*(colors.length-1))]
 
 
-  this.fishLength = 23;
+  this.fishLength = Math.round(40/(dx*dx));
   this.x = x;
   this.y = y;
   this.dx = dx;
