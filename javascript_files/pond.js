@@ -1,6 +1,7 @@
 
 import Fish  from './fish.js';
 import Food from './food.js';
+import LilyPad from './lilypad.js';
 
 var canvas = document.querySelector('canvas')
 canvas.width = window.innerWidth;
@@ -33,8 +34,8 @@ window.addEventListener('click', function(e){
 
 window.addEventListener("keypress",function(event){
   if (event.code === "Space"){
-    let foodX = (0.2 + Math.random() * 0.6 ) * innerWidth;
-    let foodY = (0.2 + Math.random() * 0.6 ) * innerHeight;
+    let foodX = (0.2 + Math.random() * 0.55 ) * innerWidth;
+    let foodY = (0.2 + Math.random() * 0.55 ) * innerHeight;
     foods.push(new Food(foodX,foodY,5,c))
   }
 })
@@ -62,6 +63,14 @@ for (var i = 0 ; i < 50; i++){
   fishes.push(new Fish(x,y,dx,dy,radius ,i,c,foods))
 }
 
+let pads = [];
+for (var p = 0 ; p < 5 ; p++){
+
+  x = (0.2 + 0.5 * Math.random()) * innerWidth
+  y = (0.2 + 0.5 * Math.random()) * innerHeight
+
+  pads.push(new LilyPad(x,y,c));
+}
 
 
 
@@ -81,8 +90,9 @@ function animate(){
     fishes[i].do();
   }
 
-
-
+  for (var k = 0 ; k < pads.length ; k++){
+    pads[k].do();
+  }
 
 }
 

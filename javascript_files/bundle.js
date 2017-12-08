@@ -71,6 +71,8 @@
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__fish_js__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__food_js__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__lilypad_js__ = __webpack_require__(3);
+
 
 
 
@@ -106,8 +108,8 @@ window.addEventListener('click', function(e){
 
 window.addEventListener("keypress",function(event){
   if (event.code === "Space"){
-    let foodX = (0.2 + Math.random() * 0.6 ) * innerWidth;
-    let foodY = (0.2 + Math.random() * 0.6 ) * innerHeight;
+    let foodX = (0.2 + Math.random() * 0.55 ) * innerWidth;
+    let foodY = (0.2 + Math.random() * 0.55 ) * innerHeight;
     foods.push(new __WEBPACK_IMPORTED_MODULE_1__food_js__["a" /* default */](foodX,foodY,5,c))
   }
 })
@@ -135,6 +137,14 @@ for (var i = 0 ; i < 50; i++){
   fishes.push(new __WEBPACK_IMPORTED_MODULE_0__fish_js__["a" /* default */](x,y,dx,dy,radius ,i,c,foods))
 }
 
+let pads = [];
+for (var p = 0 ; p < 5 ; p++){
+
+  x = (0.2 + 0.5 * Math.random()) * innerWidth
+  y = (0.2 + 0.5 * Math.random()) * innerHeight
+
+  pads.push(new __WEBPACK_IMPORTED_MODULE_2__lilypad_js__["a" /* default */](x,y,c));
+}
 
 
 
@@ -154,8 +164,9 @@ function animate(){
     fishes[i].do();
   }
 
-
-
+  for (var k = 0 ; k < pads.length ; k++){
+    pads[k].do();
+  }
 
 }
 
@@ -524,19 +535,29 @@ function Food(x,y,radius,c){
   this.x = x;
   this.y = y;
   this.radius = radius;
+  this.dx = (Math.random()-0.5) * 2;
+  this.dy = (Math.random()-0.5) * 2;
 
 
   this.draw = function() {
     c.beginPath();
     c.arc(this.x,this.y,this.radius, 0, Math.PI * 2 , false);
-    c.fillStyle = '#68f442';
+    c.fillStyle = '#e0ac28';
     c.fill();
-    c.stroke();
   }
 
   this.update = function() {
-    this.x += (Math.random()-0.5) *foodDrift;
-    this.y += (Math.random()-0.5) *foodDrift;
+
+    if (this.x < 0.9 * innerWidth && this.x > 0.1 * innerWidth){
+      this.x += this.dx;
+    }
+
+    if (this.y < 0.9 * innerHeight && this.y > 0.1 * innerHeight){
+      this.y += this.dy;
+    }
+
+
+
   }
 
   this.do = function() {
@@ -548,6 +569,37 @@ function Food(x,y,radius,c){
 }
 
 /* harmony default export */ __webpack_exports__["a"] = (Food);
+
+
+/***/ }),
+/* 3 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+
+
+function LilyPad(x,y,c){
+
+  this.x = x;
+  this.y = y;
+  let startAngle = Math.random() * Math.PI * 2;
+  let endAngle = startAngle + (3/2) * Math.PI;
+
+  this.draw = function(){
+    c.beginPath();
+    c.arc(this.x,this.y,15,startAngle, endAngle , false);
+    c.fillStyle = '#0f772d';
+    c.fill();
+  }
+
+  this.do = function(){
+    this.draw();
+  }
+
+
+}
+
+/* harmony default export */ __webpack_exports__["a"] = (LilyPad);
 
 
 /***/ })
