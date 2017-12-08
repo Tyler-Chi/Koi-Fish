@@ -64,10 +64,10 @@ for (var i = 0 ; i < 50; i++){
 }
 
 let pads = [];
-for (var p = 0 ; p < 5 ; p++){
+for (var p = 0 ; p < 10 ; p++){
 
-  x = (0.2 + 0.5 * Math.random()) * innerWidth
-  y = (0.2 + 0.5 * Math.random()) * innerHeight
+  x = (0.1 + 0.9 * Math.random()) * innerWidth
+  y = (0.1 + 0.9 * Math.random()) * innerHeight
 
   pads.push(new LilyPad(x,y,c));
 }
