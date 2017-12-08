@@ -63,8 +63,8 @@ for (var i = 0 ; i < 50; i++){
   x = (0.2 + 0.5 * Math.random()) * innerWidth
   y = (0.2 + 0.5 * Math.random()) * innerHeight
 
-  dx = 1.5 ;
-  dy = 1.5 ;
+  dx = 1.3 ;
+  dy = 1.3 ;
 
   radius = 18;
 
@@ -72,7 +72,7 @@ for (var i = 0 ; i < 50; i++){
 }
 
 let pads = [];
-for (var p = 0 ; p < 10 ; p++){
+for (var p = 0 ; p < 15 ; p++){
 
   x = (0.1 + 0.9 * Math.random()) * innerWidth
   y = (0.1 + 0.9 * Math.random()) * innerHeight

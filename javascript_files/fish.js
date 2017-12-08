@@ -2,14 +2,14 @@
 
 function Fish(x,y,dx,dy,radius,id,c,foodarr){
 
-  let colors = ['#d7dde5','#ea4504','#8e1111','#d61515','#c4ba3c','black','#d8d8d8']
+  let colors = ['#d7dde5','#ea4504','#8e1111','#d61515','#c4ba3c','black','#d8d8d8','white']
   let headColor = colors[Math.round(Math.random()*(colors.length-1))]
   let bodyColor = colors[Math.round(Math.random()*(colors.length-1))]
   let tailColor = colors[Math.round(Math.random()*(colors.length-1))]
   let neckColor = colors[Math.round(Math.random()*(colors.length-1))]
 
 
-  this.fishLength = 20;
+  this.fishLength = 23;
   this.x = x;
   this.y = y;
   this.dx = dx;

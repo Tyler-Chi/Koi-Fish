@@ -49,9 +49,9 @@ function LilyPad(x,y,c){
 
     //petals on the lilypads
 
-    for (var i = 0 ; i < 5 ; i++){
+    for (var i = 0 ; i < 8 ; i++){
       c.beginPath();
-      c.ellipse(this.x,this.y, 3, 12 , startAngle + (Math.PI/1.25)* i  , 0 , Math.PI, true);
+      c.ellipse(this.x,this.y, 3, 12 , startAngle + (2 * Math.PI/8)* i  , 0 , Math.PI, true);
       c.fillStyle = '#ed0bad';
       c.strokeStyle = 'black';
       c.fill();
@@ -61,7 +61,7 @@ function LilyPad(x,y,c){
     //the middle part of the flower
     c.beginPath();
     c.arc(this.x,this.y,radius/4,0,2*Math.PI,false);
-    c.fillStyle = '#fcff7a';
+    c.fillStyle = '#fffa00';
     c.fill();
     // c.lineWidth = 0.5;
     // c.stroke();

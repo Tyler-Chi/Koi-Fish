@@ -137,8 +137,8 @@ for (var i = 0 ; i < 50; i++){
   x = (0.2 + 0.5 * Math.random()) * innerWidth
   y = (0.2 + 0.5 * Math.random()) * innerHeight
 
-  dx = 1.5 ;
-  dy = 1.5 ;
+  dx = 1.3 ;
+  dy = 1.3 ;
 
   radius = 18;
 
@@ -146,7 +146,7 @@ for (var i = 0 ; i < 50; i++){
 }
 
 let pads = [];
-for (var p = 0 ; p < 10 ; p++){
+for (var p = 0 ; p < 15 ; p++){
 
   x = (0.1 + 0.9 * Math.random()) * innerWidth
   y = (0.1 + 0.9 * Math.random()) * innerHeight
@@ -200,14 +200,14 @@ animate();
 
 function Fish(x,y,dx,dy,radius,id,c,foodarr){
 
-  let colors = ['#d7dde5','#ea4504','#8e1111','#d61515','#c4ba3c','black','#d8d8d8']
+  let colors = ['#d7dde5','#ea4504','#8e1111','#d61515','#c4ba3c','black','#d8d8d8','white']
   let headColor = colors[Math.round(Math.random()*(colors.length-1))]
   let bodyColor = colors[Math.round(Math.random()*(colors.length-1))]
   let tailColor = colors[Math.round(Math.random()*(colors.length-1))]
   let neckColor = colors[Math.round(Math.random()*(colors.length-1))]
 
 
-  this.fishLength = 20;
+  this.fishLength = 23;
   this.x = x;
   this.y = y;
   this.dx = dx;
@@ -671,9 +671,9 @@ function LilyPad(x,y,c){
 
     //petals on the lilypads
 
-    for (var i = 0 ; i < 5 ; i++){
+    for (var i = 0 ; i < 8 ; i++){
       c.beginPath();
-      c.ellipse(this.x,this.y, 3, 12 , startAngle + (Math.PI/1.25)* i  , 0 , Math.PI, true);
+      c.ellipse(this.x,this.y, 3, 12 , startAngle + (2 * Math.PI/8)* i  , 0 , Math.PI, true);
       c.fillStyle = '#ed0bad';
       c.strokeStyle = 'black';
       c.fill();
@@ -683,7 +683,7 @@ function LilyPad(x,y,c){
     //the middle part of the flower
     c.beginPath();
     c.arc(this.x,this.y,radius/4,0,2*Math.PI,false);
-    c.fillStyle = '#fcff7a';
+    c.fillStyle = '#fffa00';
     c.fill();
     // c.lineWidth = 0.5;
     // c.stroke();
