@@ -33,7 +33,8 @@ window.addEventListener('click', function(e){
 })
 
 window.addEventListener("keypress",function(event){
-  if (event.code === "Space"){
+  console.log(event);
+  if (event.code === "KeyF"){
     let foodX = (0.2 + Math.random() * 0.55 ) * innerWidth;
     let foodY = (0.2 + Math.random() * 0.55 ) * innerHeight;
     foods.push(new Food(foodX,foodY,5,c))

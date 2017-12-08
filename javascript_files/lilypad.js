@@ -4,14 +4,14 @@ function LilyPad(x,y,c){
 
   this.x = x;
   this.y = y;
-  this.dx = (Math.random()-0.5) * 2;
-  this.dy = (Math.random()-0.5) * 2;
+  this.dx = (Math.random()-0.5) * 1;
+  this.dy = (Math.random()-0.5) * 1;
   let radius = 20;
 
 
   let startAngle = Math.random() * Math.PI * 2;
   let endAngle = startAngle +  Math.PI ;
-  let padColor = '#87bf67';
+  let padColor = '#4CAF50';
 
   this.draw = function(){
     c.beginPath();
@@ -22,7 +22,7 @@ function LilyPad(x,y,c){
 
 
     c.beginPath();
-    c.arc(this.x,this.y,radius,startAngle + 1.2*(Math.PI/2) , endAngle + 1.2 * (Math.PI/2) , false);
+    c.arc(this.x,this.y,radius,startAngle + 1.3*(Math.PI/2) , endAngle + 1.3 * (Math.PI/2) , false);
     c.fillstyle = padColor;
     c.fill();
 
