@@ -14,7 +14,7 @@ function LilyPad(x,y,c){
 
   let padColor = '#4CAF50';
 
-  let petalColors = ['#ff00fa','#8c00ff','#520c8c','#e00ba7','#ff35e4']
+  let petalColors = ['#ff00fa','#8c00ff','#ce3b63','#e00ba7','#ff35e4','#7c1531','#7c1531']
 
   let petalColor = Math.round(Math.random() * (petalColors.length-1));
 
