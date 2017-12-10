@@ -293,6 +293,8 @@ function Fish(x,y,dx,dy,radius,id,c,foodarr){
 
     // the tail of the fish
     let tailAngle = Math.atan(this.slopes[1]);
+
+
     c.beginPath();
     c.ellipse(this.positions[4][0],this.positions[4][1], this.radius / 2 , this.radius / 2 , tailAngle, -Math.PI/2, Math.PI/2,cc);
     c.fillStyle = tailColor;
