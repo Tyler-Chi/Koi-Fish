@@ -2,9 +2,9 @@ function Fish(x, y, dx, dy, radius, id, c, foodarr) {
   let colors = [
     "#d7dde5",
     "#ea4504",
-    "#8e1111",
+    "#d8d215",
     "#d61515",
-    "#f4ec00",
+    "#ff9400",
     "black",
     "#d8d8d8",
     "white"
@@ -37,7 +37,12 @@ function Fish(x, y, dx, dy, radius, id, c, foodarr) {
     }
 
     this.positions.push([this.x, this.y]);
-    this.slopes.push(this.dy / this.dx);
+
+    if (this.dx === 0) {
+      this.slopes.push(this.dy / 0.0000000001);
+    } else {
+      this.slopes.push(this.dy / this.dx);
+    }
 
     if (this.positions.length > this.fishLength) {
       this.positions.shift();
