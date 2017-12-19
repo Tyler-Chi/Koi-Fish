@@ -39,7 +39,7 @@ function Fish(x, y, dx, dy, radius, id, c, foodarr) {
     this.positions.push([this.x, this.y]);
 
     if (this.dx === 0) {
-      this.slopes.push(this.dy / 0.0000000001);
+      this.slopes.push(this.dy / 0.001);
     } else {
       this.slopes.push(this.dy / this.dx);
     }
