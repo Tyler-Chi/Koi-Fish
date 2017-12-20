@@ -14,7 +14,6 @@ function Fish(x, y, dx, dy, radius, id, c, foodarr) {
   let tailColor = colors[Math.round(Math.random() * (colors.length - 1))];
   let neckColor = colors[Math.round(Math.random() * (colors.length - 1))];
 
-  this.fishLength = Math.round(40 / (dx * dx));
   this.x = x;
   this.y = y;
   this.dx = dx;
@@ -23,10 +22,12 @@ function Fish(x, y, dx, dy, radius, id, c, foodarr) {
   this.time = Math.random() * 5;
   this.positions = [];
   this.slopes = [];
-
+  
   let totalSpeed = Math.sqrt(dx * dx + dy * dy);
-
+  
   this.speed = this.dx * this.dx + this.dy + this.dy;
+  
+  this.fishLength = Math.round(40 / (Math.sqrt(this.speed/1.4)));
 
   this.record = function() {
     //initialize the fish at time 0
@@ -45,7 +46,7 @@ function Fish(x, y, dx, dy, radius, id, c, foodarr) {
     }
 
     if (this.positions.length > this.fishLength) {
-      this.positions.shift();
+      this.positions = this.positions.slice(this.positions.length - this.fishLength)
     }
 
     if (this.slopes.length > this.fishLength + 1) {
