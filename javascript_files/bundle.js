@@ -132,7 +132,7 @@ let yCoor;
 let dx;
 let dy;
 
-for (var i = 0 ; i < 10; i++){
+for (var i = 0 ; i < 30; i++){
 
   x = (0.2 + 0.5 * Math.random()) * innerWidth
   y = (0.2 + 0.5 * Math.random()) * innerHeight
@@ -225,7 +225,7 @@ function Fish(x, y, dx, dy, radius, id, c, foodarr) {
   
   this.speed = this.dx * this.dx + this.dy + this.dy;
   
-  this.fishLength = Math.round(40 / (Math.sqrt(this.speed/0.65)));
+  this.fishLength = Math.round(40 / (Math.sqrt(this.speed)));
 
   this.record = function() {
     //initialize the fish at time 0
@@ -238,7 +238,7 @@ function Fish(x, y, dx, dy, radius, id, c, foodarr) {
     this.positions.push([this.x, this.y]);
 
     if (this.dx === 0) {
-      this.slopes.push(this.dy / 0.1);
+      this.slopes.push(this.dy/0.0000001);
     } else {
       this.slopes.push(this.dy / this.dx);
     }
@@ -330,6 +330,11 @@ function Fish(x, y, dx, dy, radius, id, c, foodarr) {
 
     // the tail of the fish
     let tailAngle = Math.atan(this.slopes[1]);
+
+
+    if (Math.abs(tailAngle) > 1.5){
+      cc *= -1;
+    }
 
     c.beginPath();
     c.ellipse(
