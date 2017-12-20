@@ -132,7 +132,7 @@ let yCoor;
 let dx;
 let dy;
 
-for (var i = 0 ; i < 50; i++){
+for (var i = 0 ; i < 10; i++){
 
   x = (0.2 + 0.5 * Math.random()) * innerWidth
   y = (0.2 + 0.5 * Math.random()) * innerHeight
@@ -212,7 +212,6 @@ function Fish(x, y, dx, dy, radius, id, c, foodarr) {
   let tailColor = colors[Math.round(Math.random() * (colors.length - 1))];
   let neckColor = colors[Math.round(Math.random() * (colors.length - 1))];
 
-  this.fishLength = Math.round(40 / (dx * dx));
   this.x = x;
   this.y = y;
   this.dx = dx;
@@ -221,10 +220,12 @@ function Fish(x, y, dx, dy, radius, id, c, foodarr) {
   this.time = Math.random() * 5;
   this.positions = [];
   this.slopes = [];
-
+  
   let totalSpeed = Math.sqrt(dx * dx + dy * dy);
-
+  
   this.speed = this.dx * this.dx + this.dy + this.dy;
+  
+  this.fishLength = Math.round(40 / (Math.sqrt(this.speed/0.65)));
 
   this.record = function() {
     //initialize the fish at time 0
@@ -237,13 +238,13 @@ function Fish(x, y, dx, dy, radius, id, c, foodarr) {
     this.positions.push([this.x, this.y]);
 
     if (this.dx === 0) {
-      this.slopes.push(this.dy / 0.001);
+      this.slopes.push(this.dy / 0.1);
     } else {
       this.slopes.push(this.dy / this.dx);
     }
 
-    if (this.positions.length > this.fishLength) {
-      this.positions.shift();
+    if (this.positions.length >= this.fishLength) {
+      this.positions = this.positions.slice(this.positions.length - this.fishLength - 5 )
     }
 
     if (this.slopes.length > this.fishLength + 1) {
@@ -385,9 +386,9 @@ function Fish(x, y, dx, dy, radius, id, c, foodarr) {
       foodDir = -1;
     }
 
-    this.dfy = totalSpeed * Math.sin(angle) * foodDir;
-    this.dfx = totalSpeed * Math.cos(angle) * foodDir;
-
+    this.dfy = (totalSpeed * Math.sin(angle) * foodDir) ;
+    this.dfx = (totalSpeed * Math.cos(angle) * foodDir) ;
+;
     //eat the food
 
     for (var f = 0; f < foodarr.length; f++) {
