@@ -77,54 +77,74 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 
+var heightPercentage = 1;
 
 var canvas = document.querySelector('canvas')
 canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
-
-var c = canvas.getContext('2d');
-
-var fishes = [];
-var foods = [];
-
-createFishes(30,foods,c)
-
-
-var fishCountSliderEl = document.getElementsByClassName('slider')[0];
-var currentFishCountEl = document.getElementById('currentFishes');
-
-currentFishCountEl.innerHTML = fishCountSliderEl.value;
-var fishCount = parseInt(fishCountSliderEl.value)
-
-fishCountSliderEl.oninput = function(){
-  fishCount = parseInt(this.value);
-  console.log('fishCount',fishCount);
-  createFishes(fishCount,foods,c)
-  currentFishCountEl.innerHTML = this.value;
-}
-
+canvas.height = window.innerHeight * heightPercentage;
 
 window.addEventListener('resize', function(){
   canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
+  canvas.height = window.innerHeight * heightPercentage;
 })
+var c = canvas.getContext('2d');
+
 
 var mouse = {
   x: undefined,
   y: undefined
 }
 
+var fishes = [];
+var foods = [];
+var pads = [];
+
+createFishes(30,foods,c)
+createPads(10,c)
+
+
+var fishCountSliderEl = document.getElementsByClassName('slider')[0];
+var currentFishCountEl = document.getElementById('currentFishes');
+currentFishCountEl.innerHTML = fishCountSliderEl.value;
+var fishCount = parseInt(fishCountSliderEl.value)
+
+fishCountSliderEl.oninput = function(){
+  fishCount = parseInt(this.value);
+  createFishes(fishCount,foods,c)
+  currentFishCountEl.innerHTML = this.value;
+}
+
+var lilypadCountSliderEl = document.getElementsByClassName('slider')[1];
+var currentPadCountEl = document.getElementById('currentLilypads');
+currentPadCountEl.innerHTML = lilypadCountSliderEl.value;
+var padCount = parseInt(lilypadCountSliderEl.value);
+
+lilypadCountSliderEl.oninput = function(){
+  padCount = parseInt(this.value);
+  createPads(padCount,c);
+  currentPadCountEl.innerHTML = this.value;
+}
+
+
+
+
 canvas.addEventListener('mousemove', function(event){
   mouse.x = event.x;
   mouse.y = event.y;
 })
 
-//handle the food logic
 
 
 window.addEventListener('click', function(e){
-  console.log(mouse);
-  foods.push(new __WEBPACK_IMPORTED_MODULE_1__food_js__["a" /* default */](mouse.x,mouse.y,5,c))
+
+  if (mouse.y > 0.1 * innerHeight){
+
+    console.log('y',mouse.y);
+    console.log('innerHeight',window.innerHeight);
+
+    foods.push(new __WEBPACK_IMPORTED_MODULE_1__food_js__["a" /* default */](mouse.x,mouse.y,5,c))
+  }
+
 })
 
 window.addEventListener("keypress",function(event){
@@ -154,20 +174,16 @@ function createFishes(fishCount,foods,c){
     let radius = 18;
 
     fishes.push(new __WEBPACK_IMPORTED_MODULE_0__fish_js__["a" /* default */](dx,dy,radius ,i,c,foods))
-    console.log('fishes',fishes);
   }
 }
 
 
-
-
-let pads = [];
-for (var p = 0 ; p < 15 ; p++){
-
-
-  pads.push(new __WEBPACK_IMPORTED_MODULE_2__lilypad_js__["a" /* default */](c));
+function createPads(padCount,c){
+  pads = [];
+  for (var p = 0 ; p < padCount ; p++){
+    pads.push(new __WEBPACK_IMPORTED_MODULE_2__lilypad_js__["a" /* default */](c));
+  }
 }
-
 
 
 
@@ -189,16 +205,6 @@ function animate(){
   for (var k = 0 ; k < pads.length ; k++){
     pads[k].do();
   }
-
-
-  c.font = "25px Comic Sans MS";
-  c.fillStyle = "black";
-  c.fillText("Welcome to Bit Koi!", canvas.width/2.5 , 30)
-
-  c.font = "15px Comic Sans MS";
-  c.fillStyle = "black";
-  c.fillText("(click to place food, F to spread food randomly)", canvas.width/2.7  , 65)
-
 
 }
 
@@ -225,9 +231,11 @@ function Fish(dx, dy, radius, id, c, foodarr) {
   let bodyColor = colors[Math.round(Math.random() * (colors.length - 1))];
   let tailColor = colors[Math.round(Math.random() * (colors.length - 1))];
   let neckColor = colors[Math.round(Math.random() * (colors.length - 1))];
+  let width = c.canvas.width;
+  let height = c.canvas.height;
 
-  this.x = (0.2 + 0.6 * Math.random()) * innerWidth;
-  this.y = (0.2 + 0.6 * Math.random()) * innerHeight;
+  this.x = (0.2 + 0.6 * Math.random()) * width;
+  this.y = (0.2 + 0.6 * Math.random()) * height;
   this.dx = dx;
   this.dy = dy;
   this.radius = radius;
@@ -439,12 +447,12 @@ function Fish(dx, dy, radius, id, c, foodarr) {
     //try making the motion more smooth
 
     // if it goes too close to the right boundary and its still moving towards that boundary...
-    if (this.x + this.radius > 0.93 * innerWidth) {
+    if (this.x + this.radius > 0.93 * width) {
       //the fish is moving towards the boundary
       if (this.dx > 0) {
-        if (this.x + this.radius > 0.97 * innerWidth) {
+        if (this.x + this.radius > 0.97 * width) {
           this.dx *= 0.1;
-        } else if (this.x + this.radius > 0.95 * innerWidth) {
+        } else if (this.x + this.radius > 0.95 * width) {
           this.dx *= 0.2;
         } else {
           this.dx *= 0.8;
@@ -452,7 +460,7 @@ function Fish(dx, dy, radius, id, c, foodarr) {
       }
 
       if (this.dx < 0) {
-        if (this.x + this.radius > 0.95 * innerWidth) {
+        if (this.x + this.radius > 0.95 * width) {
           this.dx = -1 * 0.1 * dx;
         } else {
           this.dx = -1 * 0.2 * dx;
@@ -460,12 +468,12 @@ function Fish(dx, dy, radius, id, c, foodarr) {
       }
     }
 
-    if (this.x - this.radius < 0.07 * innerWidth) {
+    if (this.x - this.radius < 0.07 * width) {
       //the fish is moving towards the boundary
       if (this.dx < 0) {
-        if (this.x - this.radius < 0.03 * innerWidth) {
+        if (this.x - this.radius < 0.03 * width) {
           this.dx *= 0.1;
-        } else if (this.x - this.radius < 0.05 * innerWidth) {
+        } else if (this.x - this.radius < 0.05 * width) {
           this.dx *= 0.2;
         } else {
           this.dx *= 0.8;
@@ -473,7 +481,7 @@ function Fish(dx, dy, radius, id, c, foodarr) {
       }
 
       if (this.dx > 0) {
-        if (this.x + this.radius < 0.05 * innerWidth) {
+        if (this.x + this.radius < 0.05 * width) {
           this.dx = 0.1 * dx;
         } else {
           this.dx = 0.2 * dx;
@@ -485,7 +493,7 @@ function Fish(dx, dy, radius, id, c, foodarr) {
 
     //lower boundary
 
-    if (this.y + this.radius > 0.935 * innerHeight) {
+    if (this.y + this.radius > 0.935 * height) {
       //moving towards the border
 
       if (Math.abs(this.dy) < 0.1 * dy) {
@@ -493,9 +501,9 @@ function Fish(dx, dy, radius, id, c, foodarr) {
         this.dx *= 1.5;
       }
       if (this.dy > 0) {
-        if (this.y + this.radius > 0.97 * innerHeight) {
+        if (this.y + this.radius > 0.97 * height) {
           this.dy *= 0.3;
-        } else if (this.y + this.radius > 0.95 * innerHeight) {
+        } else if (this.y + this.radius > 0.95 * height) {
           this.dy *= 0.6;
         } else {
           this.dy *= 0.8;
@@ -509,16 +517,16 @@ function Fish(dx, dy, radius, id, c, foodarr) {
 
     //upper boundary
 
-    if (this.y - this.radius < 0.065 * innerHeight) {
+    if (this.y - this.radius < 0.065 * height) {
       if (Math.abs(this.dy) < 0.1 * dy) {
         this.dy = 0.5 * dy;
         this.dx *= 1.5;
       }
 
       if (this.dy < 0) {
-        if (this.y - this.radius < 0.03 * innerHeight) {
+        if (this.y - this.radius < 0.03 * height) {
           this.dy *= 0.3;
-        } else if (this.y - this.radius < 0.05 * innerHeight) {
+        } else if (this.y - this.radius < 0.05 * height) {
           this.dy *= 0.6;
         } else {
           this.dy *= 0.8;
@@ -533,15 +541,15 @@ function Fish(dx, dy, radius, id, c, foodarr) {
     //once it really hits the edge, it should make a u turn.
 
     if (
-      this.x + this.radius > 0.98 * innerWidth ||
-      this.x - this.radius < 0.02 * innerWidth
+      this.x + this.radius > 0.98 * width ||
+      this.x - this.radius < 0.02 * width
     ) {
       this.dx = -this.dx;
     }
 
     if (
-      this.y + this.radius > 0.98 * innerHeight ||
-      this.y - this.radius < 0.02 * innerHeight
+      this.y + this.radius > 0.98 * height ||
+      this.y - this.radius < 0.02 * height
     ) {
       this.dy = -this.dy;
     }
@@ -652,8 +660,10 @@ function Food(x,y,radius,c){
 
 "use strict";
 function LilyPad(c) {
-  this.x = (0.1 + 0.9 * Math.random()) * innerWidth;
-  this.y = (0.1 + 0.9 * Math.random()) * innerHeight;
+  let width = c.canvas.width;
+  let height = c.canvas.height;
+  this.x = (0.2 + 0.65 * Math.random()) * c.canvas.width;
+  this.y = (0.2 + 0.65 * Math.random()) * c.canvas.height;
   this.dx = (Math.random() - 0.5) * 1;
   this.dy = (Math.random() - 0.5) * 1;
   this.time = 0;
@@ -755,11 +765,11 @@ function LilyPad(c) {
   };
 
   this.update = function() {
-    if (this.x > window.innerWidth - 50 || this.x < 50) {
+    if (this.x > width - 50 || this.x < 50) {
       this.dx *= -1;
     }
 
-    if (this.y > window.innerHeight - 50 || this.y < 50) {
+    if (this.y > height - 50 || this.y < 50) {
       this.dy *= -1;
     }
 

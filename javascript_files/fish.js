@@ -13,9 +13,11 @@ function Fish(dx, dy, radius, id, c, foodarr) {
   let bodyColor = colors[Math.round(Math.random() * (colors.length - 1))];
   let tailColor = colors[Math.round(Math.random() * (colors.length - 1))];
   let neckColor = colors[Math.round(Math.random() * (colors.length - 1))];
+  let width = c.canvas.width;
+  let height = c.canvas.height;
 
-  this.x = (0.2 + 0.6 * Math.random()) * innerWidth;
-  this.y = (0.2 + 0.6 * Math.random()) * innerHeight;
+  this.x = (0.2 + 0.6 * Math.random()) * width;
+  this.y = (0.2 + 0.6 * Math.random()) * height;
   this.dx = dx;
   this.dy = dy;
   this.radius = radius;
@@ -227,12 +229,12 @@ function Fish(dx, dy, radius, id, c, foodarr) {
     //try making the motion more smooth
 
     // if it goes too close to the right boundary and its still moving towards that boundary...
-    if (this.x + this.radius > 0.93 * innerWidth) {
+    if (this.x + this.radius > 0.93 * width) {
       //the fish is moving towards the boundary
       if (this.dx > 0) {
-        if (this.x + this.radius > 0.97 * innerWidth) {
+        if (this.x + this.radius > 0.97 * width) {
           this.dx *= 0.1;
-        } else if (this.x + this.radius > 0.95 * innerWidth) {
+        } else if (this.x + this.radius > 0.95 * width) {
           this.dx *= 0.2;
         } else {
           this.dx *= 0.8;
@@ -240,7 +242,7 @@ function Fish(dx, dy, radius, id, c, foodarr) {
       }
 
       if (this.dx < 0) {
-        if (this.x + this.radius > 0.95 * innerWidth) {
+        if (this.x + this.radius > 0.95 * width) {
           this.dx = -1 * 0.1 * dx;
         } else {
           this.dx = -1 * 0.2 * dx;
@@ -248,12 +250,12 @@ function Fish(dx, dy, radius, id, c, foodarr) {
       }
     }
 
-    if (this.x - this.radius < 0.07 * innerWidth) {
+    if (this.x - this.radius < 0.07 * width) {
       //the fish is moving towards the boundary
       if (this.dx < 0) {
-        if (this.x - this.radius < 0.03 * innerWidth) {
+        if (this.x - this.radius < 0.03 * width) {
           this.dx *= 0.1;
-        } else if (this.x - this.radius < 0.05 * innerWidth) {
+        } else if (this.x - this.radius < 0.05 * width) {
           this.dx *= 0.2;
         } else {
           this.dx *= 0.8;
@@ -261,7 +263,7 @@ function Fish(dx, dy, radius, id, c, foodarr) {
       }
 
       if (this.dx > 0) {
-        if (this.x + this.radius < 0.05 * innerWidth) {
+        if (this.x + this.radius < 0.05 * width) {
           this.dx = 0.1 * dx;
         } else {
           this.dx = 0.2 * dx;
@@ -273,7 +275,7 @@ function Fish(dx, dy, radius, id, c, foodarr) {
 
     //lower boundary
 
-    if (this.y + this.radius > 0.935 * innerHeight) {
+    if (this.y + this.radius > 0.935 * height) {
       //moving towards the border
 
       if (Math.abs(this.dy) < 0.1 * dy) {
@@ -281,9 +283,9 @@ function Fish(dx, dy, radius, id, c, foodarr) {
         this.dx *= 1.5;
       }
       if (this.dy > 0) {
-        if (this.y + this.radius > 0.97 * innerHeight) {
+        if (this.y + this.radius > 0.97 * height) {
           this.dy *= 0.3;
-        } else if (this.y + this.radius > 0.95 * innerHeight) {
+        } else if (this.y + this.radius > 0.95 * height) {
           this.dy *= 0.6;
         } else {
           this.dy *= 0.8;
@@ -297,16 +299,16 @@ function Fish(dx, dy, radius, id, c, foodarr) {
 
     //upper boundary
 
-    if (this.y - this.radius < 0.065 * innerHeight) {
+    if (this.y - this.radius < 0.065 * height) {
       if (Math.abs(this.dy) < 0.1 * dy) {
         this.dy = 0.5 * dy;
         this.dx *= 1.5;
       }
 
       if (this.dy < 0) {
-        if (this.y - this.radius < 0.03 * innerHeight) {
+        if (this.y - this.radius < 0.03 * height) {
           this.dy *= 0.3;
-        } else if (this.y - this.radius < 0.05 * innerHeight) {
+        } else if (this.y - this.radius < 0.05 * height) {
           this.dy *= 0.6;
         } else {
           this.dy *= 0.8;
@@ -321,15 +323,15 @@ function Fish(dx, dy, radius, id, c, foodarr) {
     //once it really hits the edge, it should make a u turn.
 
     if (
-      this.x + this.radius > 0.98 * innerWidth ||
-      this.x - this.radius < 0.02 * innerWidth
+      this.x + this.radius > 0.98 * width ||
+      this.x - this.radius < 0.02 * width
     ) {
       this.dx = -this.dx;
     }
 
     if (
-      this.y + this.radius > 0.98 * innerHeight ||
-      this.y - this.radius < 0.02 * innerHeight
+      this.y + this.radius > 0.98 * height ||
+      this.y - this.radius < 0.02 * height
     ) {
       this.dy = -this.dy;
     }

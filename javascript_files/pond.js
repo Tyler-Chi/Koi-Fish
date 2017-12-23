@@ -3,54 +3,74 @@ import Fish  from './fish.js';
 import Food from './food.js';
 import LilyPad from './lilypad.js';
 
+var heightPercentage = 1;
 
 var canvas = document.querySelector('canvas')
 canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
-
-var c = canvas.getContext('2d');
-
-var fishes = [];
-var foods = [];
-
-createFishes(30,foods,c)
-
-
-var fishCountSliderEl = document.getElementsByClassName('slider')[0];
-var currentFishCountEl = document.getElementById('currentFishes');
-
-currentFishCountEl.innerHTML = fishCountSliderEl.value;
-var fishCount = parseInt(fishCountSliderEl.value)
-
-fishCountSliderEl.oninput = function(){
-  fishCount = parseInt(this.value);
-  console.log('fishCount',fishCount);
-  createFishes(fishCount,foods,c)
-  currentFishCountEl.innerHTML = this.value;
-}
-
+canvas.height = window.innerHeight * heightPercentage;
 
 window.addEventListener('resize', function(){
   canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
+  canvas.height = window.innerHeight * heightPercentage;
 })
+var c = canvas.getContext('2d');
+
 
 var mouse = {
   x: undefined,
   y: undefined
 }
 
+var fishes = [];
+var foods = [];
+var pads = [];
+
+createFishes(30,foods,c)
+createPads(10,c)
+
+
+var fishCountSliderEl = document.getElementsByClassName('slider')[0];
+var currentFishCountEl = document.getElementById('currentFishes');
+currentFishCountEl.innerHTML = fishCountSliderEl.value;
+var fishCount = parseInt(fishCountSliderEl.value)
+
+fishCountSliderEl.oninput = function(){
+  fishCount = parseInt(this.value);
+  createFishes(fishCount,foods,c)
+  currentFishCountEl.innerHTML = this.value;
+}
+
+var lilypadCountSliderEl = document.getElementsByClassName('slider')[1];
+var currentPadCountEl = document.getElementById('currentLilypads');
+currentPadCountEl.innerHTML = lilypadCountSliderEl.value;
+var padCount = parseInt(lilypadCountSliderEl.value);
+
+lilypadCountSliderEl.oninput = function(){
+  padCount = parseInt(this.value);
+  createPads(padCount,c);
+  currentPadCountEl.innerHTML = this.value;
+}
+
+
+
+
 canvas.addEventListener('mousemove', function(event){
   mouse.x = event.x;
   mouse.y = event.y;
 })
 
-//handle the food logic
 
 
 window.addEventListener('click', function(e){
-  console.log(mouse);
-  foods.push(new Food(mouse.x,mouse.y,5,c))
+
+  if (mouse.y > 0.1 * innerHeight){
+
+    console.log('y',mouse.y);
+    console.log('innerHeight',window.innerHeight);
+
+    foods.push(new Food(mouse.x,mouse.y,5,c))
+  }
+
 })
 
 window.addEventListener("keypress",function(event){
@@ -80,20 +100,16 @@ function createFishes(fishCount,foods,c){
     let radius = 18;
 
     fishes.push(new Fish(dx,dy,radius ,i,c,foods))
-    console.log('fishes',fishes);
   }
 }
 
 
-
-
-let pads = [];
-for (var p = 0 ; p < 15 ; p++){
-
-
-  pads.push(new LilyPad(c));
+function createPads(padCount,c){
+  pads = [];
+  for (var p = 0 ; p < padCount ; p++){
+    pads.push(new LilyPad(c));
+  }
 }
-
 
 
 
@@ -115,16 +131,6 @@ function animate(){
   for (var k = 0 ; k < pads.length ; k++){
     pads[k].do();
   }
-
-
-  c.font = "25px Comic Sans MS";
-  c.fillStyle = "black";
-  c.fillText("Welcome to Bit Koi!", canvas.width/2.5 , 30)
-
-  c.font = "15px Comic Sans MS";
-  c.fillStyle = "black";
-  c.fillText("(click to place food, F to spread food randomly)", canvas.width/2.7  , 65)
-
 
 }
 

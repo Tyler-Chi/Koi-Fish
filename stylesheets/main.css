@@ -1,6 +1,12 @@
+body {
+  position: relative;
+}
+
+
 canvas {
   /*background-image: url('http://www.publicdomainpictures.net/pictures/230000/velka/water-waves-1499186573fFz.jpg')*/
   background-image: url('http://maxpixel.freegreatpicture.com/static/photo/1x/Blue-Light-Texture-Background-Watercolor-Soft-1668079.jpg');
   background-repeat: no-repeat;
   background-size: cover;
+  position: absolute;
 }

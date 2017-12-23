@@ -1,6 +1,8 @@
 function LilyPad(c) {
-  this.x = (0.1 + 0.9 * Math.random()) * innerWidth;
-  this.y = (0.1 + 0.9 * Math.random()) * innerHeight;
+  let width = c.canvas.width;
+  let height = c.canvas.height;
+  this.x = (0.2 + 0.65 * Math.random()) * c.canvas.width;
+  this.y = (0.2 + 0.65 * Math.random()) * c.canvas.height;
   this.dx = (Math.random() - 0.5) * 1;
   this.dy = (Math.random() - 0.5) * 1;
   this.time = 0;
@@ -102,11 +104,11 @@ function LilyPad(c) {
   };
 
   this.update = function() {
-    if (this.x > window.innerWidth - 50 || this.x < 50) {
+    if (this.x > width - 50 || this.x < 50) {
       this.dx *= -1;
     }
 
-    if (this.y > window.innerHeight - 50 || this.y < 50) {
+    if (this.y > height - 50 || this.y < 50) {
       this.dy *= -1;
     }
 
