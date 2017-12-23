@@ -13,7 +13,6 @@ var c = canvas.getContext('2d');
 var fishes = [];
 var foods = [];
 
-
 createFishes(30,foods,c)
 
 
@@ -26,11 +25,9 @@ var fishCount = parseInt(fishCountSliderEl.value)
 fishCountSliderEl.oninput = function(){
   fishCount = parseInt(this.value);
   console.log('fishCount',fishCount);
-  // Pond(fishCount,10);
+  createFishes(fishCount,foods,c)
   currentFishCountEl.innerHTML = this.value;
 }
-
-
 
 
 window.addEventListener('resize', function(){
@@ -73,6 +70,8 @@ window.addEventListener("keypress",function(event){
 })
 
 function createFishes(fishCount,foods,c){
+
+  fishes = [];
 
   for (var i = 0 ; i < fishCount; i++){
 
