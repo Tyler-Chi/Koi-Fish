@@ -1,4 +1,4 @@
-function Fish(x, y, dx, dy, radius, id, c, foodarr) {
+function Fish(dx, dy, radius, id, c, foodarr) {
   let colors = [
     "#d7dde5",
     "#ea4504",
@@ -14,26 +14,26 @@ function Fish(x, y, dx, dy, radius, id, c, foodarr) {
   let tailColor = colors[Math.round(Math.random() * (colors.length - 1))];
   let neckColor = colors[Math.round(Math.random() * (colors.length - 1))];
 
-  this.x = x;
-  this.y = y;
+  this.x = (0.2 + 0.6 * Math.random()) * innerWidth;
+  this.y = (0.2 + 0.6 * Math.random()) * innerHeight;
   this.dx = dx;
   this.dy = dy;
   this.radius = radius;
   this.time = Math.random() * 5;
   this.positions = [];
   this.slopes = [];
-  
+
   let totalSpeed = Math.sqrt(dx * dx + dy * dy);
-  
+
   this.speed = this.dx * this.dx + this.dy + this.dy;
-  
+
   this.fishLength = Math.round(40 / (Math.sqrt(this.speed)));
 
   this.record = function() {
     //initialize the fish at time 0
     if (this.positions.length < this.fishLength) {
       for (var i = 0; i < this.fishLength; i++) {
-        this.positions.push([x + i * dx, y + i * dy]);
+        this.positions.push([this.x + i * dx, this.y + i * dy]);
       }
     }
 

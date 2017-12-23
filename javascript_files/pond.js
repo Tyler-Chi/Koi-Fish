@@ -3,6 +3,24 @@ import Fish  from './fish.js';
 import Food from './food.js';
 import LilyPad from './lilypad.js';
 
+var fishes = [];
+var foods = [];
+
+var fishCountSliderEl = document.getElementsByClassName('slider')[0];
+var currentFishCountEl = document.getElementById('currentFishes');
+
+currentFishCountEl.innerHTML = fishCountSliderEl.value;
+var fishCount = parseInt(fishCountSliderEl.value)
+
+fishCountSliderEl.oninput = function(){
+  fishCount = parseInt(this.value);
+  console.log('fishCount',fishCount);
+  // Pond(fishCount,10);
+  currentFishCountEl.innerHTML = this.value;
+}
+
+
+
 var canvas = document.querySelector('canvas')
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
@@ -19,13 +37,13 @@ var mouse = {
   y: undefined
 }
 
-window.addEventListener('mousemove', function(event){
+canvas.addEventListener('mousemove', function(event){
   mouse.x = event.x;
   mouse.y = event.y;
 })
 
 //handle the food logic
-let foods = [];
+
 
 window.addEventListener('click', function(e){
   console.log(mouse);
@@ -49,35 +67,39 @@ window.addEventListener("keypress",function(event){
 })
 
 
-let fishes = [];
+
 let radius;
 let x;
 let y;
-let xCoor;
-let yCoor;
 let dx;
 let dy;
 
-for (var i = 0 ; i < 30; i++){
 
-  x = (0.2 + 0.5 * Math.random()) * innerWidth
-  y = (0.2 + 0.5 * Math.random()) * innerHeight
 
-  dx = 1.3 ;
-  dy = 1.3 ;
 
-  radius = 18;
 
-  fishes.push(new Fish(x,y,dx,dy,radius ,i,c,foods))
-}
+
+  for (var i = 0 ; i < fishCount; i++){
+
+    let dx = 1.3 ;
+    let dy = 1.3 ;
+    let radius = 18;
+
+    fishes.push(new Fish(dx,dy,radius ,i,c,foods))
+  }
+
+
+
+
+
+
+
 
 let pads = [];
 for (var p = 0 ; p < 15 ; p++){
 
-  x = (0.1 + 0.9 * Math.random()) * innerWidth
-  y = (0.1 + 0.9 * Math.random()) * innerHeight
 
-  pads.push(new LilyPad(x,y,c));
+  pads.push(new LilyPad(c));
 }
 
 

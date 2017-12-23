@@ -1,6 +1,6 @@
-function LilyPad(x, y, c) {
-  this.x = x;
-  this.y = y;
+function LilyPad(c) {
+  this.x = (0.1 + 0.9 * Math.random()) * innerWidth;
+  this.y = (0.1 + 0.9 * Math.random()) * innerHeight;
   this.dx = (Math.random() - 0.5) * 1;
   this.dy = (Math.random() - 0.5) * 1;
   this.time = 0;

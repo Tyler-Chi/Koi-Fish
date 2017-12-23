@@ -77,6 +77,24 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 
+var fishes = [];
+var foods = [];
+
+var fishCountSliderEl = document.getElementsByClassName('slider')[0];
+var currentFishCountEl = document.getElementById('currentFishes');
+
+currentFishCountEl.innerHTML = fishCountSliderEl.value;
+var fishCount = parseInt(fishCountSliderEl.value)
+
+fishCountSliderEl.oninput = function(){
+  fishCount = parseInt(this.value);
+  console.log('fishCount',fishCount);
+  // Pond(fishCount,10);
+  currentFishCountEl.innerHTML = this.value;
+}
+
+
+
 var canvas = document.querySelector('canvas')
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
@@ -93,13 +111,13 @@ var mouse = {
   y: undefined
 }
 
-window.addEventListener('mousemove', function(event){
+canvas.addEventListener('mousemove', function(event){
   mouse.x = event.x;
   mouse.y = event.y;
 })
 
 //handle the food logic
-let foods = [];
+
 
 window.addEventListener('click', function(e){
   console.log(mouse);
@@ -123,35 +141,39 @@ window.addEventListener("keypress",function(event){
 })
 
 
-let fishes = [];
+
 let radius;
 let x;
 let y;
-let xCoor;
-let yCoor;
 let dx;
 let dy;
 
-for (var i = 0 ; i < 30; i++){
 
-  x = (0.2 + 0.5 * Math.random()) * innerWidth
-  y = (0.2 + 0.5 * Math.random()) * innerHeight
 
-  dx = 1.3 ;
-  dy = 1.3 ;
 
-  radius = 18;
 
-  fishes.push(new __WEBPACK_IMPORTED_MODULE_0__fish_js__["a" /* default */](x,y,dx,dy,radius ,i,c,foods))
-}
+
+  for (var i = 0 ; i < fishCount; i++){
+
+    let dx = 1.3 ;
+    let dy = 1.3 ;
+    let radius = 18;
+
+    fishes.push(new __WEBPACK_IMPORTED_MODULE_0__fish_js__["a" /* default */](dx,dy,radius ,i,c,foods))
+  }
+
+
+
+
+
+
+
 
 let pads = [];
 for (var p = 0 ; p < 15 ; p++){
 
-  x = (0.1 + 0.9 * Math.random()) * innerWidth
-  y = (0.1 + 0.9 * Math.random()) * innerHeight
 
-  pads.push(new __WEBPACK_IMPORTED_MODULE_2__lilypad_js__["a" /* default */](x,y,c));
+  pads.push(new __WEBPACK_IMPORTED_MODULE_2__lilypad_js__["a" /* default */](c));
 }
 
 
@@ -196,7 +218,7 @@ animate();
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-function Fish(x, y, dx, dy, radius, id, c, foodarr) {
+function Fish(dx, dy, radius, id, c, foodarr) {
   let colors = [
     "#d7dde5",
     "#ea4504",
@@ -212,26 +234,26 @@ function Fish(x, y, dx, dy, radius, id, c, foodarr) {
   let tailColor = colors[Math.round(Math.random() * (colors.length - 1))];
   let neckColor = colors[Math.round(Math.random() * (colors.length - 1))];
 
-  this.x = x;
-  this.y = y;
+  this.x = (0.2 + 0.6 * Math.random()) * innerWidth;
+  this.y = (0.2 + 0.6 * Math.random()) * innerHeight;
   this.dx = dx;
   this.dy = dy;
   this.radius = radius;
   this.time = Math.random() * 5;
   this.positions = [];
   this.slopes = [];
-  
+
   let totalSpeed = Math.sqrt(dx * dx + dy * dy);
-  
+
   this.speed = this.dx * this.dx + this.dy + this.dy;
-  
+
   this.fishLength = Math.round(40 / (Math.sqrt(this.speed)));
 
   this.record = function() {
     //initialize the fish at time 0
     if (this.positions.length < this.fishLength) {
       for (var i = 0; i < this.fishLength; i++) {
-        this.positions.push([x + i * dx, y + i * dy]);
+        this.positions.push([this.x + i * dx, this.y + i * dy]);
       }
     }
 
@@ -637,9 +659,9 @@ function Food(x,y,radius,c){
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-function LilyPad(x, y, c) {
-  this.x = x;
-  this.y = y;
+function LilyPad(c) {
+  this.x = (0.1 + 0.9 * Math.random()) * innerWidth;
+  this.y = (0.1 + 0.9 * Math.random()) * innerHeight;
   this.dx = (Math.random() - 0.5) * 1;
   this.dy = (Math.random() - 0.5) * 1;
   this.time = 0;
