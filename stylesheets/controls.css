@@ -12,3 +12,11 @@
   margin-right: 25px;
   margin-left: 10px;
 }
+
+.title {
+  margin: 0px;
+}
+
+.instructions {
+  font-size: 15px;
+}
