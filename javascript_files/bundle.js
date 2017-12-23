@@ -77,8 +77,19 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 
+
+var canvas = document.querySelector('canvas')
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+var c = canvas.getContext('2d');
+
 var fishes = [];
 var foods = [];
+
+
+createFishes(30,foods,c)
+
 
 var fishCountSliderEl = document.getElementsByClassName('slider')[0];
 var currentFishCountEl = document.getElementById('currentFishes');
@@ -95,11 +106,6 @@ fishCountSliderEl.oninput = function(){
 
 
 
-var canvas = document.querySelector('canvas')
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
-
-var c = canvas.getContext('2d');
 
 window.addEventListener('resize', function(){
   canvas.width = window.innerWidth;
@@ -140,18 +146,7 @@ window.addEventListener("keypress",function(event){
   }
 })
 
-
-
-let radius;
-let x;
-let y;
-let dx;
-let dy;
-
-
-
-
-
+function createFishes(fishCount,foods,c){
 
   for (var i = 0 ; i < fishCount; i++){
 
@@ -160,11 +155,9 @@ let dy;
     let radius = 18;
 
     fishes.push(new __WEBPACK_IMPORTED_MODULE_0__fish_js__["a" /* default */](dx,dy,radius ,i,c,foods))
+    console.log('fishes',fishes);
   }
-
-
-
-
+}
 
 
 
