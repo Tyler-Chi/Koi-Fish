@@ -255,28 +255,39 @@ function Fish(dx, dy, radius, id, c, foodarr) {
   this.fishLength = Math.round(40 / Math.sqrt(this.speed));
 
   while (this.angles.length < this.fishLength){
-    this.angles.unshift(Math.atan(this.dx/this.dy))
+    this.angles.unshift([Math.atan(this.dx/this.dy),1])
   }
 
-
   this.draw = function() {
-    //should initially calculate all positions first.
-    let headAngle = Math.atan(this.dy / this.dx);
 
-
-    // the head of the fish
+    if (this.dx === 0){
+      this.dx = 0.001;
+    }
 
     let cc = true;
     let mc = false;
-    if (this.dx > 0) {
+    let nd = 1;
+    if (this.dx >= 0) {
       cc = false;
       mc = true;
+      nd = 1;
+    } else {
+      nd = -1;
     }
-
-    this.angles.unshift(headAngle);
+    //should initially calculate all positions first.
+    let headAngle = Math.atan(this.dy / this.dx);
+    this.angles.unshift([headAngle,nd]);
     if (this.angles.length > this.fishLength){
       this.angles.pop();
     }
+    let neckDistance = 2.5;
+    let neckX = this.x - this.angles[5][1] * neckDistance * (Math.cos(this.angles[5][0]))
+    let neckY = this.y - this.angles[5][1] * neckDistance * (Math.sin(this.angles[5][0]))
+
+    // the head of the fish
+
+
+
 
 
     c.beginPath();
@@ -295,6 +306,17 @@ function Fish(dx, dy, radius, id, c, foodarr) {
 
     //the neck circle thing
 
+    c.beginPath();
+    c.arc(
+      neckX,
+      neckY,
+      8.5,
+      0,
+      2 * Math.PI,
+      false
+    )
+    c.fillstyle = neckColor;
+    c.fill();
 
   };
 
@@ -490,10 +512,12 @@ function Fish(dx, dy, radius, id, c, foodarr) {
     return Math.sqrt(xv * xv + yv * yv);
   };
 
+  //this handles random motion
+
   this.controlSpeed = function() {
     //random motion, cuz fish are fish lol.
-    this.dx += this.dx * 0.25 * (Math.random() - 0.5);
-    this.dx += this.dy * 0.25 * (Math.random() - 0.5);
+    this.dx += this.dx * 0.15 * (Math.random() - 0.5);
+    this.dx += this.dy * 0.15 * (Math.random() - 0.5);
 
     if (this.calcSpeed(this.dx, this.dy) > dx + dy) {
       this.dx *= 1 / 1.2;
@@ -511,7 +535,7 @@ function Fish(dx, dy, radius, id, c, foodarr) {
     let oy = this.dx;
 
     this.time += 0.08;
-    let oscillation = 0.295 * Math.sin(this.time);
+    let oscillation = 0.4 * Math.sin(this.time);
 
     this.x += this.dx + oscillation * ox;
     this.y += this.dy + oscillation * oy;
@@ -529,6 +553,8 @@ function Fish(dx, dy, radius, id, c, foodarr) {
     this.controlSpeed();
     this.oscillate();
     this.draw();
+
+
   };
 }
 
