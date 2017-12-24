@@ -91,24 +91,32 @@ window.addEventListener("keypress",function(event){
 
 function createFishes(fishCount,foods,c){
 
-  fishes = [];
+  let dx = 1.3 ;
+  let dy = 1.3 ;
+  let radius = 18;
 
-  for (var i = 0 ; i < fishCount; i++){
-
-    let dx = 1.3 ;
-    let dy = 1.3 ;
-    let radius = 18;
-
-    fishes.push(new Fish(dx,dy,radius ,i,c,foods))
+  if (fishCount > fishes.length){
+    for (var f = fishes.length ; f < fishCount ; f++){
+      fishes.push(new Fish(dx, dy, radius, f , c, foods))
+    }
+  } else {
+    let difference = fishes.length - fishCount;
+    fishes = fishes.slice(difference);
   }
 }
 
 
 function createPads(padCount,c){
-  pads = [];
-  for (var p = 0 ; p < padCount ; p++){
-    pads.push(new LilyPad(c));
+
+  if (padCount > pads.length) {
+    for (var p = pads.length ; p < padCount; p++){
+      pads.push(new LilyPad(c))
+    }
+  } else {
+    let difference = pads.length - padCount;
+    pads = pads.slice(difference);
   }
+
 }
 
 
@@ -133,5 +141,7 @@ function animate(){
   }
 
 }
+
+//will always try to be animating
 
 animate();

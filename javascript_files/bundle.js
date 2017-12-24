@@ -165,24 +165,32 @@ window.addEventListener("keypress",function(event){
 
 function createFishes(fishCount,foods,c){
 
-  fishes = [];
+  let dx = 1.3 ;
+  let dy = 1.3 ;
+  let radius = 18;
 
-  for (var i = 0 ; i < fishCount; i++){
-
-    let dx = 1.3 ;
-    let dy = 1.3 ;
-    let radius = 18;
-
-    fishes.push(new __WEBPACK_IMPORTED_MODULE_0__fish_js__["a" /* default */](dx,dy,radius ,i,c,foods))
+  if (fishCount > fishes.length){
+    for (var f = fishes.length ; f < fishCount ; f++){
+      fishes.push(new __WEBPACK_IMPORTED_MODULE_0__fish_js__["a" /* default */](dx, dy, radius, f , c, foods))
+    }
+  } else {
+    let difference = fishes.length - fishCount;
+    fishes = fishes.slice(difference);
   }
 }
 
 
 function createPads(padCount,c){
-  pads = [];
-  for (var p = 0 ; p < padCount ; p++){
-    pads.push(new __WEBPACK_IMPORTED_MODULE_2__lilypad_js__["a" /* default */](c));
+
+  if (padCount > pads.length) {
+    for (var p = pads.length ; p < padCount; p++){
+      pads.push(new __WEBPACK_IMPORTED_MODULE_2__lilypad_js__["a" /* default */](c))
+    }
+  } else {
+    let difference = pads.length - padCount;
+    pads = pads.slice(difference);
   }
+
 }
 
 
@@ -207,6 +215,8 @@ function animate(){
   }
 
 }
+
+//will always try to be animating
 
 animate();
 
@@ -234,14 +244,15 @@ function Fish(dx, dy, radius, id, c, foodarr) {
   let width = c.canvas.width;
   let height = c.canvas.height;
 
-  this.x = (0.2 + 0.6 * Math.random()) * width;
-  this.y = (0.2 + 0.6 * Math.random()) * height;
+  this.x = (0.15 + 0.7 * Math.random()) * width;
+  this.y = (0.15 + 0.7 * Math.random()) * height;
   this.dx = dx;
   this.dy = dy;
   this.radius = radius;
   this.time = Math.random() * 5;
   this.positions = [];
   this.slopes = [];
+  this.angles = [];
 
   let totalSpeed = Math.sqrt(dx * dx + dy * dy);
 
@@ -259,6 +270,8 @@ function Fish(dx, dy, radius, id, c, foodarr) {
 
     this.positions.push([this.x, this.y]);
 
+    this.angles.push(Math.atan(this.dy/this.dx));
+
     if (this.dx === 0) {
       this.slopes.push(this.dy/0.0000001);
     } else {
@@ -271,6 +284,10 @@ function Fish(dx, dy, radius, id, c, foodarr) {
 
     if (this.slopes.length > this.fishLength + 1) {
       this.slopes.shift();
+    }
+
+    if (this.angles.length > this.fishLength + 1){
+      this.angles.shift();
     }
   };
 
@@ -351,12 +368,8 @@ function Fish(dx, dy, radius, id, c, foodarr) {
     c.fill();
 
     // the tail of the fish
-    let tailAngle = Math.atan(this.slopes[1]);
-
-
-    if (Math.abs(tailAngle) > 1.5){
-      cc *= -1;
-    }
+    // let tailAngle = Math.atan(this.slopes[1]);
+    let tailAngle = this.angles[5];
 
     c.beginPath();
     c.ellipse(

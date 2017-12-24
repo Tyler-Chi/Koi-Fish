@@ -16,14 +16,15 @@ function Fish(dx, dy, radius, id, c, foodarr) {
   let width = c.canvas.width;
   let height = c.canvas.height;
 
-  this.x = (0.2 + 0.6 * Math.random()) * width;
-  this.y = (0.2 + 0.6 * Math.random()) * height;
+  this.x = (0.15 + 0.7 * Math.random()) * width;
+  this.y = (0.15 + 0.7 * Math.random()) * height;
   this.dx = dx;
   this.dy = dy;
   this.radius = radius;
   this.time = Math.random() * 5;
   this.positions = [];
   this.slopes = [];
+  this.angles = [];
 
   let totalSpeed = Math.sqrt(dx * dx + dy * dy);
 
@@ -41,6 +42,8 @@ function Fish(dx, dy, radius, id, c, foodarr) {
 
     this.positions.push([this.x, this.y]);
 
+    this.angles.push(Math.atan(this.dy/this.dx));
+
     if (this.dx === 0) {
       this.slopes.push(this.dy/0.0000001);
     } else {
@@ -53,6 +56,10 @@ function Fish(dx, dy, radius, id, c, foodarr) {
 
     if (this.slopes.length > this.fishLength + 1) {
       this.slopes.shift();
+    }
+
+    if (this.angles.length > this.fishLength + 1){
+      this.angles.shift();
     }
   };
 
@@ -133,12 +140,8 @@ function Fish(dx, dy, radius, id, c, foodarr) {
     c.fill();
 
     // the tail of the fish
-    let tailAngle = Math.atan(this.slopes[1]);
-
-
-    if (Math.abs(tailAngle) > 1.5){
-      cc *= -1;
-    }
+    // let tailAngle = Math.atan(this.slopes[1]);
+    let tailAngle = this.angles[5];
 
     c.beginPath();
     c.ellipse(
