@@ -64,7 +64,7 @@ function Fish(dx, dy, radius, id, c, foodarr) {
     let bodyPosition = 15;
     let bodyX = this.x - this.angles[bodyPosition][1] * bodyDistance * (Math.cos(this.angles[bodyPosition][0]))
     let bodyY = this.y - this.angles[bodyPosition][1] * bodyDistance * (Math.sin(this.angles[bodyPosition][0]))
-
+    let oogle = 123;
 
     // let tailDistance = 30;
     // let tailX = neckX - this.angles[10][1] * tailDistance * (Math.cos(this.angles[10][0]))
