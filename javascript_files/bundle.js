@@ -165,8 +165,8 @@ window.addEventListener("keypress",function(event){
 
 function createFishes(fishCount,foods,c){
 
-  let dx = 1.3 ;
-  let dy = 1.3 ;
+  let dx = 1.5 ;
+  let dy = 1.5 ;
   let radius = 18;
 
   if (fishCount > fishes.length){
@@ -284,11 +284,57 @@ function Fish(dx, dy, radius, id, c, foodarr) {
     let neckX = this.x - this.angles[5][1] * neckDistance * (Math.cos(this.angles[5][0]))
     let neckY = this.y - this.angles[5][1] * neckDistance * (Math.sin(this.angles[5][0]))
 
+    let bodyDistance = 15;
+    let bodyPosition = 15;
+    let bodyX = this.x - this.angles[bodyPosition][1] * bodyDistance * (Math.cos(this.angles[bodyPosition][0]))
+    let bodyY = this.y - this.angles[bodyPosition][1] * bodyDistance * (Math.sin(this.angles[bodyPosition][0]))
+
+
+    // let tailDistance = 30;
+    // let tailX = neckX - this.angles[10][1] * tailDistance * (Math.cos(this.angles[10][0]))
+    // let tailY = neckY - this.angles[10][1] * tailDistance * (Math.sin(this.angles[10][0]))
+    //
+    // let tailWidth = 15;
+    // let tip1X = this.x - this.angles[0][1] * tailWidth * (Math.sin(this.angles[0][0]))
+    // let tip1Y = this.y - this.angles[0][1] * tailWidth * (Math.cos(this.angles[0][0]))
+    //
+    // let tip2X = this.x + this.angles[0][1] * tailWidth * (Math.sin(this.angles[0][0]))
+    // let tip2Y = this.y + this.angles[0][1] * tailWidth * (Math.cos(this.angles[0][0]))
+
+
+
+
+    //the neck area
+
+    c.beginPath();
+    c.arc(
+      neckX,
+      neckY,
+      8.5,
+      0,
+      2 * Math.PI,
+      false
+    )
+    c.fillStyle = bodyColor;
+    c.fill();
+
+    //tail stuff. tailX, tailY refers to the tip of the tail
+
+    c.beginPath();
+    c.ellipse(
+      bodyX,
+      bodyY,
+      this.radius * 0.9,
+      this.radius / 2.2,
+      this.angles[10][0],
+      0,
+      Math.PI * 2,
+      this.angles[10][1]
+    );
+    c.fillStyle = bodyColor;
+    c.fill();
+
     // the head of the fish
-
-
-
-
 
     c.beginPath();
     c.ellipse(
@@ -304,19 +350,6 @@ function Fish(dx, dy, radius, id, c, foodarr) {
     c.fillStyle = headColor;
     c.fill();
 
-    //the neck circle thing
-
-    c.beginPath();
-    c.arc(
-      neckX,
-      neckY,
-      8.5,
-      0,
-      2 * Math.PI,
-      false
-    )
-    c.fillstyle = neckColor;
-    c.fill();
 
   };
 
