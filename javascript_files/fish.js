@@ -27,45 +27,20 @@ function Fish(dx, dy, radius, id, c, foodarr) {
   this.angles = [];
 
   let totalSpeed = Math.sqrt(dx * dx + dy * dy);
+  this.speed = (this.dx * this.dx) + (this.dy + this.dy);
+  this.fishLength = Math.round(40 / Math.sqrt(this.speed));
 
-  this.speed = this.dx * this.dx + this.dy + this.dy;
+  while (this.angles.length < this.fishLength){
+    this.angles.unshift(Math.atan(this.dx/this.dy))
+  }
 
-  this.fishLength = Math.round(40 / (Math.sqrt(this.speed)));
-
-  this.record = function() {
-    //initialize the fish at time 0
-    if (this.positions.length < this.fishLength) {
-      for (var i = 0; i < this.fishLength; i++) {
-        this.positions.push([this.x + i * dx, this.y + i * dy]);
-      }
-    }
-
-    this.positions.push([this.x, this.y]);
-
-    this.angles.push(Math.atan(this.dy/this.dx));
-
-    if (this.dx === 0) {
-      this.slopes.push(this.dy/0.0000001);
-    } else {
-      this.slopes.push(this.dy / this.dx);
-    }
-
-    if (this.positions.length >= this.fishLength) {
-      this.positions = this.positions.slice(this.positions.length - this.fishLength - 5 )
-    }
-
-    if (this.slopes.length > this.fishLength + 1) {
-      this.slopes.shift();
-    }
-
-    if (this.angles.length > this.fishLength + 1){
-      this.angles.shift();
-    }
-  };
 
   this.draw = function() {
+    //should initially calculate all positions first.
     let headAngle = Math.atan(this.dy / this.dx);
-    let midpoint = Math.round(this.positions.length / 2 + 4);
+
+
+    // the head of the fish
 
     let cc = true;
     let mc = false;
@@ -74,89 +49,33 @@ function Fish(dx, dy, radius, id, c, foodarr) {
       mc = true;
     }
 
-    //the fins of the fish
+    this.angles.unshift(headAngle);
+    if (this.angles.length > this.fishLength){
+      this.angles.pop();
+    }
 
-    let finOscillate = 0.9 + 0.2 * Math.sin(this.time);
-
-    c.beginPath();
-    c.ellipse(
-      this.positions[midpoint + 3][0],
-      this.positions[midpoint + 3][1],
-      0.5 * this.radius,
-      finOscillate * this.radius,
-      headAngle,
-      -Math.PI / 2,
-      Math.PI / 2,
-      cc
-    );
-    c.strokeStyle = bodyColor;
-    c.lineWidth = 3;
-    c.stroke();
-
-    // the midsection of the fish
-
-    c.beginPath();
-    c.ellipse(
-      this.positions[midpoint][0],
-      this.positions[midpoint][1],
-      this.radius * 1.1,
-      this.radius / 2,
-      Math.atan(this.slopes[midpoint]),
-      0,
-      Math.PI * 2,
-      mc
-    );
-    c.fillStyle = bodyColor;
-    c.fill();
-
-    //the neck of the fish
-    let neckPoint = Math.round(0.95 * this.positions.length);
-    c.beginPath();
-    c.arc(
-      this.positions[neckPoint][0],
-      this.positions[neckPoint][1],
-      7,
-      0,
-      2 * Math.PI,
-      false
-    );
-    c.fillstyle = neckColor;
-    c.fill();
-
-    //the head of the fish
 
     c.beginPath();
     c.ellipse(
       this.x,
       this.y,
       this.radius,
-      this.radius / 2,
+      this.radius/2,
       headAngle,
       -Math.PI / 2,
       Math.PI / 2,
       cc
-    );
+    )
     c.fillStyle = headColor;
     c.fill();
 
-    // the tail of the fish
-    // let tailAngle = Math.atan(this.slopes[1]);
-    let tailAngle = this.angles[5];
+    //the neck circle thing
 
-    c.beginPath();
-    c.ellipse(
-      this.positions[4][0],
-      this.positions[4][1],
-      this.radius / 2,
-      this.radius / 2,
-      tailAngle,
-      -Math.PI / 2,
-      Math.PI / 2,
-      cc
-    );
-    c.fillStyle = tailColor;
-    c.fill();
+
   };
+
+
+  //EVERYTHING BELOW THIS PERTAINS TO CHASEFOOD
 
   function distance(x0, y0, x1, y1) {
     return Math.sqrt(Math.pow(x0 - x1, 2) + Math.pow(y0 - y1, 2));
@@ -381,7 +300,7 @@ function Fish(dx, dy, radius, id, c, foodarr) {
       this.chaseFood();
     }
 
-    this.record();
+
 
     this.controlSpeed();
     this.oscillate();

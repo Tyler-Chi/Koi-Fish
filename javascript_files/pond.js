@@ -25,7 +25,7 @@ var fishes = [];
 var foods = [];
 var pads = [];
 
-createFishes(30,foods,c)
+createFishes(1,foods,c)
 createPads(10,c)
 
 
@@ -119,14 +119,10 @@ function createPads(padCount,c){
 
 }
 
-
-
 function animate(){
   requestAnimationFrame(animate);
 
   c.clearRect(0,0,innerWidth, innerHeight);
-
-
 
   for (var j = 0 ; j < foods.length ; j++){
     foods[j].do();
