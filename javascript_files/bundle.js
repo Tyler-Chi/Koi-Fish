@@ -165,8 +165,8 @@ window.addEventListener("keypress",function(event){
 
 function createFishes(fishCount,foods,c){
 
-  let dx = 0.5 ;
-  let dy = 0.5 ;
+  let dx = 1 ;
+  let dy = 1 ;
   let radius = 18;
 
   if (fishCount > fishes.length){
@@ -326,16 +326,14 @@ function Fish(dx, dy, radius, id, c, foodarr) {
     let bodyTipY = neckY - this.angles[10][1] * bodyTipDistance * (Math.sin(this.angles[10][0]))
 
 
-
     c.beginPath();
     c.moveTo(tip1X,tip1Y);
     c.bezierCurveTo(body1LX,body1LY, body2X, body2Y,bodyTipX, bodyTipY)
-    c.stroke();
 
-    c.beginPath();
-    c.moveTo(tip2X,tip2Y);
-    c.bezierCurveTo(body1RX,body1RY, body2X, body2Y,bodyTipX, bodyTipY)
-    c.stroke();
+    c.bezierCurveTo(body2X, body2Y, body1RX,body1RY, tip2X, tip2Y)
+    c.lineTo(tip1X,tip1Y);
+    c.fillStyle = 'red';
+    c.fill();
 
 
 
