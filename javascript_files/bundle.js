@@ -289,31 +289,47 @@ function Fish(dx, dy, radius, id, c, foodarr) {
     let bodyX = this.x - this.angles[bodyPosition][1] * bodyDistance * (Math.cos(this.angles[bodyPosition][0]))
     let bodyY = this.y - this.angles[bodyPosition][1] * bodyDistance * (Math.sin(this.angles[bodyPosition][0]))
 
-    //fin tip calculations
-    let tipDistance = 10;
-    let tip1X = neckX - nd * tipDistance * (Math.sin(headAngle));
-    let tip1Y = neckY - nd * tipDistance * (Math.cos(headAngle));
 
+    //sin and cosine are getting added incorrectly!
+    let tipDistance = 10;
+    let tip1X = neckX - tipDistance * Math.sin(headAngle)
+    let tip1Y = neckY + tipDistance * Math.cos(headAngle)
+
+    let tip2X = neckX + tipDistance * Math.sin(headAngle)
+    let tip2Y = neckY - tipDistance * Math.cos(headAngle)
 
 
     //TODO can possibly turn this into a loop, we will see!
     //TODO can also add some trig oscillation right here.
     //TODO should really turn these into quadratic curves.
-    let tailSegment1Distance = 10;
-    let tail1X = neckX - this.angles[5][1] * tailSegment1Distance * (Math.cos(this.angles[5][0]))
-    let tail1Y = neckY - this.angles[5][1] * tailSegment1Distance * (Math.sin(this.angles[5][0]))
+    //TODO use the tip points in order to draw the curves
+    let bodySegment1Distance = 10;
+    let body1X = neckX - this.angles[5][1] * bodySegment1Distance * (Math.cos(this.angles[5][0]))
+    let body1Y = neckY - this.angles[5][1] * bodySegment1Distance * (Math.sin(this.angles[5][0]))
 
 
-    let tailSegment3Distance = 20;
-    let tail3X = neckX - this.angles[8][1] * tailSegment3Distance * (Math.cos(this.angles[8][0]))
-    let tail3Y = neckY - this.angles[8][1] * tailSegment3Distance * (Math.sin(this.angles[8][0]))
+    let bodySegment3Distance = 25;
+    let body3X = neckX - this.angles[8][1] * bodySegment3Distance * (Math.cos(this.angles[8][0]))
+    let body3Y = neckY - this.angles[8][1] * bodySegment3Distance * (Math.sin(this.angles[8][0]))
 
-    let tailSegment2Distance = 28;
-    let tail2X = neckX - this.angles[10][1] * tailSegment2Distance * (Math.cos(this.angles[10][0]))
-    let tail2Y = neckY - this.angles[10][1] * tailSegment2Distance * (Math.sin(this.angles[10][0]))
+    let bodySegment2Distance = 35;
+    let body2X = neckX - this.angles[10][1] * bodySegment2Distance * (Math.cos(this.angles[10][0]))
+    let body2Y = neckY - this.angles[10][1] * bodySegment2Distance * (Math.sin(this.angles[10][0]))
+
+    //using curves in order to draw the body!
+    c.beginPath();
+    c.moveTo(tip1X,tip1Y);
+    c.bezierCurveTo(body1X,body1Y, body3X, body3Y,body2X, body2Y)
+    c.stroke();
+
+    c.beginPath();
+    c.moveTo(tip2X,tip2Y);
+    c.bezierCurveTo(body1X,body1Y, body3X, body3Y,body2X, body2Y)
+    c.stroke();
 
 
-    //fin tip test stuff
+
+    //more fin stuff.
     c.beginPath();
     c.arc(
       tip1X,
@@ -323,46 +339,57 @@ function Fish(dx, dy, radius, id, c, foodarr) {
       2 * Math.PI,
       false
     )
-    c.fillStyle = tailColor;
+    c.fillStyle = bodyColor;
     c.fill();
 
-
-    //tail stuff. tailX, tailY refers to the tip of the tail
     c.beginPath();
     c.arc(
-      tail1X,
-      tail1Y,
+      tip2X,
+      tip2Y,
       7,
       0,
       2 * Math.PI,
       false
     )
-    c.fillStyle = tailColor;
+    c.fillStyle = bodyColor;
     c.fill();
 
-    c.beginPath();
-    c.arc(
-      tail3X,
-      tail3Y,
-      5,
-      0,
-      2 * Math.PI,
-      false
-    )
-    c.fillStyle = tailColor;
-    c.fill();
-
-    c.beginPath();
-    c.arc(
-      tail2X,
-      tail2Y,
-      4,
-      0,
-      2 * Math.PI,
-      false
-    )
-    c.fillStyle = tailColor;
-    c.fill();
+    //body stuff. bodyX, bodyY refers to the tip of the body
+    // c.beginPath();
+    // c.arc(
+    //   body1X,
+    //   body1Y,
+    //   7,
+    //   0,
+    //   2 * Math.PI,
+    //   false
+    // )
+    // c.fillStyle = bodyColor;
+    // c.fill();
+    //
+    // c.beginPath();
+    // c.arc(
+    //   body3X,
+    //   body3Y,
+    //   5,
+    //   0,
+    //   2 * Math.PI,
+    //   false
+    // )
+    // c.fillStyle = bodyColor;
+    // c.fill();
+    //
+    // c.beginPath();
+    // c.arc(
+    //   body2X,
+    //   body2Y,
+    //   4,
+    //   0,
+    //   2 * Math.PI,
+    //   false
+    // )
+    // c.fillStyle = bodyColor;
+    // c.fill();
 
 
     //the neck area
