@@ -56,28 +56,89 @@ function Fish(dx, dy, radius, id, c, foodarr) {
     if (this.angles.length > this.fishLength){
       this.angles.pop();
     }
-    let neckDistance = 2.5;
+    let neckDistance = 3;
     let neckX = this.x - this.angles[5][1] * neckDistance * (Math.cos(this.angles[5][0]))
     let neckY = this.y - this.angles[5][1] * neckDistance * (Math.sin(this.angles[5][0]))
 
-    let bodyDistance = 15;
+    let bodyDistance = 10;
     let bodyPosition = 15;
     let bodyX = this.x - this.angles[bodyPosition][1] * bodyDistance * (Math.cos(this.angles[bodyPosition][0]))
     let bodyY = this.y - this.angles[bodyPosition][1] * bodyDistance * (Math.sin(this.angles[bodyPosition][0]))
-    let oogle = 123;
 
-    // let tailDistance = 30;
-    // let tailX = neckX - this.angles[10][1] * tailDistance * (Math.cos(this.angles[10][0]))
-    // let tailY = neckY - this.angles[10][1] * tailDistance * (Math.sin(this.angles[10][0]))
-    //
-    // let tailWidth = 15;
-    // let tip1X = this.x - this.angles[0][1] * tailWidth * (Math.sin(this.angles[0][0]))
-    // let tip1Y = this.y - this.angles[0][1] * tailWidth * (Math.cos(this.angles[0][0]))
-    //
-    // let tip2X = this.x + this.angles[0][1] * tailWidth * (Math.sin(this.angles[0][0]))
-    // let tip2Y = this.y + this.angles[0][1] * tailWidth * (Math.cos(this.angles[0][0]))
+    //fin tip calculations
+    let tipDistance = 10;
+    let tip1X = neckX - nd * tipDistance * (Math.sin(headAngle));
+    let tip1Y = neckY - nd * tipDistance * (Math.cos(headAngle));
 
 
+
+    //TODO can possibly turn this into a loop, we will see!
+    //TODO can also add some trig oscillation right here.
+    //TODO should really turn these into quadratic curves.
+    let tailSegment1Distance = 10;
+    let tail1X = neckX - this.angles[5][1] * tailSegment1Distance * (Math.cos(this.angles[5][0]))
+    let tail1Y = neckY - this.angles[5][1] * tailSegment1Distance * (Math.sin(this.angles[5][0]))
+
+
+    let tailSegment3Distance = 20;
+    let tail3X = neckX - this.angles[8][1] * tailSegment3Distance * (Math.cos(this.angles[8][0]))
+    let tail3Y = neckY - this.angles[8][1] * tailSegment3Distance * (Math.sin(this.angles[8][0]))
+
+    let tailSegment2Distance = 28;
+    let tail2X = neckX - this.angles[10][1] * tailSegment2Distance * (Math.cos(this.angles[10][0]))
+    let tail2Y = neckY - this.angles[10][1] * tailSegment2Distance * (Math.sin(this.angles[10][0]))
+
+
+    //fin tip test stuff
+    c.beginPath();
+    c.arc(
+      tip1X,
+      tip1Y,
+      7,
+      0,
+      2 * Math.PI,
+      false
+    )
+    c.fillStyle = tailColor;
+    c.fill();
+
+
+    //tail stuff. tailX, tailY refers to the tip of the tail
+    c.beginPath();
+    c.arc(
+      tail1X,
+      tail1Y,
+      7,
+      0,
+      2 * Math.PI,
+      false
+    )
+    c.fillStyle = tailColor;
+    c.fill();
+
+    c.beginPath();
+    c.arc(
+      tail3X,
+      tail3Y,
+      5,
+      0,
+      2 * Math.PI,
+      false
+    )
+    c.fillStyle = tailColor;
+    c.fill();
+
+    c.beginPath();
+    c.arc(
+      tail2X,
+      tail2Y,
+      4,
+      0,
+      2 * Math.PI,
+      false
+    )
+    c.fillStyle = tailColor;
+    c.fill();
 
 
     //the neck area
@@ -86,29 +147,14 @@ function Fish(dx, dy, radius, id, c, foodarr) {
     c.arc(
       neckX,
       neckY,
-      8.5,
+      9,
       0,
       2 * Math.PI,
       false
     )
-    c.fillStyle = bodyColor;
+    c.fillStyle = headColor;
     c.fill();
 
-    //tail stuff. tailX, tailY refers to the tip of the tail
-
-    c.beginPath();
-    c.ellipse(
-      bodyX,
-      bodyY,
-      this.radius * 0.9,
-      this.radius / 2.2,
-      this.angles[10][0],
-      0,
-      Math.PI * 2,
-      this.angles[10][1]
-    );
-    c.fillStyle = bodyColor;
-    c.fill();
 
     // the head of the fish
 
