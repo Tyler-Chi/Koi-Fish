@@ -165,8 +165,8 @@ window.addEventListener("keypress",function(event){
 
 function createFishes(fishCount,foods,c){
 
-  let dx = 1.5 ;
-  let dy = 1.5 ;
+  let dx = 0.5 ;
+  let dy = 0.5 ;
   let radius = 18;
 
   if (fishCount > fishes.length){
@@ -280,6 +280,7 @@ function Fish(dx, dy, radius, id, c, foodarr) {
     if (this.angles.length > this.fishLength){
       this.angles.pop();
     }
+
     let neckDistance = 3;
     let neckX = this.x - this.angles[5][1] * neckDistance * (Math.cos(this.angles[5][0]))
     let neckY = this.y - this.angles[5][1] * neckDistance * (Math.sin(this.angles[5][0]))
@@ -307,25 +308,36 @@ function Fish(dx, dy, radius, id, c, foodarr) {
     let body1X = neckX - this.angles[5][1] * bodySegment1Distance * (Math.cos(this.angles[5][0]))
     let body1Y = neckY - this.angles[5][1] * bodySegment1Distance * (Math.sin(this.angles[5][0]))
 
+    let bodySegment1Width = 8;
 
-    let bodySegment3Distance = 25;
-    let body3X = neckX - this.angles[8][1] * bodySegment3Distance * (Math.cos(this.angles[8][0]))
-    let body3Y = neckY - this.angles[8][1] * bodySegment3Distance * (Math.sin(this.angles[8][0]))
+    let body1LX = body1X - bodySegment1Width * Math.sin(this.angles[5][1])
+    let body1LY = body1Y + bodySegment1Width * Math.cos(this.angles[5][1])
 
-    let bodySegment2Distance = 35;
-    let body2X = neckX - this.angles[10][1] * bodySegment2Distance * (Math.cos(this.angles[10][0]))
-    let body2Y = neckY - this.angles[10][1] * bodySegment2Distance * (Math.sin(this.angles[10][0]))
+    let body1RX = body1X + bodySegment1Width * Math.sin(this.angles[5][1])
+    let body1RY = body1Y - bodySegment1Width * Math.cos(this.angles[5][1])
 
-    //using curves in order to draw the body!
+
+    let bodySegment2Distance = 30;
+    let body2X = neckX - this.angles[8][1] * bodySegment2Distance * (Math.cos(this.angles[8][0]))
+    let body2Y = neckY - this.angles[8][1] * bodySegment2Distance * (Math.sin(this.angles[8][0]))
+
+    let bodyTipDistance = 35;
+    let bodyTipX = neckX - this.angles[10][1] * bodyTipDistance * (Math.cos(this.angles[10][0]))
+    let bodyTipY = neckY - this.angles[10][1] * bodyTipDistance * (Math.sin(this.angles[10][0]))
+
+
+
     c.beginPath();
     c.moveTo(tip1X,tip1Y);
-    c.bezierCurveTo(body1X,body1Y, body3X, body3Y,body2X, body2Y)
+    c.bezierCurveTo(body1LX,body1LY, body2X, body2Y,bodyTipX, bodyTipY)
     c.stroke();
 
     c.beginPath();
     c.moveTo(tip2X,tip2Y);
-    c.bezierCurveTo(body1X,body1Y, body3X, body3Y,body2X, body2Y)
+    c.bezierCurveTo(body1RX,body1RY, body2X, body2Y,bodyTipX, bodyTipY)
     c.stroke();
+
+
 
 
 
@@ -660,6 +672,7 @@ function Fish(dx, dy, radius, id, c, foodarr) {
     this.oscillate();
     this.draw();
 
+    console.log('dx,dy', this.dx / Math.abs(this.dx), this.dy / Math.abs(this.dy));
 
   };
 }
