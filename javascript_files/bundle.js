@@ -310,11 +310,11 @@ function Fish(dx, dy, radius, id, c, foodarr) {
 
     let bodySegment1Width = 8;
 
-    let body1LX = body1X - bodySegment1Width * Math.sin(this.angles[5][1])
-    let body1LY = body1Y + bodySegment1Width * Math.cos(this.angles[5][1])
+    let body1LX = body1X - Math.abs(bodySegment1Width * Math.sin(this.angles[5][1]))
+    let body1LY = body1Y + Math.abs(bodySegment1Width * Math.cos(this.angles[5][1]))
 
-    let body1RX = body1X + bodySegment1Width * Math.sin(this.angles[5][1])
-    let body1RY = body1Y - bodySegment1Width * Math.cos(this.angles[5][1])
+    let body1RX = body1X + Math.abs(bodySegment1Width * Math.sin(this.angles[5][1]))
+    let body1RY = body1Y - Math.abs(bodySegment1Width * Math.cos(this.angles[5][1]))
 
 
     let bodySegment2Distance = 30;
@@ -326,15 +326,23 @@ function Fish(dx, dy, radius, id, c, foodarr) {
     let bodyTipY = neckY - this.angles[10][1] * bodyTipDistance * (Math.sin(this.angles[10][0]))
 
 
+    // c.beginPath();
+    // c.moveTo(tip1X,tip1Y);
+    // c.bezierCurveTo(body1LX,body1LY, body2X, body2Y,bodyTipX, bodyTipY)
+    //
+    // c.bezierCurveTo(body2X, body2Y, body1RX,body1RY, tip2X, tip2Y)
+    // c.lineTo(tip1X,tip1Y);
+    // c.fillStyle = 'red';
+    // c.fill();
+
+
     c.beginPath();
     c.moveTo(tip1X,tip1Y);
-    c.bezierCurveTo(body1LX,body1LY, body2X, body2Y,bodyTipX, bodyTipY)
-
-    c.bezierCurveTo(body2X, body2Y, body1RX,body1RY, tip2X, tip2Y)
+    c.lineTo(bodyTipX,bodyTipY);
+    c.lineTo(tip2X,tip2Y);
     c.lineTo(tip1X,tip1Y);
-    c.fillStyle = 'red';
+    c.fillStyle = bodyColor;
     c.fill();
-
 
 
 
@@ -670,7 +678,6 @@ function Fish(dx, dy, radius, id, c, foodarr) {
     this.oscillate();
     this.draw();
 
-    console.log('dx,dy', this.dx / Math.abs(this.dx), this.dy / Math.abs(this.dy));
 
   };
 }
