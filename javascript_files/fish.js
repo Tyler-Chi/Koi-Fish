@@ -57,7 +57,7 @@ function Fish(dx, dy, radius, id, c, foodarr) {
       this.angles.pop();
     }
 
-    let neckDistance = 3;
+    let neckDistance = 0.5;
     let neckX = this.x - this.angles[5][1] * neckDistance * (Math.cos(this.angles[5][0]))
     let neckY = this.y - this.angles[5][1] * neckDistance * (Math.sin(this.angles[5][0]))
 
@@ -68,7 +68,7 @@ function Fish(dx, dy, radius, id, c, foodarr) {
 
 
     //sin and cosine are getting added incorrectly!
-    let tipDistance = 10;
+    let tipDistance = 7;
     let tip1X = neckX - tipDistance * Math.sin(headAngle)
     let tip1Y = neckY + tipDistance * Math.cos(headAngle)
 
@@ -104,76 +104,11 @@ function Fish(dx, dy, radius, id, c, foodarr) {
     let bodyTipY = neckY - this.angles[10][1] * bodyTipDistance * (Math.sin(this.angles[10][0]))
 
     c.beginPath();
-    c.arc(
-      body1X,
-      body1Y,
-      3,
-      0,
-      2 * Math.PI,
-      false
-    )
-    c.fillStyle = 'blue';
-    c.fill();
-
-    c.beginPath();
-    c.arc(
-      body1RX,
-      body1RY,
-      3,
-      0,
-      2* Math.PI,
-      false
-    )
-    c.fillStyle='white';
-    c.fill();
-
-    c.beginPath();
-    c.arc(
-      body1LX,
-      body1LY,
-      3,
-      0,
-      2* Math.PI,
-      false
-    )
-    c.fillStyle='white';
-    c.fill();
-
-    c.beginPath();
-    c.arc(
-      tip1X,
-      tip1Y,
-      3,
-      0,
-      2* Math.PI,
-      false
-    )
-    c.fillStyle='black';
-    c.fill();
-
-    c.beginPath();
-    c.arc(
-      tip2X,
-      tip2Y,
-      3,
-      0,
-      2* Math.PI,
-      false
-    )
-    c.fillStyle='black';
-    c.fill();
-
-
-    c.beginPath();
-    c.arc(
-      bodyTipX,
-      bodyTipY,
-      3,
-      0,
-      2* Math.PI,
-      false
-    )
-    c.fillStyle='black';
+    c.moveTo(tip1X,tip1Y)
+    c.quadraticCurveTo(body1LX,body1LY,bodyTipX,bodyTipY);
+    c.quadraticCurveTo(body1RX,body1RY,tip2X,tip2Y);
+    c.lineTo(tip1X,tip1Y);
+    c.fillStyle = bodyColor;
     c.fill();
 
     let finOscillate = 0.9 + 0.2 * Math.sin(this.time);
@@ -194,11 +129,13 @@ function Fish(dx, dy, radius, id, c, foodarr) {
     c.stroke();
 
 
+    //the neck circle
+
     c.beginPath();
     c.arc(
       neckX,
       neckY,
-      9,
+      8,
       0,
       2 * Math.PI,
       false
