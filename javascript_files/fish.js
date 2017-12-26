@@ -106,7 +106,7 @@ function Fish(dx, dy, radius, id, c, foodarr) {
 
 
     //handle tailWagging
-    this.tipTime += Math.sqrt(this.dx * this.dx + this.dy * this.dy)/20;
+    this.tipTime += Math.sqrt(this.dx * this.dx + this.dy * this.dy)/22;
     let bodyOX = -1 * Math.sin(headAngle);
     let bodyOY = Math.cos(headAngle);
     let bodyOscillation = 8 * Math.sin(this.tipTime)
@@ -400,13 +400,13 @@ function Fish(dx, dy, radius, id, c, foodarr) {
   this.do = function() {
     if (foodarr.length === 0) {
       this.update();
+      this.controlSpeed();
     } else {
       this.chaseFood();
     }
 
 
 
-    this.controlSpeed();
     this.generalBehavior();
     this.draw();
 
