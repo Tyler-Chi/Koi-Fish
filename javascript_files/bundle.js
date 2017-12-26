@@ -165,8 +165,8 @@ window.addEventListener("keypress",function(event){
 
 function createFishes(fishCount,foods,c){
 
-  let dx = 1 ;
-  let dy = 1 ;
+  let dx = 0.8 ;
+  let dy = 0.8 ;
   let radius = 18;
 
   if (fishCount > fishes.length){
@@ -331,11 +331,11 @@ function Fish(dx, dy, radius, id, c, foodarr) {
 
     //handle tailWagging
     this.tipTime += Math.sqrt(this.dx * this.dx + this.dy * this.dy)/22;
-    let bodyOX = -1 * Math.sin(headAngle);
-    let bodyOY = Math.cos(headAngle);
+    let bodyTipOX = -1 * Math.sin(headAngle);
+    let bodyTipOY = Math.cos(headAngle);
     let bodyOscillation = 8 * Math.sin(this.tipTime)
-    bodyTipX += bodyOX * bodyOscillation;
-    bodyTipY += bodyOY * bodyOscillation;
+    bodyTipX += bodyTipOX * bodyOscillation;
+    bodyTipY += bodyTipOY * bodyOscillation;
 
 
     c.beginPath();
@@ -346,7 +346,7 @@ function Fish(dx, dy, radius, id, c, foodarr) {
     c.fillStyle = bodyColor;
     c.fill();
 
-    let finOscillate = 0.9 + 0.2 * Math.sin(this.time);
+    let finOscillate = 0.7 + 0.075 * Math.sin(this.time);
 
     c.beginPath();
     c.ellipse(
@@ -370,7 +370,7 @@ function Fish(dx, dy, radius, id, c, foodarr) {
     c.arc(
       neckX,
       neckY,
-      8,
+      7,
       0,
       2 * Math.PI,
       false
@@ -605,6 +605,13 @@ function Fish(dx, dy, radius, id, c, foodarr) {
       this.dy *= 1 / 0.7;
     }
   };
+
+  this.controlChaseSpeed = function(){
+
+
+
+
+  }
 
   this.generalBehavior = function() {
     let ox = -1 * this.dy;
