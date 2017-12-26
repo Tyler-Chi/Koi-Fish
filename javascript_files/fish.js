@@ -91,8 +91,8 @@ function Fish(dx, dy, radius, id, c, foodarr) {
     let body1LX = body1X - bodySegment1Width * Math.sin(headAngle)
     let body1LY = body1Y + bodySegment1Width * Math.cos(headAngle)
 
-    let body1RX = body1X + bodySegment1Width * Math.sin(this.angles[5][1])
-    let body1RY = body1Y - bodySegment1Width * Math.cos(this.angles[5][1])
+    let body1RX = body1X + bodySegment1Width * Math.sin(headAngle)
+    let body1RY = body1Y - bodySegment1Width * Math.cos(headAngle)
 
 
     let bodySegment2Distance = 30;
@@ -117,6 +117,18 @@ function Fish(dx, dy, radius, id, c, foodarr) {
 
     c.beginPath();
     c.arc(
+      body1RX,
+      body1RY,
+      3,
+      0,
+      2* Math.PI,
+      false
+    )
+    c.fillStyle='white';
+    c.fill();
+
+    c.beginPath();
+    c.arc(
       body1LX,
       body1LY,
       3,
@@ -131,6 +143,18 @@ function Fish(dx, dy, radius, id, c, foodarr) {
     c.arc(
       tip1X,
       tip1Y,
+      3,
+      0,
+      2* Math.PI,
+      false
+    )
+    c.fillStyle='black';
+    c.fill();
+
+    c.beginPath();
+    c.arc(
+      tip2X,
+      tip2Y,
       3,
       0,
       2* Math.PI,
