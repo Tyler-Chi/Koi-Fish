@@ -246,6 +246,7 @@ function Fish(dx, dy, radius, id, c, foodarr) {
   this.dy = dy;
   this.radius = radius;
   this.time = Math.random() * 5;
+  this.tipTime = Math.random() * 5;
   this.positions = [];
   this.slopes = [];
   this.angles = [];
@@ -326,6 +327,25 @@ function Fish(dx, dy, radius, id, c, foodarr) {
     let bodyTipDistance = 35;
     let bodyTipX = neckX - this.angles[10][1] * bodyTipDistance * (Math.cos(this.angles[10][0]))
     let bodyTipY = neckY - this.angles[10][1] * bodyTipDistance * (Math.sin(this.angles[10][0]))
+
+    // this.generalBehavior = function() {
+    //   let ox = -1 * this.dy;
+    //   let oy = this.dx;
+    //
+    //   this.time += 0.08;
+    //   let oscillation = 0.4 * Math.sin(this.time);
+    //
+    //   this.x += this.dx + oscillation * ox;
+    //   this.y += this.dy + oscillation * oy;
+    // };
+
+    this.tipTime += 0.1;
+    let bodyOX = -1 * Math.sin(headAngle);
+    let bodyOY = Math.cos(headAngle);
+    let bodyOscillation = 5 * Math.sin(this.tipTime)
+    bodyTipX += bodyOX * bodyOscillation;
+    bodyTipY += bodyOY * bodyOscillation;
+
 
     c.beginPath();
     c.moveTo(tip1X,tip1Y)
@@ -597,7 +617,7 @@ function Fish(dx, dy, radius, id, c, foodarr) {
     }
   };
 
-  this.oscillate = function() {
+  this.generalBehavior = function() {
     let ox = -1 * this.dy;
     let oy = this.dx;
 
@@ -618,7 +638,7 @@ function Fish(dx, dy, radius, id, c, foodarr) {
 
 
     this.controlSpeed();
-    this.oscillate();
+    this.generalBehavior();
     this.draw();
 
 
