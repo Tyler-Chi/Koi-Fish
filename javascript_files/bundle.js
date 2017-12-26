@@ -441,8 +441,8 @@ function Fish(dx, dy, radius, id, c, foodarr) {
       foodDir = -1;
     }
 
-    this.dfy = (totalSpeed * Math.sin(angle) * foodDir) ;
-    this.dfx = (totalSpeed * Math.cos(angle) * foodDir) ;
+    this.dy = (dy * Math.sin(angle) * foodDir) * 3;
+    this.dx = (dx * Math.cos(angle) * foodDir) * 3;
 ;
     //eat the food
 
@@ -454,17 +454,17 @@ function Fish(dx, dy, radius, id, c, foodarr) {
 
     //control how fast they can turn.
 
-    if (this.speedDif(this.dx, this.dfx) < 0.001) {
-      this.dx = this.dfx;
-    } else {
-      this.dx += turnChange * this.dfx;
-    }
-
-    if (this.speedDif(this.dy, this.dfy) < 0.5) {
-      this.dy = this.dfy;
-    } else {
-      this.dy += turnChange * this.dfy;
-    }
+    // if (this.speedDif(this.dx, this.dfx) < 0.001) {
+    //   this.dx = this.dfx;
+    // } else {
+    //   this.dx += turnChange * this.dfx;
+    // }
+    //
+    // if (this.speedDif(this.dy, this.dfy) < 0.5) {
+    //   this.dy = this.dfy;
+    // } else {
+    //   this.dy += turnChange * this.dfy;
+    // }
   };
 
   this.update = function() {
