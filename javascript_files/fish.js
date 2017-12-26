@@ -137,6 +137,7 @@ function Fish(dx, dy, radius, id, c, foodarr) {
     );
     c.strokeStyle = bodyColor;
     c.lineWidth = 3;
+    c.lineCap = 'round';
     c.stroke();
 
 
@@ -190,6 +191,11 @@ function Fish(dx, dy, radius, id, c, foodarr) {
   };
 
   this.chaseFood = function() {
+
+    let maxDistance = Math.sqrt( innerWidth * innerWidth + innerHeight * innerHeight )
+
+    console.log('max dist',maxDistance);
+
     //has access to foodarr
     //first find the piece of food the fish is closest to.
 
@@ -204,7 +210,8 @@ function Fish(dx, dy, radius, id, c, foodarr) {
       }
     }
 
-    let turnChange = 0.3;
+
+    let distancePercent = distance(this.x,this.y, foodarr[chaseIndex].x,foodarr[chaseIndex].y)
 
     //assume that its sorted already...
     yDif = foodarr[chaseIndex].y - this.y;
@@ -217,9 +224,12 @@ function Fish(dx, dy, radius, id, c, foodarr) {
       foodDir = -1;
     }
 
+
+
     this.dy = (dy * Math.sin(angle) * foodDir) * 3;
     this.dx = (dx * Math.cos(angle) * foodDir) * 3;
-;
+
+
     //eat the food
 
     for (var f = 0; f < foodarr.length; f++) {
@@ -227,6 +237,9 @@ function Fish(dx, dy, radius, id, c, foodarr) {
         foodarr.splice(f, 1);
       }
     }
+
+    // let turnChange = 0.3;
+
 
     //control how fast they can turn.
 
