@@ -80,17 +80,19 @@ function Fish(dx, dy, radius, id, c, foodarr) {
     //TODO can also add some trig oscillation right here.
     //TODO should really turn these into quadratic curves.
     //TODO use the tip points in order to draw the curves
-    let bodySegment1Distance = 10;
+    //TODO THEY SWAP CUZ THE RIGHT AND LEFT SWAPS!!!
+
+    let bodySegment1Distance = 17;
     let body1X = neckX - this.angles[5][1] * bodySegment1Distance * (Math.cos(this.angles[5][0]))
     let body1Y = neckY - this.angles[5][1] * bodySegment1Distance * (Math.sin(this.angles[5][0]))
 
-    let bodySegment1Width = 8;
+    let bodySegment1Width = 7;
 
-    let body1LX = body1X - Math.abs(bodySegment1Width * Math.sin(this.angles[5][1]))
-    let body1LY = body1Y + Math.abs(bodySegment1Width * Math.cos(this.angles[5][1]))
+    let body1LX = body1X - bodySegment1Width * Math.sin(headAngle)
+    let body1LY = body1Y + bodySegment1Width * Math.cos(headAngle)
 
-    let body1RX = body1X + Math.abs(bodySegment1Width * Math.sin(this.angles[5][1]))
-    let body1RY = body1Y - Math.abs(bodySegment1Width * Math.cos(this.angles[5][1]))
+    let body1RX = body1X + bodySegment1Width * Math.sin(this.angles[5][1])
+    let body1RY = body1Y - bodySegment1Width * Math.cos(this.angles[5][1])
 
 
     let bodySegment2Distance = 30;
@@ -101,92 +103,72 @@ function Fish(dx, dy, radius, id, c, foodarr) {
     let bodyTipX = neckX - this.angles[10][1] * bodyTipDistance * (Math.cos(this.angles[10][0]))
     let bodyTipY = neckY - this.angles[10][1] * bodyTipDistance * (Math.sin(this.angles[10][0]))
 
-
-    // c.beginPath();
-    // c.moveTo(tip1X,tip1Y);
-    // c.bezierCurveTo(body1LX,body1LY, body2X, body2Y,bodyTipX, bodyTipY)
-    //
-    // c.bezierCurveTo(body2X, body2Y, body1RX,body1RY, tip2X, tip2Y)
-    // c.lineTo(tip1X,tip1Y);
-    // c.fillStyle = 'red';
-    // c.fill();
-
-
     c.beginPath();
-    c.moveTo(tip1X,tip1Y);
-    c.lineTo(bodyTipX,bodyTipY);
-    c.lineTo(tip2X,tip2Y);
-    c.lineTo(tip1X,tip1Y);
-    c.fillStyle = bodyColor;
+    c.arc(
+      body1X,
+      body1Y,
+      3,
+      0,
+      2 * Math.PI,
+      false
+    )
+    c.fillStyle = 'blue';
     c.fill();
 
+    c.beginPath();
+    c.arc(
+      body1LX,
+      body1LY,
+      3,
+      0,
+      2* Math.PI,
+      false
+    )
+    c.fillStyle='white';
+    c.fill();
 
-
-
-    //more fin stuff.
     c.beginPath();
     c.arc(
       tip1X,
       tip1Y,
-      7,
+      3,
       0,
-      2 * Math.PI,
+      2* Math.PI,
       false
     )
-    c.fillStyle = bodyColor;
+    c.fillStyle='black';
     c.fill();
+
 
     c.beginPath();
     c.arc(
-      tip2X,
-      tip2Y,
-      7,
+      bodyTipX,
+      bodyTipY,
+      3,
       0,
-      2 * Math.PI,
+      2* Math.PI,
       false
     )
-    c.fillStyle = bodyColor;
+    c.fillStyle='black';
     c.fill();
 
-    //body stuff. bodyX, bodyY refers to the tip of the body
-    // c.beginPath();
-    // c.arc(
-    //   body1X,
-    //   body1Y,
-    //   7,
-    //   0,
-    //   2 * Math.PI,
-    //   false
-    // )
-    // c.fillStyle = bodyColor;
-    // c.fill();
-    //
-    // c.beginPath();
-    // c.arc(
-    //   body3X,
-    //   body3Y,
-    //   5,
-    //   0,
-    //   2 * Math.PI,
-    //   false
-    // )
-    // c.fillStyle = bodyColor;
-    // c.fill();
-    //
-    // c.beginPath();
-    // c.arc(
-    //   body2X,
-    //   body2Y,
-    //   4,
-    //   0,
-    //   2 * Math.PI,
-    //   false
-    // )
-    // c.fillStyle = bodyColor;
-    // c.fill();
+    let finOscillate = 0.9 + 0.2 * Math.sin(this.time);
 
+    c.beginPath();
+    c.ellipse(
+      neckX,
+      neckY,
+      0.5 * this.radius,
+      finOscillate * this.radius,
+      headAngle,
+      -Math.PI / 2,
+      Math.PI / 2,
+      cc
+    );
+    c.strokeStyle = bodyColor;
+    c.lineWidth = 3;
+    c.stroke();
 
-    //the neck area
 
     c.beginPath();
     c.arc(
