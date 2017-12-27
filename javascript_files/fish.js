@@ -387,10 +387,8 @@ function Fish(dx, dy, radius, id, c, foodarr) {
   };
 
   this.controlChaseSpeed = function(){
-
-
-
-
+    this.dx *= 1.05;
+    this.dy *= 1.05;
   }
 
   this.generalBehavior = function() {
@@ -414,6 +412,7 @@ function Fish(dx, dy, radius, id, c, foodarr) {
       this.controlSpeed();
     } else {
       this.chaseFood();
+      this.controlChaseSpeed();
     }
 
 
