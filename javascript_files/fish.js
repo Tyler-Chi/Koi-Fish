@@ -55,7 +55,7 @@ function Fish(dx, dy, radius, id, c, foodarr) {
     }
     //should initially calculate all positions first.
     let headAngle = Math.atan(this.dy / this.dx);
-    this.angles.unshift([headAngle,nd]);
+    this.angles.unshift([headAngle,nd,cc]);
     if (this.angles.length > this.fishLength){
       this.angles.pop();
     }
@@ -106,14 +106,31 @@ function Fish(dx, dy, radius, id, c, foodarr) {
     let bodyTipX = neckX - this.angles[10][1] * bodyTipDistance * (Math.cos(this.angles[10][0]))
     let bodyTipY = neckY - this.angles[10][1] * bodyTipDistance * (Math.sin(this.angles[10][0]))
 
+    //drawing the actual tail.
 
-    //handle tailWagging
+
+
+    //handle bodyWagging
     this.tipTime += Math.sqrt(this.dx * this.dx + this.dy * this.dy)/22;
     let bodyTipOX = -1 * Math.sin(headAngle);
     let bodyTipOY = Math.cos(headAngle);
     let bodyOscillation = 8 * Math.sin(this.tipTime)
     bodyTipX += bodyTipOX * bodyOscillation;
     bodyTipY += bodyTipOY * bodyOscillation;
+
+    c.beginPath();
+    c.ellipse(
+      bodyTipX,
+      bodyTipY,
+      0.5 * this.radius,
+      0.25 * this.radius,
+      this.angles[10][0],
+      -Math.PI / 2,
+      Math.PI / 2,
+      this.angles[10][2]
+    )
+    c.fillStyle = 'black';
+    c.fill();
 
 
     c.beginPath();
@@ -137,6 +154,9 @@ function Fish(dx, dy, radius, id, c, foodarr) {
       Math.PI / 2,
       cc
     );
+    c.strokeStyle = 'black';
+    c.lineWidth = 0.5;
+    c.stroke();
     c.fillStyle = finColor;
     c.fill();
 
