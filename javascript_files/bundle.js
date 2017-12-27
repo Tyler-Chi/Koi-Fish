@@ -99,7 +99,7 @@ var fishes = [];
 var foods = [];
 var pads = [];
 
-createFishes(1,foods,c)
+createFishes(30,foods,c)
 createPads(10,c)
 
 
@@ -625,8 +625,8 @@ function Fish(dx, dy, radius, id, c, foodarr) {
 
 
     if (this.calcSpeed(this.dx, this.dy) > 1.2 * this.calcSpeed(dx,dy)) {
-      this.dx *= 1 / 1.2;
-      this.dy *= 1 / 1.2;
+      this.dx *= 1 / 1.1;
+      this.dy *= 1 / 1.1;
     }
 
     if (this.calcSpeed(this.dx, this.dy) < 0.7 * this.calcSpeed(dx, dy)) {

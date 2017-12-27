@@ -25,7 +25,7 @@ var fishes = [];
 var foods = [];
 var pads = [];
 
-createFishes(1,foods,c)
+createFishes(30,foods,c)
 createPads(10,c)
 
 
