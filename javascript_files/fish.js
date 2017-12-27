@@ -13,6 +13,8 @@ function Fish(dx, dy, radius, id, c, foodarr) {
   let bodyColor = colors[Math.round(Math.random() * (colors.length - 1))];
   let tailColor = colors[Math.round(Math.random() * (colors.length - 1))];
   let neckColor = colors[Math.round(Math.random() * (colors.length - 1))];
+  let finColor = colors[Math.round(Math.random() * (colors.length - 1))];
+
   let width = c.canvas.width;
   let height = c.canvas.height;
 
@@ -135,10 +137,7 @@ function Fish(dx, dy, radius, id, c, foodarr) {
       Math.PI / 2,
       cc
     );
-    c.strokeStyle = bodyColor;
-    c.lineWidth = 3;
-    // c.lineCap = 'round';
-    c.stroke();
+    c.fillStyle = finColor;
     c.fill();
 
 
