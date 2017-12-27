@@ -137,8 +137,9 @@ function Fish(dx, dy, radius, id, c, foodarr) {
     );
     c.strokeStyle = bodyColor;
     c.lineWidth = 3;
-    c.lineCap = 'round';
+    // c.lineCap = 'round';
     c.stroke();
+    c.fill();
 
 
     //the neck circle
@@ -221,7 +222,7 @@ function Fish(dx, dy, radius, id, c, foodarr) {
       foodDir = -1;
     }
 
-    let turnChange = 0.1;
+    let turnChange = 0.08;
 
     this.dfy = (dy * Math.sin(angle) * foodDir);
     this.dfx = (dx * Math.cos(angle) * foodDir);
