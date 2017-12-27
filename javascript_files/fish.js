@@ -194,13 +194,10 @@ function Fish(dx, dy, radius, id, c, foodarr) {
 
     let maxDistance = Math.sqrt( innerWidth * innerWidth + innerHeight * innerHeight )
 
-    console.log('max dist',maxDistance);
 
-    //has access to foodarr
-    //first find the piece of food the fish is closest to.
+    //accessing the food array, deciding which piece of food is closest.
 
     let chaseIndex = 0;
-
     for (var a = 0; a < foodarr.length; a++) {
       if (
         distance(this.x, this.y, foodarr[a].x, foodarr[a].y) <
@@ -224,10 +221,18 @@ function Fish(dx, dy, radius, id, c, foodarr) {
       foodDir = -1;
     }
 
+    let turnChange = 0.1;
 
+    this.dfy = (dy * Math.sin(angle) * foodDir);
+    this.dfx = (dx * Math.cos(angle) * foodDir);
 
-    this.dy = (dy * Math.sin(angle) * foodDir) * 3;
-    this.dx = (dx * Math.cos(angle) * foodDir) * 3;
+    if (this.speedDif(this.dx, this.dfx) > 0.01){
+      this.dx = ( 1 - turnChange ) * this.dx + turnChange * this.dfx;
+    }
+
+    if (this.speedDif(this.dy, this.dfy) > 0.01){
+      this.dy = (1 - turnChange) * this.dy + turnChange * this.dfy;
+    }
 
 
     //eat the food
@@ -238,22 +243,7 @@ function Fish(dx, dy, radius, id, c, foodarr) {
       }
     }
 
-    // let turnChange = 0.3;
 
-
-    //control how fast they can turn.
-
-    // if (this.speedDif(this.dx, this.dfx) < 0.001) {
-    //   this.dx = this.dfx;
-    // } else {
-    //   this.dx += turnChange * this.dfx;
-    // }
-    //
-    // if (this.speedDif(this.dy, this.dfy) < 0.5) {
-    //   this.dy = this.dfy;
-    // } else {
-    //   this.dy += turnChange * this.dfy;
-    // }
   };
 
   this.update = function() {
@@ -384,14 +374,15 @@ function Fish(dx, dy, radius, id, c, foodarr) {
   this.controlSpeed = function() {
 
 
-    if (this.calcSpeed(this.dx, this.dy) > 1.2 *(dx + dy)) {
+    if (this.calcSpeed(this.dx, this.dy) > 1.2 * this.calcSpeed(dx,dy)) {
       this.dx *= 1 / 1.2;
       this.dy *= 1 / 1.2;
     }
 
-    if (this.calcSpeed(this.dx, this.dy) < 0.7 * (dx + dy)) {
+    if (this.calcSpeed(this.dx, this.dy) < 0.7 * this.calcSpeed(dx, dy)) {
       this.dx *= 1 / 0.7;
       this.dy *= 1 / 0.7;
+      console.log('hi');
     }
   };
 
