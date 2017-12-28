@@ -82,12 +82,6 @@ function Fish(dx, dy, radius, id, c, foodarr) {
     let tip2Y = neckY - tipDistance * Math.cos(headAngle)
 
 
-    //TODO can possibly turn this into a loop, we will see!
-    //TODO can also add some trig oscillation right here.
-    //TODO should really turn these into quadratic curves.
-    //TODO use the tip points in order to draw the curves
-    //TODO THEY SWAP CUZ THE RIGHT AND LEFT SWAPS!!!
-
     let bodySegment1Distance = 17;
     let body1X = neckX - this.angles[5][1] * bodySegment1Distance * (Math.cos(this.angles[5][0]))
     let body1Y = neckY - this.angles[5][1] * bodySegment1Distance * (Math.sin(this.angles[5][0]))
@@ -109,9 +103,6 @@ function Fish(dx, dy, radius, id, c, foodarr) {
     let bodyTipX = neckX - this.angles[10][1] * bodyTipDistance * (Math.cos(this.angles[10][0]))
     let bodyTipY = neckY - this.angles[10][1] * bodyTipDistance * (Math.sin(this.angles[10][0]))
 
-    //drawing the actual tail.
-
-
 
     //handle bodyWagging
     this.tipTime += Math.sqrt(this.dx * this.dx + this.dy * this.dy)/22;
@@ -121,17 +112,34 @@ function Fish(dx, dy, radius, id, c, foodarr) {
     bodyTipX += bodyTipOX * bodyOscillation;
     bodyTipY += bodyTipOY * bodyOscillation;
 
+
+    let tailDir;
+
+    let tailDX = neckX - bodyTipX;
+
+    if (tailDX >= 0){
+      tailDir = false;
+    } else {
+      tailDir = true;
+    }
+
+    let tailDY = neckY - bodyTipY;
+    let tailAngle = Math.atan(tailDY / tailDX);
+
+    //this is the tail
+
     c.beginPath();
     c.ellipse(
       bodyTipX,
       bodyTipY,
       0.5 * this.radius,
       0.25 * this.radius,
-      this.angles[10][0],
+      tailAngle,
       -Math.PI / 2,
       Math.PI / 2,
-      this.angles[10][2]
+      tailDir
     )
+
     c.fillStyle = tailFinColor;
     c.strokeStyle = 'black';
     c.lineWidth = 0.5;
