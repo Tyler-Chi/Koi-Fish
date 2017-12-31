@@ -31,6 +31,7 @@ function Fish(dx, dy, radius, id, c, foodarr) {
   this.positions = [];
   this.slopes = [];
   this.angles = [];
+  this.foodPotential = 0;
 
   let totalSpeed = Math.sqrt(dx * dx + dy * dy);
   this.speed = (this.dx * this.dx) + (this.dy + this.dy);
@@ -226,6 +227,8 @@ function Fish(dx, dy, radius, id, c, foodarr) {
 
   this.chaseFood = function() {
 
+    // this.foodPotential += 1;
+
     let maxDistance = Math.sqrt( innerWidth * innerWidth + innerHeight * innerHeight )
 
 
@@ -241,6 +244,11 @@ function Fish(dx, dy, radius, id, c, foodarr) {
       }
     }
 
+    if (distance(this.x, this.y, foodarr[chaseIndex].x, foodarr[chaseIndex].y) < 30 ){
+      this.foodPotential += 10
+    }
+
+    
 
     let distancePercent = distance(this.x,this.y, foodarr[chaseIndex].x,foodarr[chaseIndex].y)
 
@@ -255,7 +263,7 @@ function Fish(dx, dy, radius, id, c, foodarr) {
       foodDir = -1;
     }
 
-    let turnChange = 0.08;
+    let turnChange = 0.07;
 
     this.dfy = (dy * Math.sin(angle) * foodDir);
     this.dfx = (dx * Math.cos(angle) * foodDir);
@@ -416,7 +424,6 @@ function Fish(dx, dy, radius, id, c, foodarr) {
     if (this.calcSpeed(this.dx, this.dy) < 0.7 * this.calcSpeed(dx, dy)) {
       this.dx *= 1 / 0.7;
       this.dy *= 1 / 0.7;
-      console.log('hi');
     }
   };
 
@@ -424,6 +431,18 @@ function Fish(dx, dy, radius, id, c, foodarr) {
     this.dx *= 1.05;
     this.dy *= 1.05;
   }
+
+  this.rotate = function(){
+    this.foodPotential -= 0.5;
+    let rotation = 0.045;
+    let currentAngle = Math.atan(this.dy/this.dx);
+    let turnX = -1 * this.dy;
+    let turnY = this.dx;
+    this.dx = (1-rotation) * this.dx + rotation * turnX;
+    this.dy = (1-rotation) * this.dy + rotation * turnY;
+    
+  }
+
 
   this.generalBehavior = function() {
     let ox = -1 * this.dy;
@@ -441,15 +460,25 @@ function Fish(dx, dy, radius, id, c, foodarr) {
   };
 
   this.do = function() {
+    
     if (foodarr.length === 0) {
-      this.update();
+      if (this.foodPotential > 0 ){
+        this.rotate();
+      } else {
+        this.update();
+      }
+
+
       this.controlSpeed();
     } else {
       this.chaseFood();
+
       this.controlChaseSpeed();
     }
 
 
+
+  
 
     this.generalBehavior();
     this.draw();

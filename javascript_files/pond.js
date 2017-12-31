@@ -91,8 +91,8 @@ window.addEventListener("keypress",function(event){
 
 function createFishes(fishCount,foods,c){
 
-  let dx = 1.0 ;
-  let dy = 1.0 ;
+  let dx = 0.8 ;
+  let dy = 0.8 ;
   let radius = 18;
 
   if (fishCount > fishes.length){
