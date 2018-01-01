@@ -433,7 +433,7 @@ function Fish(dx, dy, radius, id, c, foodarr) {
   }
 
   this.rotate = function(){
-    this.foodPotential -= 0.5;
+    this.foodPotential -= 0.1;
     let rotation = 0.045;
     let currentAngle = Math.atan(this.dy/this.dx);
     let turnX = -1 * this.dy;
