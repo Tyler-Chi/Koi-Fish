@@ -12,12 +12,13 @@ Users are able to click on the pond in order to drop food. Fish accelerate towar
 
 Users can also press 'F' in order to randomly scatter food in the pond.
 
-In the top left, there are two sliders. Moving the sliders changes the number of fish and lilypads that will be present in the pond.
-
+Moving the sliders dynamically updates the number of fish and lilypads that will be present in the pond.
 
 ## Fish Behavior
 
 Fish move around pseudorandomly, meaning there is some degree of consistency with their movement, but also some degree of randomness. Their movement is in part defined by trigonometric functions. The oscillation of their fins and tails are also defined by trigonometric functions.
+
+Drawing the fish relies upon basic calculus, taking into account the current position of the fish, as well as its past movement vectors.
 
 When food is present in the environment, each fish uses its current position in order to calculate which piece of food is closest to it. Once the fish determines which food particle is closest to it, the fish will change its course and pursue that piece of food. 
 

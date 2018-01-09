@@ -10,7 +10,7 @@ function LilyPad(c) {
 
   let startAngle = Math.random() * Math.PI * 2;
 
-  let padColor = "#4CAF50";
+  let padColor = "#0a3f06";
 
   let petalColors = [
     "#ff00fa",
@@ -58,7 +58,8 @@ function LilyPad(c) {
         this.y + (radius - 2) * Math.sin(startAngle + Math.PI / 2.18 * i)
       );
       c.lineWidth = 2;
-      c.strokeStyle = "#023a03";
+      // c.strokeStyle = "#023a03";
+      c.strokeStyle = "black";
       c.stroke();
     }
 
@@ -92,7 +93,7 @@ function LilyPad(c) {
         Math.PI,
         true
       );
-      c.fillStyle = "white";
+      c.fillStyle = petalColors[petalColor];
       c.fill();
     }
 
