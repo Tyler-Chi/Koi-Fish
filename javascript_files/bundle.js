@@ -165,13 +165,15 @@ window.addEventListener("keypress",function(event){
 
 function createFishes(fishCount,foods,c){
 
+
+
   let dx = 0.8 ;
   let dy = 0.8 ;
   let radius = 18;
 
   if (fishCount > fishes.length){
     for (var f = fishes.length ; f < fishCount ; f++){
-      fishes.push(new __WEBPACK_IMPORTED_MODULE_0__fish_js__["a" /* default */](dx, dy, radius, f , c, foods))
+      fishes.push(new __WEBPACK_IMPORTED_MODULE_0__fish_js__["a" /* default */](dx , dy, radius, f , c, foods))
     }
   } else {
     let difference = fishes.length - fishCount;
