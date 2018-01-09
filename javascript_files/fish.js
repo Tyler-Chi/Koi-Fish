@@ -245,7 +245,9 @@ function Fish(dx, dy, radius, id, c, foodarr) {
     }
 
     if (distance(this.x, this.y, foodarr[chaseIndex].x, foodarr[chaseIndex].y) < 30 ){
-      this.foodPotential += 10
+      if (this.foodPotential < 100){
+        this.foodPotential += 10;
+      }
     }
 
     

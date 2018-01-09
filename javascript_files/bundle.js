@@ -469,7 +469,9 @@ function Fish(dx, dy, radius, id, c, foodarr) {
     }
 
     if (distance(this.x, this.y, foodarr[chaseIndex].x, foodarr[chaseIndex].y) < 30 ){
-      this.foodPotential += 10
+      if (this.foodPotential < 100){
+        this.foodPotential += 10;
+      }
     }
 
     
@@ -778,7 +780,6 @@ function LilyPad(c) {
 
   let startAngle = Math.random() * Math.PI * 2;
 
-  let padColor = "#0a3f06";
 
   let petalColors = [
     "#ff00fa",
@@ -797,13 +798,17 @@ function LilyPad(c) {
   this.draw = function() {
     startAngle += 0.009;
 
+    // this is the color of green
+
     let endAngle = startAngle + Math.PI;
 
     c.beginPath();
     c.arc(this.x, this.y, radius, startAngle, endAngle, false);
-    c.fillStyle = padColor;
+    c.fillStyle = "#21af31";
     c.fill();
 
+
+    // the above is the actual color
     c.beginPath();
     c.arc(
       this.x,
@@ -813,7 +818,7 @@ function LilyPad(c) {
       endAngle + 1.7 * (Math.PI / 2),
       false
     );
-    c.fillstyle = padColor;
+    c.fillstyle = "white";
     c.fill();
 
     //lines on the lilypads
@@ -827,7 +832,7 @@ function LilyPad(c) {
       );
       c.lineWidth = 2;
       // c.strokeStyle = "#023a03";
-      c.strokeStyle = "black";
+      c.strokeStyle = "#024219";
       c.stroke();
     }
 
