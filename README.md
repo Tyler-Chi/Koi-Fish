@@ -1,9 +1,10 @@
 # Bit Koi
-[Live Link](https://tyler-chi.github.io/JSProject/)
+
+## [Live Link](https://tyler-chi.github.io/JSProject/)
 
 Simulation of Koi fish swimming in a pond, coded in Canvas/HTML5 and vanilla JavaScript
 
-GIF HERE
+![](https://github.com/Tyler-Chi/JSProject/blob/master/javascript_files/fishy3.gif)
 
 ## User Interaction
 
@@ -13,7 +14,6 @@ Users can also press 'F' in order to randomly scatter food in the pond.
 
 In the top left, there are two sliders. Moving the sliders changes the number of fish and lilypads that will be present in the pond.
 
-GIF SLIDING HERE
 
 ## Fish Behavior
 
