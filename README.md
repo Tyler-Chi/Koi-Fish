@@ -25,4 +25,10 @@ When food is present in the environment, each fish uses its current position in 
 
 ## Lilypad Behavior
 
-The lilypads are pretty simple. They have an innate angular rotation, and also float around the pond. They move in straight lines, and bounce off the edges of the pond. Their movement is not affected by anything else in the environment. 
+The Lilypads have an innate angular rotation, and also float around the pond. They move in straight lines, and bounce off the edges of the pond. Their movement is not affected by anything else in the environment.
+
+## Future Ideas
+
+I want the fish to be somehow affected by other fish in their environment. Koi fish generally swim near the surface when chasing food, so fish shouldn't be able to stack on top of each other as easily as they do now.
+
+I want the lilypads movement to be somehow affected by the movement of nearby fish, as if the movement of the fish created a current in the water.
