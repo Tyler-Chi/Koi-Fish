@@ -73,7 +73,7 @@ function LilyPad(c) {
       c.ellipse(
         this.x,
         this.y,
-        3,
+        4,
         petalLength,
         startAngle + 2 * Math.PI / 4 * i,
         0,

@@ -353,6 +353,8 @@ function Fish(dx, dy, radius, id, c, foodarr) {
     let tailDY = neckY - bodyTipY;
     let tailAngle = Math.atan(tailDY / tailDX);
 
+    
+
     //this is the tail
 
     c.beginPath();
@@ -401,7 +403,6 @@ function Fish(dx, dy, radius, id, c, foodarr) {
     c.fillStyle = finColor;
     c.fill();
 
-
     //the neck circle
 
     c.beginPath();
@@ -415,6 +416,7 @@ function Fish(dx, dy, radius, id, c, foodarr) {
     )
     c.fillStyle = headColor;
     c.fill();
+
 
 
     // the head of the fish
@@ -845,7 +847,7 @@ function LilyPad(c) {
       c.ellipse(
         this.x,
         this.y,
-        3,
+        4,
         petalLength,
         startAngle + 2 * Math.PI / 4 * i,
         0,
