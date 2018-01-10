@@ -684,9 +684,14 @@ function Fish(dx, dy, radius, id, c, foodarr) {
     this.x += this.dx + oscillation * ox;
     this.y += this.dy + oscillation * oy;
 
-    //random motion, cuz fish are fish lol.
-    this.dx += this.dx * 0.15 * (Math.random() - 0.5);
-    this.dx += this.dy * 0.15 * (Math.random() - 0.5);
+    //maybe have it oscillate...with another degree of randomness?
+
+    let degree = 0.08;
+
+    this.dx += this.dx * degree * (Math.random() - 0.5) ;
+    this.dx += this.dy * degree * (Math.random() - 0.5) ;
+
+    // IMPORTANTE
   };
 
   this.do = function() {
