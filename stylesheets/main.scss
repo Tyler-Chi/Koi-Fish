@@ -14,12 +14,25 @@ canvas {
 .title {
   font-size: 25px;
   padding-top: 10px;
-  padding-left: 5px;
+  padding-left: 10px;
+  font-weight: normal;
+  font-family: 'Bellefair', serif;
 }
+
+.actual-title {
+  text-decoration: underline;
+}
+
+.f {
+
+}
+
 
 .slider-description {
   // color: red;
-  font-weight: bold;
+  font-size: 20px;
+  font-weight: normal;
+   font-family: 'Bellefair', serif;
 }
 .slider-container {
   // padding-top: 10px;
