@@ -205,7 +205,7 @@ function animate(){
   }
 
   for (var i = 0 ; i < fishes.length ; i++){
-    fishes[i].do();
+    fishes[i].fishAnimate();
   }
 
   for (var k = 0 ; k < pads.length ; k++){
@@ -235,14 +235,13 @@ function Fish(dx, dy, radius, id, c, foodarr) {
     "#d8d8d8",
     "white"
   ];
+
   let headColor = colors[Math.round(Math.random() * (colors.length - 1))];
   let bodyColor = colors[Math.round(Math.random() * (colors.length - 1))];
   let tailColor = colors[Math.round(Math.random() * (colors.length - 1))];
   let neckColor = colors[Math.round(Math.random() * (colors.length - 1))];
   let finColor = colors[Math.round(Math.random() * (colors.length - 1))];
   let tailFinColor = colors[Math.round(Math.random() * (colors.length - 1))];
-
-
 
   let width = c.canvas.width;
   let height = c.canvas.height;
@@ -254,15 +253,14 @@ function Fish(dx, dy, radius, id, c, foodarr) {
   this.radius = radius;
   this.time = Math.random() * 5;
   this.tipTime = Math.random() * 5;
-  this.positions = [];
-  this.slopes = [];
   this.angles = [];
   this.foodPotential = 0;
 
-  let totalSpeed = Math.sqrt(dx * dx + dy * dy);
   this.speed = (this.dx * this.dx) + (this.dy + this.dy);
   this.fishLength = Math.round(40 / Math.sqrt(this.speed));
 
+
+  //initializes this.angles when the fish is first instantiated. 
   while (this.angles.length < this.fishLength){
     this.angles.unshift([Math.atan(this.dx/this.dy),1])
   }
@@ -284,6 +282,10 @@ function Fish(dx, dy, radius, id, c, foodarr) {
       nd = -1;
     }
     //should initially calculate all positions first.
+
+
+
+
     let headAngle = Math.atan(this.dy / this.dx);
     this.angles.unshift([headAngle,nd,cc]);
     if (this.angles.length > this.fishLength){
@@ -675,26 +677,25 @@ function Fish(dx, dy, radius, id, c, foodarr) {
 
 
   this.generalBehavior = function() {
-    let ox = -1 * this.dy;
-    let oy = this.dx;
+    let normalVectorX = -1 * this.dy;
+    let normalVectorY = this.dx;
 
     this.time += 0.08;
     let oscillation = 0.4 * Math.sin(this.time);
-
-    this.x += this.dx + oscillation * ox;
-    this.y += this.dy + oscillation * oy;
-
-    //maybe have it oscillate...with another degree of randomness?
-
+    
     let degree = 0.08;
 
     this.dx += this.dx * degree * (Math.random() - 0.5) ;
     this.dx += this.dy * degree * (Math.random() - 0.5) ;
 
-    // IMPORTANTE
+    this.x += this.dx + oscillation * normalVectorX;
+    this.y += this.dy + oscillation * normalVectorY;
+
+
+
   };
 
-  this.do = function() {
+  this.fishAnimate = function() {
     
     if (foodarr.length === 0) {
       if (this.foodPotential > 0 ){
@@ -702,18 +703,12 @@ function Fish(dx, dy, radius, id, c, foodarr) {
       } else {
         this.update();
       }
-
-
       this.controlSpeed();
     } else {
       this.chaseFood();
 
       this.controlChaseSpeed();
     }
-
-
-
-  
 
     this.generalBehavior();
     this.draw();

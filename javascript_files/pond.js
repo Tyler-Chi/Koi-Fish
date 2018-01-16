@@ -131,7 +131,7 @@ function animate(){
   }
 
   for (var i = 0 ; i < fishes.length ; i++){
-    fishes[i].do();
+    fishes[i].fishAnimate();
   }
 
   for (var k = 0 ; k < pads.length ; k++){

@@ -12,27 +12,30 @@ canvas {
 }
 
 .title {
-  font-size: 25px;
+  font-size: 17px;
   padding-top: 10px;
   padding-left: 10px;
   font-weight: bold;
   // font-family: 'Bellefair', serif;
-  font-family: 'Indie Flower', cursive;
+  font-family: 'Rock Salt', cursive;
+
 }
 
 .actual-title {
-  text-decoration: underline;
-  color: rgb(255, 123, 0);
+  /* text-decoration: underline; */
+  /* color: rgb(255, 123, 0); */
+  font-size: 40px;
+  color: black;
 }
 
 
 
 .slider-description {
   // color: red;
-  font-size: 20px;
+  font-size: 17px;
   font-weight: bold;
   //  font-family: 'Bellefair', serif;
-  font-family: 'Indie Flower', cursive;
+ font-family: 'Rock Salt', cursive;
   // margin-bottom: 0px;
 }
 .slider-container {
@@ -60,7 +63,7 @@ input[type=range]::-webkit-slider-runnable-track {
   cursor: pointer;
   animate: 0.2s;
   box-shadow: 0px 0px 1px #000000;
-  background: rgb(185, 26, 185);
+  background: white;
   border-radius: 0px;
   border: 1px solid #000000;
 }
@@ -78,7 +81,7 @@ input[type=range]::-webkit-slider-thumb {
 }
 
 input[type=range]:focus::-webkit-slider-runnable-track {
-   background: rgb(185, 26, 185);
+   background: white;
 }
 
 input[type=range]::-moz-range-track {
@@ -138,4 +141,10 @@ input[type=range]:focus::-ms-fill-lower {
 }
 input[type=range]:focus::-ms-fill-upper {
   background: #3071A9;
+}
+
+.slider-description {
+  position: relative;
+  top: 6px;
+  font-size: 13px;
 }

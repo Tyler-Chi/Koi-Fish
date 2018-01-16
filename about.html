@@ -1,0 +1,46 @@
+<!DOCTYPE HTML>
+<!--
+	Spectral by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+
+
+
+<body>
+
+    <h1> General Behavior of the fish</h1>
+
+    <p>
+        Each fish has a current x-value and a current y-value. Every time the canvas page re-renders, which occurs 60 times a second
+        that current x-value and y-value are updated:
+    </br>
+
+            -image of general behavior-
+
+    </br>
+        Each fish is initialized with a dx and dy value, which are essentially the change in X and the change in Y every time the fish are re-rendered. </br>
+
+
+        In order to produce the wave-like behavior seen in fish movement, I first calculate the normal vector of the fishes current direction vector </br>
+        Then, I make a variable called 'oscillation', which oscillates between 0.4 and -0.4 using a sinusoidal wave. </br>
+        While updating the fish's x and y values with dx and dy, I add oscillation times the corresponding component of the normal vector. </br>
+        
+        The result of this is the fish moving in a set direction, while oscillating perpindicular to that direction. </br>
+
+        However, fish in real life rarely move in a set direction for very long, so I had to include a degree of randomness to their motion.</br>
+
+        This is implemented by multiplying dx and dy by a coefficient, representing the degree of randomness, by a random value between -0.5 and 0.5 (Math.random() - 0.5) </br>
+
+        The most complex part about this project was not actually determining where the fish should be, but rather how it should be rendered </br>
+
+        
+
+
+
+    </p>
+
+</body>
+
+</html>
