@@ -698,11 +698,8 @@ function Fish(dx, dy, radius, id, c, foodarr) {
   this.fishAnimate = function() {
     
     if (foodarr.length === 0) {
-      if (this.foodPotential > 0 ){
-        this.rotate();
-      } else {
-        this.update();
-      }
+      this.update();
+  
       this.controlSpeed();
     } else {
       this.chaseFood();
