@@ -2,7 +2,7 @@
 
 ## [Live Link](https://tyler-chi.github.io/JSProject/)
 
-Simulation of Koi fish swimming in a pond, coded in Canvas/HTML5 and vanilla JavaScript
+Simulation of Koi fish swimming in a pond, coded in Canvas/HTML5 and Vanilla JavaScript
 
 ![](https://github.com/Tyler-Chi/JSProject/blob/master/javascript_files/fishy3.gif)
 
