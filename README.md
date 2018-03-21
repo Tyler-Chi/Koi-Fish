@@ -1,6 +1,6 @@
 # Bit Koi
 
-## [Live Link](https://tyler-chi.github.io/JSProject/)
+## [Live Link](https://tyler-chi.github.io/Koi-Fish/)
 
 Simulation of Koi fish swimming in a pond, coded in Canvas/HTML5 and Vanilla JavaScript
 
