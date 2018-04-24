@@ -450,6 +450,7 @@ function Fish(dx, dy, radius, id, c, foodarr) {
   let yDif;
   let xDif;
   let angle;
+  let other_variable;
 
   this.speedDif = function(initial, desired) {
     return Math.abs(initial - desired) / Math.abs(initial);
